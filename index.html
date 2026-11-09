@@ -53,4 +53,331 @@
         .section-title { font-size: 1.2rem; margin: 25px 0 15px 0; border-left: 4px solid var(--gold-primary); padding-left: 10px; }
 
         .banner-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 30px; }
-        .banner-card { background:
+        .banner-card { background: var(--card-bg); border: 1px solid #2a2a3a; border-radius: 10px; padding: 18px; text-decoration: none; color: white; display: flex; flex-direction: column; justify-content: space-between; }
+        .banner-card:hover { border-color: var(--gold-primary); }
+        .card-tag { color: var(--gold-primary); font-size: 0.8rem; font-weight: bold; margin-bottom: 6px; }
+        .card-title { font-size: 1.05rem; font-weight: bold; margin-bottom: 6px; }
+        .card-sub { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 12px; }
+        .card-btn { background: #2a2a3a; text-align: center; padding: 8px; border-radius: 6px; font-size: 0.85rem; font-weight: bold; color: var(--gold-primary); }
+
+        .rank-widget {
+            background: #14141c;
+            border: 1px solid #2a2a3a;
+            border-radius: 12px;
+            padding: 16px;
+            height: fit-content;
+        }
+
+        .widget-title {
+            text-align: center;
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: var(--gold-primary);
+            padding-bottom: 10px;
+            border-bottom: 1px solid #2a2a3a;
+            margin-bottom: 12px;
+        }
+
+        .sport-tabs {
+            display: flex;
+            justify-content: space-around;
+            background: #1e1e2d;
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 10px;
+        }
+
+        .sport-btn {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+
+        .sport-btn.active {
+            background: var(--gold-primary);
+            color: #000;
+        }
+
+        .league-tabs {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+            font-size: 0.78rem;
+        }
+
+        .league-btn {
+            background: #1a1a24;
+            border: 1px solid #2a2a3a;
+            color: #aaa;
+            padding: 4px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        .league-btn.active {
+            border-color: var(--gold-primary);
+            color: var(--gold-primary);
+            font-weight: bold;
+        }
+
+        .rank-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+            text-align: center;
+        }
+
+        .rank-table th {
+            color: var(--text-dim);
+            font-weight: normal;
+            padding: 6px 4px;
+            border-bottom: 1px solid #2a2a3a;
+        }
+
+        .rank-table td {
+            padding: 7px 4px;
+            border-bottom: 1px solid #1a1a24;
+        }
+
+        .rank-table .rank-num {
+            font-weight: bold;
+            color: var(--gold-primary);
+        }
+
+        .rank-table .team-name {
+            text-align: left;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .update-info {
+            font-size: 0.7rem;
+            color: #666680;
+            text-align: right;
+            margin-top: 6px;
+        }
+
+        .sidebar-btn {
+            display: block;
+            background: var(--gold-gradient);
+            color: #000;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-top: 15px;
+        }
+
+        .seo-keywords { background: #14141c; border: 1px solid #2a2a3a; padding: 18px; border-radius: 8px; color: var(--text-dim); font-size: 0.85rem; margin-top: 25px; grid-column: 1 / -1; }
+        footer { text-align: center; color: var(--text-dim); font-size: 0.85rem; margin-top: 30px; border-top: 1px solid #2a2a3a; padding-top: 20px; grid-column: 1 / -1; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">👑 LEVERSE OFFICIAL</div>
+        <a href="https://t.me/LEVERSE_1" class="btn-header" target="_blank">배너 광고 문의</a>
+    </header>
+
+    <div class="container">
+        
+        <main>
+            <div class="hero-banner">
+                <span class="hero-badge">레버스 공식 메인 제휴</span>
+                <h1 class="hero-title">LEVERSE 3 USDT 즉시 지급 이벤트</h1>
+                <p class="hero-desc">텔레그램 공식 커뮤니티 채널 입장 후 즉시 혜택을 챙겨가세요!<br>(첫 이용 시 10+10 추가 혜택 적용)</p>
+                <a href="https://t.me/leverse_chat" class="btn-main" target="_blank">👉 공식 텔레그램 채널 입장하기</a>
+            </div>
+
+            <div class="section-title">PREMIUM PARTNER BANNERS</div>
+
+            <div class="banner-grid">
+                <a href="https://t.me/leverse_chat" class="banner-card" target="_blank">
+                    <div>
+                        <div class="card-tag">MAIN BANNER</div>
+                        <div class="card-title">🎁 레버스 3 USDT 즉시 지급</div>
+                        <div class="card-sub">텔레그램 자유홍보방 및 꽁머니/이벤트 전문 채널</div>
+                    </div>
+                    <div class="card-btn">채널 바로가기</div>
+                </a>
+
+                <a href="https://t.me/LEVERSE_1" class="banner-card" target="_blank">
+                    <div>
+                        <div class="card-tag" style="color:#ff4757;">ADVERTISING</div>
+                        <div class="card-title">📢 배너 입점 광고주 모집 (선착순)</div>
+                        <div class="card-sub">카지노 / 바카라 / 홀덤 / 스포츠픽 / 꽁머니 입점 문의 (@LEVERSE_1)</div>
+                    </div>
+                    <div class="card-btn">광고 문의하기</div>
+                </a>
+
+                <a href="https://t.me/LEVERSE_1" class="banner-card" target="_blank">
+                    <div>
+                        <div class="card-tag" style="color:#ff4757;">ADVERTISING</div>
+                        <div class="card-title">📢 배너 입점 광고주 모집</div>
+                        <div class="card-sub">구글 상위 노출 프리미엄 배너 구역 (@LEVERSE_1)</div>
+                    </div>
+                    <div class="card-btn">광고 문의하기</div>
+                </a>
+            </div>
+        </main>
+
+        <aside class="rank-widget">
+            <div class="widget-title">🏆 종목별 실시간 팀순위</div>
+
+            <div class="sport-tabs">
+                <button class="sport-btn active" onclick="switchMainTab('football', this)">⚽ 축구</button>
+                <button class="sport-btn" onclick="switchMainTab('baseball', this)">⚾ 야구</button>
+                <button class="sport-btn" onclick="switchMainTab('basketball', this)">🏀 농구</button>
+            </div>
+
+            <div class="league-tabs" id="football-leagues">
+                <button class="league-btn active" onclick="switchLeague('epl', this)">EPL</button>
+                <button class="league-btn" onclick="switchLeague('bundesliga', this)">분데스리가</button>
+                <button class="league-btn" onclick="switchLeague('laliga', this)">라리가</button>
+                <button class="league-btn" onclick="switchLeague('seriea', this)">세리에A</button>
+                <button class="league-btn" onclick="switchLeague('kleague', this)">K리그1</button>
+            </div>
+
+            <table class="rank-table">
+                <thead>
+                    <tr>
+                        <th style="width: 12%;">순위</th>
+                        <th style="width: 40%; text-align: left;">팀</th>
+                        <th>경기</th>
+                        <th>승</th>
+                        <th>무</th>
+                        <th>패</th>
+                        <th>승점</th>
+                    </tr>
+                </thead>
+                <tbody id="rank-tbody"></tbody>
+            </table>
+            
+            <div class="update-info" id="update-info-text">🔄 00:00 자동 데이터 동기화 완료</div>
+
+            <a href="https://t.me/leverse_chat" class="sidebar-btn" target="_blank">
+                🔥 실시간 분석픽 & 승무패 공유방
+            </a>
+        </aside>
+
+        <div class="seo-keywords">
+            <strong>LEVERSE 배너 센터 키워드 안내:</strong><br>
+            본 사이트는 카지노, 바카라, 홀덤, 라이브스코어, 스포츠픽 분석, 꽁머니 및 다양한 이벤트를 공유하는 메인 혜택 포털입니다. 텔레그램 채널(@leverse_chat)을 통해 최신 혜택과 스포츠 픽을 실시간으로 안내받으실 수 있으며, 배너 입점 제휴 문의는 텔레그램 @LEVERSE_1 로 남겨주시면 됩니다.
+        </div>
+
+        <footer>
+            © LEVERSE BANNER HUB. All rights reserved.
+        </footer>
+
+    </div>
+
+    <script>
+        let rankData = {
+            epl: [
+                { rank: 1, team: "아스널", g: 10, w: 9, d: 0, l: 1, pts: 27 },
+                { rank: 2, team: "브라이튼", g: 10, w: 7, d: 1, l: 2, pts: 22 },
+                { rank: 3, team: "맨시티", g: 10, w: 7, d: 0, l: 3, pts: 21 },
+                { rank: 4, team: "리버풀", g: 10, w: 5, d: 3, l: 2, pts: 18 },
+                { rank: 5, team: "첼시", g: 10, w: 5, d: 1, l: 4, pts: 16 }
+            ],
+            bundesliga: [
+                { rank: 1, team: "바이에른 뮌헨", g: 10, w: 8, d: 2, l: 0, pts: 26 },
+                { rank: 2, team: "RB 라이프치히", g: 10, w: 6, d: 3, l: 1, pts: 21 },
+                { rank: 3, team: "레버쿠젠", g: 10, w: 5, d: 4, l: 1, pts: 19 },
+                { rank: 4, team: "도르트문트", g: 10, w: 5, d: 1, l: 4, pts: 16 }
+            ],
+            laliga: [
+                { rank: 1, team: "바르셀로나", g: 11, w: 10, d: 0, l: 1, pts: 30 },
+                { rank: 2, team: "레알 마드리드", g: 11, w: 7, d: 3, l: 1, pts: 24 }
+            ],
+            seriea: [
+                { rank: 1, team: "나폴리", g: 10, w: 8, d: 1, l: 1, pts: 25 },
+                { rank: 2, team: "인테르", g: 10, w: 6, d: 3, l: 1, pts: 21 }
+            ],
+            kleague: [
+                { rank: 1, team: "울산 HD", g: 35, w: 20, d: 8, l: 7, pts: 68 },
+                { rank: 2, team: "강원 FC", g: 35, w: 18, d: 7, l: 10, pts: 61 }
+            ],
+            baseball: [
+                { rank: 1, team: "KIA 타이거즈", g: 144, w: 87, d: 2, l: 55, pts: "0.613" },
+                { rank: 2, team: "삼성 라이온즈", g: 144, w: 78, d: 2, l: 64, pts: "0.549" }
+            ],
+            basketball: [
+                { rank: 1, team: "DB 프로미", g: 54, w: 41, d: 0, l: 13, pts: "0.759" },
+                { rank: 2, team: "LG 세이커스", g: 54, w: 36, d: 0, l: 18, pts: "0.667" }
+            ]
+        };
+
+        async function fetchAutoData() {
+            try {
+                const res = await fetch('data.json?' + new Date().getTime());
+                if (res.ok) {
+                    const json = await res.json();
+                    rankData = json;
+                    document.getElementById('update-info-text').innerText = '✅ 깃허브 자동 실시간 동기화 적용됨';
+                }
+            } catch (e) {
+                console.log('Default template fallback active.');
+            }
+            renderRankTable('epl');
+        }
+
+        function renderRankTable(key) {
+            const tbody = document.getElementById('rank-tbody');
+            if (!tbody) return;
+            const data = rankData[key] || [];
+            let html = '';
+
+            data.forEach(item => {
+                html += `
+                    <tr>
+                        <td class="rank-num">${item.rank}</td>
+                        <td class="team-name">${item.team}</td>
+                        <td>${item.g}</td>
+                        <td>${item.w}</td>
+                        <td>${item.d}</td>
+                        <td>${item.l}</td>
+                        <td style="color:var(--gold-primary); font-weight:bold;">${item.pts}</td>
+                    </tr>
+                `;
+            });
+
+            tbody.innerHTML = html;
+        }
+
+        function switchMainTab(type, element) {
+            document.querySelectorAll('.sport-btn').forEach(btn => btn.classList.remove('active'));
+            if (element) element.classList.add('active');
+
+            const leagueTabs = document.getElementById('football-leagues');
+            if (type === 'football') {
+                leagueTabs.style.display = 'flex';
+                switchLeague('epl', document.querySelector('.league-btn'));
+            } else {
+                leagueTabs.style.display = 'none';
+                renderRankTable(type);
+            }
+        }
+
+        function switchLeague(leagueKey, element) {
+            document.querySelectorAll('.league-btn').forEach(btn => btn.classList.remove('active'));
+            if (element) element.classList.add('active');
+
+            renderRankTable(leagueKey);
+        }
+
+        window.onload = fetchAutoData;
+    </script>
+
+</body>
+</html>
