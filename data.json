@@ -1,30 +1,30 @@
 {
-  "basketball": [
-    { "rank": 1, "team": "댈러스", "preference": "75%", "matchDate": "2026-11-10" },
-    { "rank": 2, "team": "필라델피아", "preference": "69%", "matchDate": "2026-11-11" },
-    { "rank": 3, "team": "클리블랜드", "preference": "69%", "matchDate": "2026-11-10" },
-    { "rank": 4, "team": "토론토", "preference": "69%", "matchDate": "2026-11-10" },
-    { "rank": 5, "team": "샌안토니오", "preference": "69%", "matchDate": "2026-11-10" }
-  ],
-  "baseball": [
-    { "rank": 1, "team": "LG 트윈스", "preference": "82%", "matchDate": "2026-11-10" },
-    { "rank": 2, "team": "KT 위즈", "preference": "75%", "matchDate": "2026-11-10" },
-    { "rank": 3, "team": "SSG 랜더스", "preference": "71%", "matchDate": "2026-11-11" }
-  ],
-  "volleyball": [
-    { "rank": 1, "team": "대한항공", "preference": "79%", "matchDate": "2026-11-10" },
-    { "rank": 2, "team": "현대캐피탈", "preference": "73%", "matchDate": "2026-11-11" }
-  ],
-  "hockey": [
-    { "rank": 1, "team": "보스턴 브루인스", "preference": "84%", "matchDate": "2026-11-10" },
-    { "rank": 2, "team": "몬트리올 가나디앵", "preference": "77%", "matchDate": "2026-11-11" }
-  ],
-  "football": [
-    { "rank": 1, "team": "아스널", "preference": "88%", "matchDate": "2026-11-10" },
-    { "rank": 2, "team": "맨시티", "preference": "85%", "matchDate": "2026-11-10" }
-  ],
-  "american_football": [
-    { "rank": 1, "team": "캔자스시티 치프스", "preference": "86%", "matchDate": "2026-11-10" },
-    { "rank": 2, "team": "필라델피아 이글스", "preference": "80%", "matchDate": "2026-11-11" }
-  ]
+  "standings": {
+    "epl": [
+      { "rank": 1, "team": "아스널", "played": 11, "win": 8, "draw": 2, "loss": 1, "points": 26 },
+      { "rank": 2, "team": "맨시티", "played": 11, "win": 7, "draw": 2, "loss": 2, "points": 23 },
+      { "rank": 3, "team": "리버풀", "played": 11, "win": 6, "draw": 3, "loss": 2, "points": 21 },
+      { "rank": 4, "team": "첼시", "played": 11, "win": 5, "draw": 4, "loss": 2, "points": 19 },
+      { "rank": 5, "team": "토트넘", "played": 11, "win": 5, "draw": 3, "loss": 3, "points": 18 }
+    ],
+    "laliga": [
+      { "rank": 1, "team": "레알 마드리드", "played": 12, "win": 9, "draw": 3, "loss": 0, "points": 30 },
+      { "rank": 2, "team": "바르셀로나", "played": 12, "win": 9, "draw": 1, "loss": 2, "points": 28 },
+      { "rank": 3, "team": "아틀레티코", "played": 12, "win": 7, "draw": 3, "loss": 2, "points": 24 }
+    ],
+    "nba": [
+      { "rank": 1, "team": "보스턴 셀틱스", "played": 12, "win": 10, "draw": 0, "loss": 2, "points": 0 },
+      { "rank": 2, "team": "클리블랜드", "played": 12, "win": 9, "draw": 0, "loss": 3, "points": 0 }
+    ]
+  },
+  "hotMatches": {
+    "football": [
+      { "rank": 1, "team": "아스널 vs 맨시티", "preference": "88%", "matchDate": "2026-11-10" },
+      { "rank": 2, "team": "레알 마드리드 vs 바르셀로나", "preference": "84%", "matchDate": "2026-11-10" }
+    ],
+    "basketball": [
+      { "rank": 1, "team": "보스턴 vs LA 레이커스", "preference": "79%", "matchDate": "2026-11-10" },
+      { "rank": 2, "team": "골든스테이트 vs 피닉스", "preference": "75%", "matchDate": "2026-11-10" }
+    ]
+  }
 }
