@@ -2,7 +2,7 @@ const fs = require('fs');
 const https = require('https');
 
 // 이메일로 받은 본인의 API 키를 작은따옴표 사이에 넣어주세요!
-const API_KEY = 'YOUR_FOOTBALL_DATA_API_KEY'; 
+const API_KEY = '88635e997bdf442290a4d9936413531b'; 
 
 function fetchFootballStandings() {
     return new Promise((resolve) => {
