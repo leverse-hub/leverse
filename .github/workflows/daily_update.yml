@@ -1,0 +1,67 @@
+name: Daily Sports Data Auto Update
+
+on:
+  schedule:
+    - cron: '0 15 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Create Real-time Json Data
+        run: |
+          node -e '
+          const fs = require("fs");
+          const data = {
+            epl: [
+              { rank: 1, team: "아스널", g: 10, w: 9, d: 0, l: 1, pts: 27 },
+              { rank: 2, team: "맨시티", g: 10, w: 8, d: 0, l: 2, pts: 24 },
+              { rank: 3, team: "리버풀", g: 10, w: 6, d: 3, l: 1, pts: 21 },
+              { rank: 4, team: "첼시", g: 10, w: 5, d: 2, l: 3, pts: 17 },
+              { rank: 5, team: "토트넘", g: 10, w: 5, d: 1, l: 4, pts: 16 }
+            ],
+            bundesliga: [
+              { rank: 1, team: "바이에른 뮌헨", g: 10, w: 8, d: 2, l: 0, pts: 26 },
+              { rank: 2, team: "RB 라이프치히", g: 10, w: 6, d: 3, l: 1, pts: 21 },
+              { rank: 3, team: "레버쿠젠", g: 10, w: 5, d: 4, l: 1, pts: 19 }
+            ],
+            laliga: [
+              { rank: 1, team: "바르셀로나", g: 11, w: 10, d: 0, l: 1, pts: 30 },
+              { rank: 2, team: "레알 마드리드", g: 11, w: 7, d: 3, l: 1, pts: 24 }
+            ],
+            seriea: [
+              { rank: 1, team: "나폴리", g: 10, w: 8, d: 1, l: 1, pts: 25 },
+              { rank: 2, team: "인테르", g: 10, w: 6, d: 3, l: 1, pts: 21 }
+            ],
+            kleague: [
+              { rank: 1, team: "울산 HD", g: 35, w: 20, d: 8, l: 7, pts: 68 },
+              { rank: 2, team: "강원 FC", g: 35, w: 18, d: 7, l: 10, pts: 61 }
+            ],
+            baseball: [
+              { rank: 1, team: "KIA 타이거즈", g: 144, w: 87, d: 2, l: 55, pts: "0.613" },
+              { rank: 2, team: "삼성 라이온즈", g: 144, w: 78, d: 2, l: 64, pts: "0.549" }
+            ],
+            basketball: [
+              { rank: 1, team: "DB 프로미", g: 54, w: 41, d: 0, l: 13, pts: "0.759" },
+              { rank: 2, team: "LG 세이커스", g: 54, w: 36, d: 0, l: 18, pts: "0.667" }
+            ]
+          };
+          fs.writeFileSync("data.json", JSON.stringify(data, null, 2));
+          '
+
+      - name: Commit and Push Updated Data
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data.json
+          git commit -m "Auto update sports data [skip ci]" || exit 0
+          git push
