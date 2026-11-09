@@ -16,7 +16,7 @@
             --accent-red: #ff4757;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Pretendard', sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Pretendard', -apple-system, sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; padding-bottom: 50px; }
 
         header {
@@ -27,86 +27,177 @@
         .logo { font-size: 1.3rem; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .btn-header { background: var(--gold-gradient); color: #000; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
 
-        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
 
         .hero-banner {
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=1000&q=80');
             background-size: cover; background-position: center; border: 2px solid var(--gold-primary);
-            border-radius: 12px; padding: 40px 20px; text-align: center; margin-bottom: 30px;
+            border-radius: 12px; padding: 35px 20px; text-align: center; margin-bottom: 25px;
         }
         .hero-badge { display: inline-block; background: var(--accent-red); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; margin-bottom: 12px; }
-        .hero-title { font-size: 2rem; margin-bottom: 10px; }
-        .hero-desc { color: var(--text-dim); margin-bottom: 25px; font-size: 1.05rem; }
-        .btn-main { display: inline-block; background: var(--gold-gradient); color: #000; padding: 16px 36px; border-radius: 30px; font-size: 1.2rem; font-weight: 800; text-decoration: none; }
+        .hero-title { font-size: 1.8rem; margin-bottom: 10px; }
+        .hero-desc { color: var(--text-dim); margin-bottom: 20px; font-size: 1rem; }
+        .btn-main { display: inline-block; background: var(--gold-gradient); color: #000; padding: 14px 30px; border-radius: 30px; font-size: 1.1rem; font-weight: 800; text-decoration: none; }
 
-        .section-title { font-size: 1.3rem; margin: 30px 0 15px 0; border-left: 4px solid var(--gold-primary); padding-left: 10px; }
+        .section-title { font-size: 1.2rem; margin: 25px 0 15px 0; border-left: 4px solid var(--gold-primary); padding-left: 10px; }
 
-        .banner-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-bottom: 40px; }
-        .banner-card { background: var(--card-bg); border: 1px solid #2a2a3a; border-radius: 10px; padding: 20px; text-decoration: none; color: white; display: flex; flex-direction: column; justify-content: space-between; }
+        .banner-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .banner-card { background: var(--card-bg); border: 1px solid #2a2a3a; border-radius: 10px; padding: 18px; text-decoration: none; color: white; display: flex; flex-direction: column; justify-content: space-between; }
         .banner-card:hover { border-color: var(--gold-primary); }
-        .card-tag { color: var(--gold-primary); font-size: 0.8rem; font-weight: bold; margin-bottom: 8px; }
-        .card-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 8px; }
-        .card-sub { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 15px; }
-        .card-btn { background: #2a2a3a; text-align: center; padding: 10px; border-radius: 6px; font-size: 0.9rem; font-weight: bold; color: var(--gold-primary); }
+        .card-tag { color: var(--gold-primary); font-size: 0.8rem; font-weight: bold; margin-bottom: 6px; }
+        .card-title { font-size: 1.05rem; font-weight: bold; margin-bottom: 6px; }
+        .card-sub { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 12px; }
+        .card-btn { background: #2a2a3a; text-align: center; padding: 8px; border-radius: 6px; font-size: 0.85rem; font-weight: bold; color: var(--gold-primary); }
 
-        .seo-keywords { background: #14141c; border: 1px solid #2a2a3a; padding: 20px; border-radius: 8px; color: var(--text-dim); font-size: 0.85rem; margin-top: 30px; }
-        footer { text-align: center; color: var(--text-dim); font-size: 0.85rem; margin-top: 40px; border-top: 1px solid #2a2a3a; padding-top: 20px; }
+        .sidebar-box {
+            background: var(--card-bg);
+            border: 1px solid #2a2a3a;
+            border-radius: 12px;
+            padding: 15px;
+            height: fit-content;
+        }
+
+        .sidebar-header {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--gold-primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #2a2a3a;
+            padding-bottom: 10px;
+        }
+
+        .live-tag {
+            background: var(--accent-red);
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .widget-container {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .sidebar-notice {
+            margin-top: 15px;
+            background: #14141c;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .sidebar-notice a {
+            color: var(--gold-primary);
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .seo-keywords { background: #14141c; border: 1px solid #2a2a3a; padding: 18px; border-radius: 8px; color: var(--text-dim); font-size: 0.85rem; margin-top: 25px; grid-column: 1 / -1; }
+        footer { text-align: center; color: var(--text-dim); font-size: 0.85rem; margin-top: 30px; border-top: 1px solid #2a2a3a; padding-top: 20px; grid-column: 1 / -1; }
     </style>
 </head>
 <body>
 
     <header>
         <div class="logo">👑 LEVERSE OFFICIAL</div>
-        <a href="https://t.me/COPO_JJ" class="btn-header" target="_blank">배너 광고 문의</a>
+        <a href="https://t.me/LEVERSE_1" class="btn-header" target="_blank">배너 광고 문의</a>
     </header>
 
     <div class="container">
         
-        <div class="hero-banner">
-            <span class="hero-badge">레버스 공식 메인 제휴</span>
-            <h1 class="hero-title">LEVERSE 3 USDT 즉시 지급 이벤트</h1>
-            <p class="hero-desc">텔레그램 채널 입장 후 즉시 혜택을 챙겨가세요!<br>(첫 이용 시 10+10 추가 혜택 적용)</p>
-            <a href="https://t.me/leverse_chat" class="btn-main" target="_blank">👉 공식 텔레그램 채널 입장하기</a>
-        </div>
+        <main>
+            <div class="hero-banner">
+                <span class="hero-badge">레버스 공식 메인 제휴</span>
+                <h1 class="hero-title">LEVERSE 3 USDT 즉시 지급 이벤트</h1>
+                <p class="hero-desc">텔레그램 공식 커뮤니티 채널 입장 후 즉시 혜택을 챙겨가세요!<br>(첫 이용 시 10+10 추가 혜택 적용)</p>
+                <a href="https://t.me/leverse_chat" class="btn-main" target="_blank">👉 공식 텔레그램 채널 입장하기</a>
+            </div>
 
-        <div class="section-title">PREMIUM PARTNER BANNERS</div>
+            <div class="section-title">PREMIUM PARTNER BANNERS</div>
 
-        <div class="banner-grid">
-            <!-- 1번 배너: 내 채널 전용 배너 -->
-            <a href="https://t.me/leverse_chat" class="banner-card" target="_blank">
-                <div>
-                    <div class="card-tag">MAIN BANNER</div>
-                    <div class="card-title">🎁 레버스 3 USDT 즉시 지급</div>
-                    <div class="card-sub">텔레그램 자유홍보방 및 꽁머니/이벤트 전문 채널</div>
-                </div>
-                <div class="card-btn">채널 바로가기</div>
-            </a>
+            <div class="banner-grid">
+                <!-- 1번 배너: 내 채널 전용 배너 -->
+                <a href="https://t.me/leverse_chat" class="banner-card" target="_blank">
+                    <div>
+                        <div class="card-tag">MAIN BANNER</div>
+                        <div class="card-title">🎁 레버스 3 USDT 즉시 지급</div>
+                        <div class="card-sub">텔레그램 자유홍보방 및 꽁머니/이벤트 전문 채널</div>
+                    </div>
+                    <div class="card-btn">채널 바로가기</div>
+                </a>
 
-            <!-- 2번 배너: 광고주 모집용 빈 자리 -->
-            <a href="https://t.me/COPO_JJ" class="banner-card" target="_blank">
-                <div>
-                    <div class="card-tag" style="color:#ff4757;">ADVERTISING</div>
-                    <div class="card-title">📢 배너 입점 광고주 모집 (선착순)</div>
-                    <div class="card-sub">카지노 / 바카라 / 홀덤 / 스포츠픽 / 꽁머니 입점 문의</div>
-                </div>
-                <div class="card-btn">광고 문의하기</div>
-            </a>
+                <!-- 2번 배너: 광고주 모집용 (@LEVERSE_1) -->
+                <a href="https://t.me/LEVERSE_1" class="banner-card" target="_blank">
+                    <div>
+                        <div class="card-tag" style="color:#ff4757;">ADVERTISING</div>
+                        <div class="card-title">📢 배너 입점 광고주 모집 (선착순)</div>
+                        <div class="card-sub">카지노 / 바카라 / 홀덤 / 스포츠픽 / 꽁머니 입점 문의 (@LEVERSE_1)</div>
+                    </div>
+                    <div class="card-btn">광고 문의하기</div>
+                </a>
 
-            <!-- 3번 배너: 광고주 모집용 빈 자리 -->
-            <a href="https://t.me/COPO_JJ" class="banner-card" target="_blank">
-                <div>
-                    <div class="card-tag" style="color:#ff4757;">ADVERTISING</div>
-                    <div class="card-title">📢 배너 입점 광고주 모집</div>
-                    <div class="card-sub">구글 상위 노출 프리미엄 배너 구역</div>
-                </div>
-                <div class="card-btn">광고 문의하기</div>
-            </a>
-        </div>
+                <!-- 3번 배너: 광고주 모집용 (@LEVERSE_1) -->
+                <a href="https://t.me/LEVERSE_1" class="banner-card" target="_blank">
+                    <div>
+                        <div class="card-tag" style="color:#ff4757;">ADVERTISING</div>
+                        <div class="card-title">📢 배너 입점 광고주 모집</div>
+                        <div class="card-sub">구글 상위 노출 프리미엄 배너 구역 (@LEVERSE_1)</div>
+                    </div>
+                    <div class="card-btn">광고 문의하기</div>
+                </a>
+            </div>
+        </main>
 
-        <!-- 구글 검색엔진 노출용 키워드 텍스트 구역 -->
+        <aside class="sidebar-box">
+            <div class="sidebar-header">
+                <span>⚽ 금일 실시간 스포츠 스코어</span>
+                <span class="live-tag">LIVE</span>
+            </div>
+            
+            <iframe 
+                class="widget-container"
+                src="https://www.scorebat.com/embed/livescore/" 
+                frameborder="0" 
+                scrolling="yes">
+            </iframe>
+
+            <div class="sidebar-notice">
+                🔥 <strong>실시간 스포츠 VIP 픽 공유방</strong><br>
+                <a href="https://t.me/leverse_chat" target="_blank">👉 텔레그램 @leverse_chat 입장</a>
+            </div>
+        </aside>
+
         <div class="seo-keywords">
             <strong>LEVERSE 배너 센터 키워드 안내:</strong><br>
-            본 사이트는 카지노, 바카라, 홀덤, 라이브스코어, 스포츠픽 분석, 꽁머니 및 다양한 이벤트를 공유하는 메인 혜택 포털입니다. 텔레그램 채널(@leverse_chat)을 통해 최신 혜택을 실시간으로 안내받으실 수 있습니다.
+            본 사이트는 카지노, 바카라, 홀덤, 라이브스코어, 스포츠픽 분석, 꽁머니 및 다양한 이벤트를 공유하는 메인 혜택 포털입니다. 텔레그램 채널(@leverse_chat)을 통해 최신 혜택과 스포츠 픽을 실시간으로 안내받으실 수 있으며, 배너 입점 제휴 문의는 텔레그램 @LEVERSE_1 로 남겨주시면 됩니다.
         </div>
 
         <footer>
