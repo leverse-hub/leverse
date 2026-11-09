@@ -93,13 +93,13 @@
         }
         .banner-slot { 
             background: #121722; 
-            border: 1px solid rgba(255, 215, 0, 0.25); 
+            border: 1px solid rgba(255, 215, 0, 0.3); 
             border-radius: 8px; 
             overflow: hidden; 
-            min-height: 180px; 
             position: relative;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
             transition: all 0.3s ease;
+            aspect-ratio: 16 / 5; 
         }
         .banner-slot:hover { 
             border-color: #ffd700; 
@@ -107,23 +107,17 @@
             transform: translateY(-3px);
         }
         .banner-slot a { 
-            display: flex; 
-            flex-direction: column;
-            align-items: center; 
-            justify-content: center; 
+            display: block; 
             width: 100%; 
             height: 100%; 
-            min-height: 180px;
             text-decoration: none; 
-            color: #ffd700; 
-            font-weight: bold; 
-            font-size: 16px; 
-            text-align: center; 
-            padding: 20px; 
-            gap: 8px;
         }
-        .banner-slot span { color: #8a99ad; font-size: 12px; font-weight: normal; }
-        .banner-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .banner-slot img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            display: block; 
+        }
 
         /* 광고주 모집 하단 박스 */
         .recruitment-box { 
@@ -194,7 +188,7 @@
             <div class="section-desc">배너는 안전하고 공정하게 노출됩니다.</div>
         </div>
 
-        <!-- 배너 슬롯 그리드 (banners.json 연동 영역) -->
+        <!-- 배너 그리드 -->
         <div class="banner-grid" id="bannerGrid">
             <!-- 자바스크립트로 동적 로드됨 -->
         </div>
@@ -216,7 +210,6 @@
     </div>
 
     <script>
-        // banners.json 데이터를 불러와서 화면에 렌더링
         fetch('banners.json')
             .then(response => response.json())
             .then(banners => {
@@ -241,10 +234,8 @@
                 });
             })
             .catch(error => {
-                console.Error('배너를 불러오는 중 오류가 발생했습니다:', error);
+                console.error('배너를 불러오는 중 오류가 발생했습니다:', error);
             });
     </script>
-</body>
-</html>
 </body>
 </html>
