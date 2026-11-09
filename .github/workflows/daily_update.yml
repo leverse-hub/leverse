@@ -22,8 +22,7 @@ jobs:
           node -e '
           const fs = require("fs");
           
-          async function fetchLiveSportsData() {
-              // 실제 라이브 API 연동 및 최신 시즌 데이터 자동 파싱 구조
+          function updateData() {
               const liveData = {
                 epl: [
                   { rank: 1, team: "아스널", g: 11, w: 9, d: 1, l: 1, pts: 28 },
@@ -112,10 +111,15 @@ jobs:
               };
 
               fs.writeFileSync("data.json", JSON.stringify(liveData, null, 2));
-              console.log("Live API synced successfully.");
           }
 
-          fetchLiveSportsData();
+          updateData();
           '
 
-      - name: Commit and Push Live Data
+      - name: Commit and Push Data
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data.json
+          git commit -m "Fix workflow syntax and update full data [skip ci]" || exit 0
+          git push
