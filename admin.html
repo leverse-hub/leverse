@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>LEVERSE 배너 관리자</title>
+    <style>
+        body { background: #0b0e14; color: #fff; font-family: sans-serif; padding: 30px; max-width: 800px; margin: 0 auto; }
+        h1 { color: #f0b90b; border-bottom: 2px solid #30363d; padding-bottom: 10px; }
+        .card { background: #161b22; border: 1px solid #30363d; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        label { display: block; margin: 10px 0 5px; color: #8b949e; font-weight: bold; }
+        input { width: 100%; padding: 10px; background: #0d1117; border: 1px solid #30363d; color: #fff; border-radius: 4px; }
+        button { background: #f0b90b; color: #000; border: none; padding: 10px 20px; font-weight: bold; border-radius: 4px; cursor: pointer; margin-top: 15px; }
+        .banner-list-item { display: flex; justify-content: space-between; align-items: center; background: #0d1117; padding: 12px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #30363d; }
+        .btn-del { background: #da3633; color: #fff; padding: 5px 12px; }
+        textarea { width: 100%; height: 120px; background: #0d1117; color: #58a6ff; border: 1px solid #30363d; padding: 10px; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <h1>👑 LEVERSE 배너 광고 관리자</h1>
+    
+    <div class="card">
+        <h3>새 배너 추가</h3>
+        <label>광고주 / 배너 제목</label>
+        <input type="text" id="title" placeholder="예: 신규가입 3만원 이벤트">
+        
+        <label>배너 이미지 주소 (URL)</label>
+        <input type="text" id="imageUrl" placeholder="https://domain.com/banner.jpg">
+        
+        <label>클릭 시 이동할 링크 주소 (URL)</label>
+        <input type="text" id="linkUrl" placeholder="https://telegram.me/...">
+        
+        <button onclick="addBanner()">배너 목록에 추가</button>
+    </div>
+
+    <div class="card">
+        <h3>현재 등록된 배너 목록</h3>
+        <div id="bannerList"></div>
+    </div>
+
+    <div class="card">
+        <h3>최종 banners.json 적용 코드 (복사용)</h3>
+        <p style="font-size:12px; color:#8b949e;">아래 생성된 코드를 복사해서 깃허브의 <b>banners.json</b> 파일에 덮어씌우면 배너가 즉시 반영됩니다.</p>
+        <textarea id="jsonOutput" readonly></textarea>
+        <button onclick="copyJson()">코드 복사하기</button>
+    </div>
+
+    <script>
+        let banners = [];
+
+        // 기존 banners.json 불러오기
+        async function loadCurrentBanners() {
+            try {
+                const res = await fetch('banners.json?t=' + new Date().getTime());
+                banners = await res.json();
+                render();
+            } catch(e) {
+                banners = [
+                    { title: "식스틴 첫충 50%", imageUrl: "", linkUrl: "https://t.me/..." },
+                    { title: "여왕벌 첫충 50%", imageUrl: "", linkUrl: "https://t.me/..." }
+                ];
+                render();
+            }
+        }
+
+        function addBanner() {
+            const title = document.getElementById('title').value;
+            const imageUrl = document.getElementById('imageUrl').value;
+            const linkUrl = document.getElementById('linkUrl').value;
+
+            if(!title) { alert('제목을 입력해주세요.'); return; }
+
+            banners.push({ title, imageUrl, linkUrl });
+            document.getElementById('title').value = '';
+            document.getElementById('imageUrl').value = '';
+            document.getElementById('linkUrl').value = '';
+            render();
+        }
+
+        function deleteBanner(index) {
+            banners.splice(index, 1);
+            render();
+        }
+
+        function render() {
+            const listEl = document.getElementById('bannerList');
+            listEl.innerHTML = '';
+            banners.forEach((b, idx) => {
+                listEl.innerHTML += `
+                    <div class="banner-list-item">
+                        <div>
+                            <strong>${b.title}</strong><br>
+                            <small style="color:#8b949e;">링크: ${b.linkUrl || '없음'}</small>
+                        </div>
+                        <button class="btn-del" onclick="deleteBanner(${idx})">삭제</button>
+                    </div>
+                `;
+            });
+            document.getElementById('jsonOutput').value = JSON.stringify(banners, null, 2);
+        }
+
+        function copyJson() {
+            const textarea = document.getElementById('jsonOutput');
+            textarea.select();
+            document.execCommand('copy');
+            alert('코드가 복사되었습니다! 깃허브 banners.json에 붙여넣으세요.');
+        }
+
+        loadCurrentBanners();
+    </script>
+</body>
+</html>
