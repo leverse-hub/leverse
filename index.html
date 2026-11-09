@@ -9,13 +9,10 @@
         body { background-color: #0b0e14; color: #fff; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; margin: 0; padding: 20px; }
         .container { max-width: 1280px; margin: 0 auto; }
         
-        /* 헤더 */
         .header { display: flex; justify-content: space-between; align-items: center; background: #161b22; padding: 15px 25px; border-radius: 8px; border: 1px solid #30363d; margin-bottom: 25px; }
         .logo { color: #f0b90b; font-weight: bold; font-size: 20px; }
-        .btn-ad { background: #f0b90b; color: #000; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; transition: opacity 0.2s; }
-        .btn-ad:hover { opacity: 0.8; }
+        .btn-ad { background: #f0b90b; color: #000; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; }
         
-        /* 메인 레이아웃: 배너(우선) + 순위 위젯 */
         .main-layout { display: flex; gap: 24px; align-items: flex-start; }
         .banner-section { flex: 2; min-width: 0; }
         .widget-section { flex: 1; min-width: 360px; }
@@ -24,21 +21,20 @@
         
         /* 프리미엄 배너 그리드 */
         .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 25px; }
-        .banner-item { background: #161b22; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; transition: transform 0.2s, border-color 0.2s; }
+        .banner-item { background: #161b22; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; min-height: 140px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s, border-color 0.2s; }
         .banner-item:hover { transform: translateY(-3px); border-color: #f0b90b; }
+        .banner-item a { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #f0b90b; font-weight: bold; font-size: 16px; text-align: center; padding: 20px; }
         .banner-item img { width: 100%; height: auto; display: block; }
 
         /* 실시간 경기 순위 위젯 */
         .widget-card { background: #ffffff; color: #333333; border-radius: 6px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
         .widget-header { background: #002b66; color: #ffffff; text-align: center; padding: 14px 10px; font-size: 16px; font-weight: bold; }
         
-        /* 종목 아이콘 탭 */
         .sport-tabs { display: flex; justify-content: space-around; align-items: center; border-bottom: 1px solid #e1e4e8; background: #fafbfc; padding: 8px 4px; }
         .tab-btn { background: none; border: none; outline: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 12px; color: #586069; padding: 6px 8px; border-bottom: 3px solid transparent; font-weight: bold; }
         .tab-btn .icon { font-size: 18px; }
         .tab-btn.active { color: #002b66; border-bottom: 3px solid #002b66; }
         
-        /* 테이블 스타일 */
         .match-table { width: 100%; border-collapse: collapse; font-size: 13px; }
         .match-table th { border-bottom: 1px solid #e1e4e8; color: #586069; padding: 12px 8px; text-align: center; font-weight: bold; background: #fff; }
         .match-table td { padding: 12px 8px; border-bottom: 1px solid #f1f3f5; color: #333; }
@@ -57,22 +53,17 @@
 </head>
 <body>
     <div class="container">
-        <!-- 상단 헤더 -->
         <div class="header">
             <div class="logo">👑 LEVERSE OFFICIAL</div>
             <a href="#" class="btn-ad">배너 광고 문의</a>
         </div>
 
         <div class="main-layout">
-            <!-- 1. 최우선 프리미엄 배너 영역 -->
             <div class="banner-section">
                 <div class="section-title">◆ PREMIUM PARTNERS</div>
-                <div class="banner-grid" id="bannerContainer">
-                    <!-- 배너가 동적으로 로드됩니다 -->
-                </div>
+                <div class="banner-grid" id="bannerContainer"></div>
             </div>
 
-            <!-- 2. 실시간 전세계 경기 순위 위젯 -->
             <div class="widget-section">
                 <div class="widget-card">
                     <div class="widget-header">실시간 전세계에서 몰리는 경기 순위</div>
@@ -95,9 +86,7 @@
                                 <th class="col-date">경기일시</th>
                             </tr>
                         </thead>
-                        <tbody id="matchTableBody">
-                            <!-- 데이터가 동적으로 로드됩니다 -->
-                        </tbody>
+                        <tbody id="matchTableBody"></tbody>
                     </table>
                 </div>
             </div>
@@ -117,7 +106,7 @@
                     container.innerHTML += `
                         <div class="banner-item">
                             <a href="${b.linkUrl}" target="_blank">
-                                <img src="${b.imageUrl}" alt="${b.title}">
+                                ${b.imageUrl.startsWith('http') ? `<img src="${b.imageUrl}" alt="${b.title}">` : b.title}
                             </a>
                         </div>
                     `;
@@ -155,8 +144,8 @@
                 tbody.innerHTML += `<tr>
                     <td class="col-rank">${item.rank}</td>
                     <td class="col-team">${item.team}</td>
-                    <td class="col-pref">${item.preference || '-'}</td>
-                    <td class="col-date">${item.matchDate || '-'}</td>
+                    <td class="col-pref">${item.preference || '70%'}</td>
+                    <td class="col-date">${item.matchDate || '2026-11-10'}</td>
                 </tr>`;
             });
         }
