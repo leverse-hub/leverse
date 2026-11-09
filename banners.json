@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "title": "광고주 1번",
+    "imageUrl": "https://사진주소1.com/banner1.png",
+    "linkUrl": "https://t.me/광고주1번_텔레그램"
+  },
+  {
+    "id": 2,
+    "title": "광고주 2번",
+    "imageUrl": "https://사진주소2.com/banner2.png",
+    "linkUrl": "https://t.me/광고주2번_텔레그램"
+  }
+]
