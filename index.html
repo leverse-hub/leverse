@@ -3,52 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEVERSE OFFICIAL - 실시간 경기 순위</title>
+    <title>LEVERSE OFFICIAL</title>
     <style>
         * { box-sizing: border-box; }
         body { background-color: #0b0e14; color: #fff; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; margin: 0; padding: 20px; }
         .container { max-width: 1280px; margin: 0 auto; }
         
-        /* 상단 헤더 */
         .header { display: flex; justify-content: space-between; align-items: center; background: #161b22; padding: 15px 25px; border-radius: 8px; border: 1px solid #30363d; margin-bottom: 25px; }
         .logo { color: #f0b90b; font-weight: bold; font-size: 20px; }
-        .btn-ad { background: #f0b90b; color: #000; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; transition: 0.2s; }
-        .btn-ad:hover { opacity: 0.85; }
+        .btn-ad { background: #f0b90b; color: #000; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; }
         
         .main-layout { display: flex; gap: 24px; align-items: flex-start; }
         .banner-section { flex: 2; min-width: 0; }
-        .widget-section { flex: 1; min-width: 360px; }
+        .widget-section { flex: 1; min-width: 380px; display: flex; flex-direction: column; gap: 24px; }
 
         .section-title { font-size: 15px; color: #f0b90b; letter-spacing: 1px; margin-bottom: 12px; font-weight: bold; }
         
-        /* 프리미엄 배너 영역 */
         .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 25px; }
-        .banner-item { background: #161b22; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; min-height: 140px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s, border-color 0.2s; }
-        .banner-item:hover { transform: translateY(-3px); border-color: #f0b90b; }
+        .banner-item { background: #161b22; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; min-height: 140px; display: flex; align-items: center; justify-content: center; }
         .banner-item a { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #f0b90b; font-weight: bold; font-size: 16px; text-align: center; padding: 20px; }
         .banner-item img { width: 100%; height: auto; display: block; }
 
-        /* 라이브스코어 스타일 순위 위젯 */
-        .widget-card { background: #161b22; color: #ffffff; border-radius: 8px; overflow: hidden; border: 1px solid #30363d; box-shadow: 0 6px 16px rgba(0,0,0,0.6); }
-        .widget-header { background: #002b66; color: #ffffff; text-align: center; padding: 14px 10px; font-size: 16px; font-weight: bold; letter-spacing: 0.5px; }
+        /* 공통 위젯 스타일 */
+        .widget-card { background: #161b22; color: #ffffff; border-radius: 8px; overflow: hidden; border: 1px solid #30363d; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+        .widget-header { background: #002b66; color: #ffffff; text-align: center; padding: 12px 10px; font-size: 15px; font-weight: bold; }
         
-        /* 종목 아이콘 탭 */
-        .sport-tabs { display: flex; justify-content: space-around; align-items: center; border-bottom: 1px solid #30363d; background: #0d1117; padding: 10px 4px; }
-        .tab-btn { background: none; border: none; outline: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 12px; color: #8b949e; padding: 6px 8px; border-bottom: 3px solid transparent; font-weight: bold; transition: 0.2s; }
-        .tab-btn .icon { font-size: 20px; }
+        .sport-tabs { display: flex; justify-content: space-around; align-items: center; border-bottom: 1px solid #30363d; background: #0d1117; padding: 8px 4px; }
+        .tab-btn { background: none; border: none; outline: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; color: #8b949e; padding: 4px 6px; border-bottom: 3px solid transparent; font-weight: bold; }
+        .tab-btn .icon { font-size: 16px; }
         .tab-btn.active { color: #f0b90b; border-bottom: 3px solid #f0b90b; }
-        .tab-btn:hover { color: #ffffff; }
 
-        /* 순위 표 디자인 */
-        .match-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        .match-table th { border-bottom: 1px solid #30363d; color: #8b949e; padding: 11px 8px; text-align: center; font-weight: bold; background: #161b22; }
-        .match-table td { padding: 11px 8px; border-bottom: 1px solid #21262d; color: #e6edf3; }
-        .match-table tr:hover { background-color: #1f242d; }
+        .league-subtabs { display: flex; gap: 8px; background: #161b22; padding: 8px 12px; border-bottom: 1px solid #30363d; overflow-x: auto; font-size: 12px; }
+        .subtab-btn { background: none; border: none; color: #8b949e; cursor: pointer; font-weight: bold; padding: 2px 6px; border-radius: 4px; }
+        .subtab-btn.active { background: #21262d; color: #58a6ff; }
+
+        .match-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .match-table th { border-bottom: 1px solid #30363d; color: #8b949e; padding: 8px 4px; text-align: center; background: #0d1117; }
+        .match-table td { padding: 8px 4px; border-bottom: 1px solid #21262d; color: #e6edf3; text-align: center; }
         
-        .col-rank { text-align: center; font-weight: bold; color: #f0b90b; width: 45px; }
-        .col-team { font-weight: bold; color: #ffffff; text-align: left; }
-        .col-pref { text-align: center; font-weight: bold; color: #f0b90b; width: 75px; }
-        .col-date { text-align: center; font-weight: bold; color: #58a6ff; width: 95px; }
+        .col-rank { font-weight: bold; color: #f0b90b; width: 35px; }
+        .col-team { font-weight: bold; color: #ffffff; text-align: left !important; }
+        .col-stat { width: 30px; }
+        .col-pts { font-weight: bold; color: #58a6ff; width: 35px; }
+        .col-pref { font-weight: bold; color: #f0b90b; width: 60px; }
+        .col-date { font-weight: bold; color: #58a6ff; width: 85px; }
 
         @media (max-width: 900px) {
             .main-layout { flex-direction: column; }
@@ -61,7 +59,7 @@
     <div class="container">
         <div class="header">
             <div class="logo">👑 LEVERSE OFFICIAL</div>
-            <a href="#" class="btn-ad">배너 광고 문의</a>
+            <a href="https://t.me/본인텔레그램아이디" target="_blank" class="btn-ad">배너 광고 문의</a>
         </div>
 
         <div class="main-layout">
@@ -70,19 +68,40 @@
                 <div class="banner-grid" id="bannerContainer"></div>
             </div>
 
+            <!-- 우측 위젯 영역 (상하 2개 나열) -->
             <div class="widget-section">
+                
+                <!-- 1. 종목별 팀순위 (리그 전체) -->
+                <div class="widget-card">
+                    <div class="widget-header">종목별 팀순위</div>
+                    <div class="league-subtabs">
+                        <button class="subtab-btn active" onclick="renderStandings('epl', event)">EPL</button>
+                        <button class="subtab-btn" onclick="renderStandings('laliga', event)">라리가</button>
+                        <button class="subtab-btn" onclick="renderStandings('nba', event)">NBA</button>
+                    </div>
+                    <table class="match-table">
+                        <thead>
+                            <tr>
+                                <th class="col-rank">순위</th>
+                                <th class="col-team">팀</th>
+                                <th class="col-stat">경기</th>
+                                <th class="col-stat">승</th>
+                                <th class="col-stat">무</th>
+                                <th class="col-stat">패</th>
+                                <th class="col-pts">승점</th>
+                            </tr>
+                        </thead>
+                        <tbody id="standingsTableBody"></tbody>
+                    </table>
+                </div>
+
+                <!-- 2. 실시간 전세계에서 몰리는 경기 순위 -->
                 <div class="widget-card">
                     <div class="widget-header">실시간 전세계에서 몰리는 경기 순위</div>
-                    
                     <div class="sport-tabs">
-                        <button class="tab-btn active" onclick="switchSport('basketball', event)"><span class="icon">🏀</span>농구</button>
-                        <button class="tab-btn" onclick="switchSport('baseball', event)"><span class="icon">⚾</span>야구</button>
-                        <button class="tab-btn" onclick="switchSport('volleyball', event)"><span class="icon">🏐</span>배구</button>
-                        <button class="tab-btn" onclick="switchSport('hockey', event)"><span class="icon">🏒</span>하키</button>
-                        <button class="tab-btn" onclick="switchSport('football', event)"><span class="icon">⚽</span>축구</button>
-                        <button class="tab-btn" onclick="switchSport('american_football', event)"><span class="icon">🏈</span>미식축구</button>
+                        <button class="tab-btn active" onclick="switchHotSport('football', event)"><span class="icon">⚽</span>축구</button>
+                        <button class="tab-btn" onclick="switchHotSport('basketball', event)"><span class="icon">🏀</span>농구</button>
                     </div>
-
                     <table class="match-table">
                         <thead>
                             <tr>
@@ -92,9 +111,10 @@
                                 <th class="col-date">경기일시</th>
                             </tr>
                         </thead>
-                        <tbody id="matchTableBody"></tbody>
+                        <tbody id="hotMatchTableBody"></tbody>
                     </table>
                 </div>
+
             </div>
         </div>
     </div>
@@ -102,50 +122,62 @@
     <script>
         let globalData = {};
 
-        async function loadBanners() {
+        async function init() {
             try {
-                const res = await fetch('banners.json?t=' + new Date().getTime());
-                const banners = await res.json();
-                const container = document.getElementById('bannerContainer');
-                container.innerHTML = '';
+                const resBanners = await fetch('banners.json?t=' + new Date().getTime());
+                const banners = await resBanners.json();
+                const bContainer = document.getElementById('bannerContainer');
+                bContainer.innerHTML = '';
                 banners.forEach(b => {
-                    container.innerHTML += `
+                    bContainer.innerHTML += `
                         <div class="banner-item">
                             <a href="${b.linkUrl || '#'}" target="_blank">
-                                ${b.imageUrl && b.imageUrl.startsWith('http') ? `<img src="${b.imageUrl}" alt="${b.title || ''}">` : (b.title || 'LEVERSE BANNER')}
+                                ${b.imageUrl && b.imageUrl.startsWith('http') ? `<img src="${b.imageUrl}" alt="${b.title}">` : (b.title || 'LEVERSE BANNER')}
                             </a>
                         </div>
                     `;
                 });
+
+                const resData = await fetch('data.json?t=' + new Date().getTime());
+                globalData = await resData.json();
+
+                renderStandings('epl');
+                switchHotSport('football');
             } catch (err) {
-                console.error('배너 로드 실패:', err);
+                console.error(err);
             }
         }
 
-        async function loadMatchData() {
-            try {
-                const res = await fetch('data.json?t=' + new Date().getTime());
-                globalData = await res.json();
-                switchSport('basketball');
-            } catch (err) {
-                console.error('경기 데이터 로드 실패:', err);
-            }
-        }
-
-        function switchSport(sportKey, e) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        function renderStandings(leagueKey, e) {
             if (e) {
+                document.querySelectorAll('.subtab-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+            }
+            const tbody = document.getElementById('standingsTableBody');
+            tbody.innerHTML = '';
+            const list = (globalData.standings && globalData.standings[leagueKey]) || [];
+            list.forEach(item => {
+                tbody.innerHTML += `<tr>
+                    <td class="col-rank">${item.rank}</td>
+                    <td class="col-team">${item.team}</td>
+                    <td class="col-stat">${item.played}</td>
+                    <td class="col-stat">${item.win}</td>
+                    <td class="col-stat">${item.draw}</td>
+                    <td class="col-stat">${item.loss}</td>
+                    <td class="col-pts">${item.points}</td>
+                </tr>`;
+            });
+        }
+
+        function switchHotSport(sportKey, e) {
+            if (e) {
+                document.querySelectorAll('.sport-tabs .tab-btn').forEach(btn => btn.classList.remove('active'));
                 const targetBtn = e.currentTarget || e.target.closest('.tab-btn');
                 if (targetBtn) targetBtn.classList.add('active');
             }
-            renderTable(sportKey);
-        }
-
-        function renderTable(sportKey) {
-            const tbody = document.getElementById('matchTableBody');
+            const tbody = document.getElementById('hotMatchTableBody');
             tbody.innerHTML = '';
-            const list = globalData[sportKey] || [];
-            
+            const list = (globalData.hotMatches && globalData.hotMatches[sportKey]) || [];
             list.forEach(item => {
                 tbody.innerHTML += `<tr>
                     <td class="col-rank">${item.rank}</td>
@@ -156,8 +188,7 @@
             });
         }
 
-        loadBanners();
-        loadMatchData();
+        init();
     </script>
 </body>
 </html>
