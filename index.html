@@ -62,6 +62,7 @@
         .card-sub { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 12px; }
         .card-btn { background: #2a2a3a; text-align: center; padding: 8px; border-radius: 6px; font-size: 0.85rem; font-weight: bold; color: var(--gold-primary); }
 
+        /* 한국어 스포츠 사이드바 */
         .sidebar-box {
             background: var(--card-bg);
             border: 1px solid #2a2a3a;
@@ -97,32 +98,73 @@
             100% { opacity: 1; }
         }
 
-        .widget-container {
-            width: 100%;
-            height: 500px;
-            border: none;
-            border-radius: 8px;
-            overflow: hidden;
+        .match-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
         }
 
-        .sidebar-notice {
-            margin-top: 15px;
+        .match-item {
             background: #14141c;
-            padding: 12px;
+            border: 1px solid #2a2a3a;
             border-radius: 8px;
-            text-align: center;
+            padding: 10px 12px;
             font-size: 0.85rem;
         }
 
-        .sidebar-notice a {
+        .match-time-league {
             color: var(--gold-primary);
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .match-teams {
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: #fff;
+            text-align: center;
+            padding: 4px 0;
+        }
+
+        .match-status {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.75rem;
+            margin-top: 2px;
+        }
+
+        .sidebar-btn {
+            display: block;
+            background: var(--gold-gradient);
+            color: #000;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
             font-weight: bold;
             text-decoration: none;
+            font-size: 0.95rem;
+            margin-top: 10px;
         }
 
         .seo-keywords { background: #14141c; border: 1px solid #2a2a3a; padding: 18px; border-radius: 8px; color: var(--text-dim); font-size: 0.85rem; margin-top: 25px; grid-column: 1 / -1; }
         footer { text-align: center; color: var(--text-dim); font-size: 0.85rem; margin-top: 30px; border-top: 1px solid #2a2a3a; padding-top: 20px; grid-column: 1 / -1; }
     </style>
+    <script>
+        // 한국 날짜 자동 업데이트 (자정 전후 자동 갱신)
+        function updateDate() {
+            const now = new Date();
+            const month = now.getMonth() + 1;
+            const date = now.getDate();
+            const days = ['일', '월', '화', '수', '목', '금', '토'];
+            const dayName = days[now.getDay()];
+            document.getElementById('current-date').innerText = `${month}월 ${date}일 (${dayName})`;
+        }
+        window.onload = updateDate;
+    </script>
 </head>
 <body>
 
@@ -144,7 +186,7 @@
             <div class="section-title">PREMIUM PARTNER BANNERS</div>
 
             <div class="banner-grid">
-                <!-- 1번 배너: 내 채널 전용 배너 -->
+                <!-- 1번 배너 -->
                 <a href="https://t.me/leverse_chat" class="banner-card" target="_blank">
                     <div>
                         <div class="card-tag">MAIN BANNER</div>
@@ -154,7 +196,7 @@
                     <div class="card-btn">채널 바로가기</div>
                 </a>
 
-                <!-- 2번 배너: 광고주 모집용 (@LEVERSE_1) -->
+                <!-- 2번 배너 -->
                 <a href="https://t.me/LEVERSE_1" class="banner-card" target="_blank">
                     <div>
                         <div class="card-tag" style="color:#ff4757;">ADVERTISING</div>
@@ -164,7 +206,7 @@
                     <div class="card-btn">광고 문의하기</div>
                 </a>
 
-                <!-- 3번 배너: 광고주 모집용 (@LEVERSE_1) -->
+                <!-- 3번 배너 -->
                 <a href="https://t.me/LEVERSE_1" class="banner-card" target="_blank">
                     <div>
                         <div class="card-tag" style="color:#ff4757;">ADVERTISING</div>
@@ -176,23 +218,34 @@
             </div>
         </main>
 
+        <!-- 오른쪽 한국어 스포츠 사이드바 -->
         <aside class="sidebar-box">
             <div class="sidebar-header">
-                <span>⚽ 금일 실시간 스포츠 스코어</span>
-                <span class="live-tag">LIVE</span>
+                <span>⚽ <span id="current-date">오늘</span> 주요 스포츠 일정</span>
+                <span class="live-tag">실시간</span>
             </div>
             
-            <iframe 
-                class="widget-container"
-                src="https://www.scorebat.com/embed/livescore/" 
-                frameborder="0" 
-                scrolling="yes">
-            </iframe>
-
-            <div class="sidebar-notice">
-                🔥 <strong>실시간 스포츠 VIP 픽 공유방</strong><br>
-                <a href="https://t.me/leverse_chat" target="_blank">👉 텔레그램 @leverse_chat 입장</a>
+            <div class="match-list">
+                <div class="match-item">
+                    <div class="match-time-league"><span>⚽ 해외축구 / 챔피언스리그</span> <span>오늘 예정</span></div>
+                    <div class="match-teams">주요 빅매치 실시간 데이터</div>
+                    <div class="match-status">승무패 / 언오버 픽 분석 중</div>
+                </div>
+                <div class="match-item">
+                    <div class="match-time-league"><span>⚾ KBO / MLB 프로야구</span> <span>경기 안내</span></div>
+                    <div class="match-teams">선발 투수 및 실시간 배당 흐름</div>
+                    <div class="match-status">라인업 및 핵심 분석 완료</div>
+                </div>
+                <div class="match-item">
+                    <div class="match-time-league"><span>🏀 KBL / NBA 농구</span> <span>실시간</span></div>
+                    <div class="match-teams">쿼터별 스코어 및 픽 정보</div>
+                    <div class="match-status">실시간 조합 정보 제공</div>
+                </div>
             </div>
+
+            <a href="https://t.me/leverse_chat" class="sidebar-btn" target="_blank">
+                🔥 실시간 스포츠 픽 & 조합방 입장
+            </a>
         </aside>
 
         <div class="seo-keywords">
