@@ -14,7 +14,7 @@
             padding: 30px 20px; 
             min-height: 100vh;
         }
-        .container { max-width: 800px; margin: 0 auto; }
+        .container { max-width: 800px; margin: 0 auto; display: none; } /* 비밀번호 인증 전까지 숨김 */
         h1 { color: #ffd700; text-align: center; margin-bottom: 30px; font-size: 24px; }
         
         .card { 
@@ -72,7 +72,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="adminContainer">
         <h1>👑 LEVERSE 실시간 배너 광고 관리자</h1>
 
         <div class="card">
@@ -114,6 +114,15 @@
     </div>
 
     <script>
+        // 관리자 접속 비밀번호 확인
+        const password = prompt("관리자 비밀번호를 입력하세요:");
+        if (password !== "5711") {
+            alert("비밀번호가 틀렸습니다. 접근이 거부됩니다.");
+            document.body.innerHTML = "<h2 style='color:red; text-align:center; margin-top:20vh;'>ACCESS DENIED</h2>";
+        } else {
+            document.getElementById('adminContainer').style.display = 'block';
+        }
+
         document.getElementById('masterKey').value = "$2a$10$z02BCvLiUiJxAdGwNLshJeQHmEmBK0dRsCnGRF.xsuMwIAFFqO2dW";
         document.getElementById('binId').value = localStorage.getItem('jsonbin_bin_id') || '';
 
@@ -130,6 +139,7 @@
 
         async function createNewBin() {
             const key = document.getElementById('masterKey').value.trim();
+            if (!key) { alert('Master Key를 입력해주세요!'); return; }
             try {
                 const res = await fetch('https://api.jsonbin.io/v3/b', {
                     method: 'POST',
@@ -138,7 +148,9 @@
                         'X-Master-Key': key,
                         'X-Bin-Name': 'LeverseBanners'
                     },
-                    body: JSON.stringify([])
+                    body: JSON.stringify([
+                        { title: "초기 배너", imageUrl: "https://via.placeholder.com/1200x320", linkUrl: "https://t.me" }
+                    ])
                 });
                 const data = await res.json();
                 if (data.metadata && data.metadata.id) {
@@ -156,104 +168,4 @@
 
         async function loadBanners() {
             const key = document.getElementById('masterKey').value.trim();
-            const id = localStorage.getItem('jsonbin_bin_id');
-            if (!key || !id) return;
-
-            try {
-                const res = await fetch(`https://api.jsonbin.io/v3/b/${id}/latest`, {
-                    headers: { 'X-Master-Key': key }
-                });
-                const data = await res.json();
-                banners = data.record || [];
-                renderList();
-            } catch (e) {
-                console.error('불러오기 실패', e);
-            }
-        }
-
-        async function saveToCloud() {
-            const key = document.getElementById('masterKey').value.trim();
-            const id = localStorage.getItem('jsonbin_bin_id');
-            const msg = document.getElementById('status-msg');
-
-            if (!id) {
-                alert('먼저 [새 빈 자동 생성하기]를 누르고 설정을 저장해주세요!');
-                return;
-            }
-
-            try {
-                const res = await fetch(`https://api.jsonbin.io/v3/b/${id}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Master-Key': key
-                    },
-                    body: JSON.stringify(banners)
-                });
-                if (res.ok) {
-                    msg.style.color = '#2ecc71';
-                    msg.innerText = '✨ 성공적으로 실시간 반영되었습니다!';
-                    renderList();
-                } else {
-                    msg.style.color = '#e74c3c';
-                    msg.innerText = '❌ 저장 실패';
-                }
-            } catch (e) {
-                msg.style.color = '#e74c3c';
-                msg.innerText = '❌ 오류: ' + e.message;
-            }
-        }
-
-        function addBanner() {
-            const title = document.getElementById('title').value.trim();
-            const imageUrl = document.getElementById('imageUrl').value.trim();
-            const linkUrl = document.getElementById('linkUrl').value.trim();
-
-            if (!title || !imageUrl || !linkUrl) {
-                alert('모든 항목을 입력해주세요!');
-                return;
-            }
-
-            banners.push({ title, imageUrl, linkUrl });
-            saveToCloud();
-
-            document.getElementById('title').value = '';
-            document.getElementById('imageUrl').value = '';
-            document.getElementById('linkUrl').value = '';
-        }
-
-        function removeBanner(index) {
-            if (confirm('정말 이 배너를 삭제하시겠습니까?')) {
-                banners.splice(index, 1);
-                saveToCloud();
-            }
-        }
-
-        function renderList() {
-            const listDiv = document.getElementById('bannerList');
-            if (banners.length === 0) {
-                listDiv.innerHTML = '<div style="color:#8a99ad; text-align:center; padding:15px;">등록된 배너가 없습니다.</div>';
-                return;
-            }
-
-            let html = '';
-            banners.forEach((b, idx) => {
-                html += `
-                    <div class="banner-item">
-                        <div class="banner-info">
-                            <strong>${b.title}</strong>
-                            <span>링크: ${b.linkUrl}</span>
-                        </div>
-                        <button class="btn btn-danger" onclick="removeBanner(${idx})">삭제</button>
-                    </div>
-                `;
-            });
-            listDiv.innerHTML = html;
-        }
-
-        if (localStorage.getItem('jsonbin_bin_id')) {
-            loadBanners();
-        }
-    </script>
-</body>
-</html>
+            const id = localStorage.getItem('jsonbin_bin
