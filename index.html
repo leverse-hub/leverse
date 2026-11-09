@@ -9,39 +9,39 @@
         body { background-color: #0b0e14; color: #fff; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; margin: 0; padding: 20px; }
         .container { max-width: 1280px; margin: 0 auto; }
         
-        /* 상단 헤더 */
+        /* 헤더 */
         .header { display: flex; justify-content: space-between; align-items: center; background: #161b22; padding: 15px 25px; border-radius: 8px; border: 1px solid #30363d; margin-bottom: 25px; }
         .logo { color: #f0b90b; font-weight: bold; font-size: 20px; }
-        .btn-ad { background: #f0b90b; color: #000; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; }
+        .btn-ad { background: #f0b90b; color: #000; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; transition: opacity 0.2s; }
+        .btn-ad:hover { opacity: 0.8; }
         
-        /* 메인 레이아웃 (배너 우선 + 위젯) */
+        /* 메인 레이아웃: 배너(우선) + 순위 위젯 */
         .main-layout { display: flex; gap: 24px; align-items: flex-start; }
         .banner-section { flex: 2; min-width: 0; }
         .widget-section { flex: 1; min-width: 360px; }
 
-        .section-title { font-size: 14px; color: #f0b90b; letter-spacing: 1px; margin-bottom: 12px; font-weight: bold; }
+        .section-title { font-size: 15px; color: #f0b90b; letter-spacing: 1px; margin-bottom: 12px; font-weight: bold; }
         
-        /* 광고 배너 그리드 */
+        /* 프리미엄 배너 그리드 */
         .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 25px; }
-        .banner-item { background: #161b22; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; transition: transform 0.2s; }
+        .banner-item { background: #161b22; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; transition: transform 0.2s, border-color 0.2s; }
         .banner-item:hover { transform: translateY(-3px); border-color: #f0b90b; }
         .banner-item img { width: 100%; height: auto; display: block; }
 
-        /* 이미지 3번 스타일 실시간 몰리는 경기 순위 위젯 */
-        .widget-card { background: #ffffff; color: #333333; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
-        .widget-header { background: #002b66; color: #ffffff; text-align: center; padding: 12px 10px; font-size: 16px; font-weight: bold; }
+        /* 실시간 경기 순위 위젯 */
+        .widget-card { background: #ffffff; color: #333333; border-radius: 6px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+        .widget-header { background: #002b66; color: #ffffff; text-align: center; padding: 14px 10px; font-size: 16px; font-weight: bold; }
         
-        /* 종목 아이콘 탭 메뉴 */
+        /* 종목 아이콘 탭 */
         .sport-tabs { display: flex; justify-content: space-around; align-items: center; border-bottom: 1px solid #e1e4e8; background: #fafbfc; padding: 8px 4px; }
         .tab-btn { background: none; border: none; outline: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 12px; color: #586069; padding: 6px 8px; border-bottom: 3px solid transparent; font-weight: bold; }
         .tab-btn .icon { font-size: 18px; }
         .tab-btn.active { color: #002b66; border-bottom: 3px solid #002b66; }
         
-        /* 데이터 테이블 */
+        /* 테이블 스타일 */
         .match-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        .match-table th { border-bottom: 1px solid #e1e4e8; color: #586069; padding: 10px 8px; text-align: center; font-weight: bold; background: #fff; }
-        .match-table td { padding: 10px 8px; border-bottom: 1px solid #f1f3f5; }
-        .match-table tr:last-child td { border-bottom: none; }
+        .match-table th { border-bottom: 1px solid #e1e4e8; color: #586069; padding: 12px 8px; text-align: center; font-weight: bold; background: #fff; }
+        .match-table td { padding: 12px 8px; border-bottom: 1px solid #f1f3f5; color: #333; }
         
         .col-rank { text-align: center; font-weight: bold; width: 45px; }
         .col-team { font-weight: bold; color: #0a2540; text-align: left; }
@@ -68,16 +68,15 @@
             <div class="banner-section">
                 <div class="section-title">◆ PREMIUM PARTNERS</div>
                 <div class="banner-grid" id="bannerContainer">
-                    <!-- banners.json 동적 연동 -->
+                    <!-- 배너가 동적으로 로드됩니다 -->
                 </div>
             </div>
 
-            <!-- 2. 이미지 3번 스타일: 실시간 전세계에서 몰리는 경기 순위 위젯 -->
+            <!-- 2. 실시간 전세계 경기 순위 위젯 -->
             <div class="widget-section">
                 <div class="widget-card">
                     <div class="widget-header">실시간 전세계에서 몰리는 경기 순위</div>
                     
-                    <!-- 종목 선택 탭 -->
                     <div class="sport-tabs">
                         <button class="tab-btn active" onclick="switchSport('basketball', event)"><span class="icon">🏀</span>농구</button>
                         <button class="tab-btn" onclick="switchSport('baseball', event)"><span class="icon">⚾</span>야구</button>
@@ -97,7 +96,7 @@
                             </tr>
                         </thead>
                         <tbody id="matchTableBody">
-                            <!-- data.json 동적 데이터 -->
+                            <!-- 데이터가 동적으로 로드됩니다 -->
                         </tbody>
                     </table>
                 </div>
@@ -108,14 +107,12 @@
     <script>
         let globalData = {};
 
-        // 배너 로드 (banners.json)
         async function loadBanners() {
             try {
                 const res = await fetch('banners.json?t=' + new Date().getTime());
                 const banners = await res.json();
                 const container = document.getElementById('bannerContainer');
                 container.innerHTML = '';
-                
                 banners.forEach(b => {
                     container.innerHTML += `
                         <div class="banner-item">
@@ -130,12 +127,11 @@
             }
         }
 
-        // 경기 순위 데이터 로드 (data.json)
         async function loadMatchData() {
             try {
                 const res = await fetch('data.json?t=' + new Date().getTime());
                 globalData = await res.json();
-                renderTable('basketball'); // 기본 농구
+                switchSport('basketball');
             } catch (err) {
                 console.error('경기 데이터 로드 실패:', err);
             }
@@ -159,8 +155,8 @@
                 tbody.innerHTML += `<tr>
                     <td class="col-rank">${item.rank}</td>
                     <td class="col-team">${item.team}</td>
-                    <td class="col-pref">${item.preference}</td>
-                    <td class="col-date">${item.matchDate}</td>
+                    <td class="col-pref">${item.preference || '-'}</td>
+                    <td class="col-date">${item.matchDate || '-'}</td>
                 </tr>`;
             });
         }
