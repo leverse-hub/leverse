@@ -14,6 +14,7 @@
             --text-color: #ffffff;
             --text-dim: #a0a0b0;
             --accent-red: #ff4757;
+            --live-green: #2ed573;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Pretendard', -apple-system, sans-serif; }
@@ -32,7 +33,7 @@
             margin: 0 auto;
             padding: 20px;
             display: grid;
-            grid-template-columns: 1fr 340px;
+            grid-template-columns: 1fr 350px;
             gap: 20px;
         }
 
@@ -62,202 +63,16 @@
         .card-sub { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 12px; }
         .card-btn { background: #2a2a3a; text-align: center; padding: 8px; border-radius: 6px; font-size: 0.85rem; font-weight: bold; color: var(--gold-primary); }
 
-        /* 한국어 스포츠 사이드바 */
+        /* 🔥 초화려한 실시간 라이브스코어 사이드바 디자인 */
         .sidebar-box {
-            background: var(--card-bg);
-            border: 1px solid #2a2a3a;
-            border-radius: 12px;
-            padding: 15px;
+            background: linear-gradient(180deg, #181824 0%, #101018 100%);
+            border: 2px solid #333348;
+            border-radius: 14px;
+            padding: 18px;
             height: fit-content;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
         }
 
         .sidebar-header {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: var(--gold-primary);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid #2a2a3a;
-            padding-bottom: 10px;
-        }
-
-        .live-tag {
-            background: var(--accent-red);
-            color: white;
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 10px;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        .match-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .match-item {
-            background: #14141c;
-            border: 1px solid #2a2a3a;
-            border-radius: 8px;
-            padding: 10px 12px;
-            font-size: 0.85rem;
-        }
-
-        .match-time-league {
-            color: var(--gold-primary);
-            font-size: 0.75rem;
-            font-weight: bold;
-            margin-bottom: 4px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .match-teams {
-            font-weight: bold;
-            font-size: 0.95rem;
-            color: #fff;
-            text-align: center;
-            padding: 4px 0;
-        }
-
-        .match-status {
-            text-align: center;
-            color: var(--text-dim);
-            font-size: 0.75rem;
-            margin-top: 2px;
-        }
-
-        .sidebar-btn {
-            display: block;
-            background: var(--gold-gradient);
-            color: #000;
-            text-align: center;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 0.95rem;
-            margin-top: 10px;
-        }
-
-        .seo-keywords { background: #14141c; border: 1px solid #2a2a3a; padding: 18px; border-radius: 8px; color: var(--text-dim); font-size: 0.85rem; margin-top: 25px; grid-column: 1 / -1; }
-        footer { text-align: center; color: var(--text-dim); font-size: 0.85rem; margin-top: 30px; border-top: 1px solid #2a2a3a; padding-top: 20px; grid-column: 1 / -1; }
-    </style>
-    <script>
-        // 한국 날짜 자동 업데이트 (자정 전후 자동 갱신)
-        function updateDate() {
-            const now = new Date();
-            const month = now.getMonth() + 1;
-            const date = now.getDate();
-            const days = ['일', '월', '화', '수', '목', '금', '토'];
-            const dayName = days[now.getDay()];
-            document.getElementById('current-date').innerText = `${month}월 ${date}일 (${dayName})`;
-        }
-        window.onload = updateDate;
-    </script>
-</head>
-<body>
-
-    <header>
-        <div class="logo">👑 LEVERSE OFFICIAL</div>
-        <a href="https://t.me/LEVERSE_1" class="btn-header" target="_blank">배너 광고 문의</a>
-    </header>
-
-    <div class="container">
-        
-        <main>
-            <div class="hero-banner">
-                <span class="hero-badge">레버스 공식 메인 제휴</span>
-                <h1 class="hero-title">LEVERSE 3 USDT 즉시 지급 이벤트</h1>
-                <p class="hero-desc">텔레그램 공식 커뮤니티 채널 입장 후 즉시 혜택을 챙겨가세요!<br>(첫 이용 시 10+10 추가 혜택 적용)</p>
-                <a href="https://t.me/leverse_chat" class="btn-main" target="_blank">👉 공식 텔레그램 채널 입장하기</a>
-            </div>
-
-            <div class="section-title">PREMIUM PARTNER BANNERS</div>
-
-            <div class="banner-grid">
-                <!-- 1번 배너 -->
-                <a href="https://t.me/leverse_chat" class="banner-card" target="_blank">
-                    <div>
-                        <div class="card-tag">MAIN BANNER</div>
-                        <div class="card-title">🎁 레버스 3 USDT 즉시 지급</div>
-                        <div class="card-sub">텔레그램 자유홍보방 및 꽁머니/이벤트 전문 채널</div>
-                    </div>
-                    <div class="card-btn">채널 바로가기</div>
-                </a>
-
-                <!-- 2번 배너 -->
-                <a href="https://t.me/LEVERSE_1" class="banner-card" target="_blank">
-                    <div>
-                        <div class="card-tag" style="color:#ff4757;">ADVERTISING</div>
-                        <div class="card-title">📢 배너 입점 광고주 모집 (선착순)</div>
-                        <div class="card-sub">카지노 / 바카라 / 홀덤 / 스포츠픽 / 꽁머니 입점 문의 (@LEVERSE_1)</div>
-                    </div>
-                    <div class="card-btn">광고 문의하기</div>
-                </a>
-
-                <!-- 3번 배너 -->
-                <a href="https://t.me/LEVERSE_1" class="banner-card" target="_blank">
-                    <div>
-                        <div class="card-tag" style="color:#ff4757;">ADVERTISING</div>
-                        <div class="card-title">📢 배너 입점 광고주 모집</div>
-                        <div class="card-sub">구글 상위 노출 프리미엄 배너 구역 (@LEVERSE_1)</div>
-                    </div>
-                    <div class="card-btn">광고 문의하기</div>
-                </a>
-            </div>
-        </main>
-
-        <!-- 오른쪽 한국어 스포츠 사이드바 -->
-        <aside class="sidebar-box">
-            <div class="sidebar-header">
-                <span>⚽ <span id="current-date">오늘</span> 주요 스포츠 일정</span>
-                <span class="live-tag">실시간</span>
-            </div>
-            
-            <div class="match-list">
-                <div class="match-item">
-                    <div class="match-time-league"><span>⚽ 해외축구 / 챔피언스리그</span> <span>오늘 예정</span></div>
-                    <div class="match-teams">주요 빅매치 실시간 데이터</div>
-                    <div class="match-status">승무패 / 언오버 픽 분석 중</div>
-                </div>
-                <div class="match-item">
-                    <div class="match-time-league"><span>⚾ KBO / MLB 프로야구</span> <span>경기 안내</span></div>
-                    <div class="match-teams">선발 투수 및 실시간 배당 흐름</div>
-                    <div class="match-status">라인업 및 핵심 분석 완료</div>
-                </div>
-                <div class="match-item">
-                    <div class="match-time-league"><span>🏀 KBL / NBA 농구</span> <span>실시간</span></div>
-                    <div class="match-teams">쿼터별 스코어 및 픽 정보</div>
-                    <div class="match-status">실시간 조합 정보 제공</div>
-                </div>
-            </div>
-
-            <a href="https://t.me/leverse_chat" class="sidebar-btn" target="_blank">
-                🔥 실시간 스포츠 픽 & 조합방 입장
-            </a>
-        </aside>
-
-        <div class="seo-keywords">
-            <strong>LEVERSE 배너 센터 키워드 안내:</strong><br>
-            본 사이트는 카지노, 바카라, 홀덤, 라이브스코어, 스포츠픽 분석, 꽁머니 및 다양한 이벤트를 공유하는 메인 혜택 포털입니다. 텔레그램 채널(@leverse_chat)을 통해 최신 혜택과 스포츠 픽을 실시간으로 안내받으실 수 있으며, 배너 입점 제휴 문의는 텔레그램 @LEVERSE_1 로 남겨주시면 됩니다.
-        </div>
-
-        <footer>
-            © LEVERSE BANNER HUB. All rights reserved.
-        </footer>
-
-    </div>
-
-</body>
-</html>
+            font-size: 1.05rem;
+            font-weight:
