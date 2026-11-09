@@ -25,10 +25,8 @@
         .section-title { font-size: 15px; color: #f0b90b; letter-spacing: 1px; margin-bottom: 15px; font-weight: bold; }
         
         .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 25px; }
-        .banner-item { background: #161b22; border: 1px solid #30363d; border-radius: 8px; overflow: hidden; min-height: 120px; transition: transform 0.2s; }
-        .banner-item:hover { transform: translateY(-3px); border-color: #f0b90b; }
-        .banner-item a { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #f0b90b; font-weight: bold; font-size: 16px; text-align: center; }
-        .banner-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .banner-item { background: #161b22; border: 1px solid #30363d; border-radius: 8px; overflow: hidden; min-height: 120px; }
+        .banner-item a { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #f0b90b; font-weight: bold; font-size: 15px; text-align: center; padding: 20px; }
 
         .ad-recruitment-box { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 25px; display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
         .ad-recruitment-info h4 { color: #f0b90b; margin: 0 0 6px; font-size: 16px; }
@@ -42,9 +40,8 @@
         .icon-tab .icon { font-size: 18px; }
         .icon-tab.active { color: #f0b90b; background: #21262d; }
 
-        .league-subtabs { display: flex; gap: 8px; background: #161b22; padding: 10px 15px; border-bottom: 1px solid #30363d; overflow-x: auto; font-size: 13px; }
-        .subtab-btn { background: none; border: none; color: #8b949e; cursor: pointer; font-weight: bold; padding: 4px 8px; border-radius: 4px; white-space: nowrap; }
-        .subtab-btn.active { background: #30363d; color: #f0b90b; }
+        .league-subtabs { display: flex; gap: 8px; background: #161b22; padding: 10px 15px; border-bottom: 1px solid #30363d; font-size: 13px; }
+        .subtab-btn { background: #30363d; border: none; color: #f0b90b; cursor: pointer; font-weight: bold; padding: 4px 10px; border-radius: 4px; }
 
         .match-table { width: 100%; border-collapse: collapse; font-size: 12px; }
         .match-table th { border-bottom: 1px solid #30363d; color: #8b949e; padding: 10px 6px; text-align: center; background: #0d1117; }
@@ -80,7 +77,14 @@
         <div class="main-layout">
             <div class="banner-section">
                 <div class="section-title">◆ PREMIUM PARTNERS</div>
-                <div class="banner-grid" id="bannerContainer"></div>
+                <div class="banner-grid">
+                    <div class="banner-item">
+                        <a href="https://t.me/your_telegram_id" target="_blank">광고주 1번 배너 (문의하기)</a>
+                    </div>
+                    <div class="banner-item">
+                        <a href="https://t.me/your_telegram_id" target="_blank">광고주 2번 배너 (문의하기)</a>
+                    </div>
+                </div>
 
                 <div class="ad-recruitment-box">
                     <div class="ad-recruitment-info">
@@ -95,14 +99,14 @@
                 <div class="widget-card">
                     <div class="widget-header">종목별 팀순위</div>
                     <div class="sport-icon-tabs">
-                        <button class="icon-tab active" onclick="switchSportCategory('football', event)"><span class="icon">⚽</span>축구</button>
-                        <button class="icon-tab" onclick="switchSportCategory('baseball', event)"><span class="icon">⚾</span>야구</button>
-                        <button class="icon-tab" onclick="switchSportCategory('basketball', event)"><span class="icon">🏀</span>농구</button>
-                        <button class="icon-tab" onclick="switchSportCategory('hockey', event)"><span class="icon">🏒</span>하키</button>
-                        <button class="icon-tab" onclick="switchSportCategory('tennis', event)"><span class="icon">🎾</span>테니스</button>
+                        <button class="icon-tab active" onclick="switchSport('football', event)"><span class="icon">⚽</span>축구</button>
+                        <button class="icon-tab" onclick="switchSport('baseball', event)"><span class="icon">⚾</span>야구</button>
+                        <button class="icon-tab" onclick="switchSport('basketball', event)"><span class="icon">🏀</span>농구</button>
+                        <button class="icon-tab" onclick="switchSport('hockey', event)"><span class="icon">🏒</span>하키</button>
+                        <button class="icon-tab" onclick="switchSport('tennis', event)"><span class="icon">🎾</span>테니스</button>
                     </div>
-                    <div class="league-subtabs" id="leagueSubtabsContainer">
-                        <button class="subtab-btn active" onclick="renderStandings('football', event)">EPL / 빅리그</button>
+                    <div class="league-subtabs">
+                        <button class="subtab-btn" id="subTabTitle">EPL / 빅리그 순위</button>
                     </div>
                     <table class="match-table">
                         <thead>
@@ -116,7 +120,7 @@
                                 <th class="col-pts">승점</th>
                             </tr>
                         </thead>
-                        <tbody id="standingsTableBody"></tbody>
+                        <tbody id="standingsBody"></tbody>
                     </table>
                 </div>
 
@@ -131,7 +135,20 @@
                                 <th class="col-date">경기일시</th>
                             </tr>
                         </thead>
-                        <tbody id="hotMatchTableBody"></tbody>
+                        <tbody id="hotMatchBody">
+                            <tr>
+                                <td class="col-rank">1</td>
+                                <td class="col-team">아스널 vs 맨시티</td>
+                                <td class="col-pref">91%</td>
+                                <td class="col-date">2026-11-10</td>
+                            </tr>
+                            <tr>
+                                <td class="col-rank">2</td>
+                                <td class="col-team">레알 마드리드 vs 바르셀로나</td>
+                                <td class="col-pref">85%</td>
+                                <td class="col-date">2026-11-10</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -139,33 +156,20 @@
     </div>
 
     <script>
-        let globalData = {};
-
-        async function init() {
-            try {
-                const resBanners = await fetch('banners.json?t=' + new Date().getTime());
-                const banners = await resBanners.json();
-                const bContainer = document.getElementById('bannerContainer');
-                bContainer.innerHTML = '';
-                banners.forEach(b => {
-                    bContainer.innerHTML += `
-                        <div class="banner-item">
-                            <a href="${b.linkUrl || '#'}" target="_blank">
-                                ${b.imageUrl ? `<img src="${b.imageUrl}" alt="${b.title}">` : b.title}
-                            </a>
-                        </div>
-                    `;
-                });
-
-                const resData = await fetch('data.json?t=' + new Date().getTime());
-                globalData = await resData.json();
-
-                renderStandings('football');
-                loadHotMatches('football');
-            } catch (err) {
-                console.error(err);
-            }
-        }
-
-        function switchSportCategory(category, e) {
-            document.querySelectorAll('.icon-tab').forEach(btn => btn.classList.remove('
+        const dbData = {
+            football: {
+                title: "EPL / 빅리그 순위",
+                list: [
+                    { rank: 1, team: "아스널", played: 11, win: 8, draw: 2, loss: 1, points: 26 },
+                    { rank: 2, team: "맨시티", played: 11, win: 7, draw: 2, loss: 2, points: 23 },
+                    { rank: 3, team: "리버풀", played: 11, win: 6, draw: 3, loss: 2, points: 21 },
+                    { rank: 4, team: "첼시", played: 11, win: 5, draw: 4, loss: 2, points: 19 },
+                    { rank: 5, team: "토트넘", played: 11, win: 5, draw: 3, loss: 3, points: 18 }
+                ]
+            },
+            baseball: {
+                title: "KBO / MLB 순위",
+                list: [
+                    { rank: 1, team: "[오프시즌] KIA 타이거즈", played: 144, win: 87, draw: 2, loss: 55, points: 0 },
+                    { rank: 2, team: "[오프시즌] 삼성 라이온즈", played: 144, win: 78, draw: 2, loss: 64, points: 0 },
+                    { rank: 3, team: "[오프시즌] LG 트윈스", played:
