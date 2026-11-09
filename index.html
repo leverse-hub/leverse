@@ -75,4 +75,259 @@
 
         .sidebar-header {
             font-size: 1.05rem;
-            font-weight:
+            font-weight: 900;
+            color: var(--gold-primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #2a2a3a;
+            padding-bottom: 12px;
+        }
+
+        .live-tag {
+            background: var(--accent-red);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 12px;
+            animation: pulse-glow 1.2s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 71, 87, 0.5); }
+            100% { transform: scale(1.05); box-shadow: 0 0 15px rgba(255, 71, 87, 0.9); }
+        }
+
+        .match-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .match-card {
+            background: #12121a;
+            border: 1px solid #2d2d3f;
+            border-radius: 10px;
+            padding: 12px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+        .match-card:hover { border-color: var(--gold-primary); }
+        .match-card.is-live { border-left: 4px solid var(--live-green); }
+
+        .league-title {
+            font-size: 0.75rem;
+            color: #8888a0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .status-badge {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .status-badge.live { background: rgba(46, 213, 115, 0.2); color: var(--live-green); border: 1px solid var(--live-green); }
+        .status-badge.upcoming { background: rgba(243, 186, 47, 0.2); color: var(--gold-primary); }
+
+        .scoreboard {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+        }
+
+        .team { font-weight: bold; font-size: 0.95rem; width: 38%; }
+        .team.home { text-align: right; }
+        .team.away { text-align: left; }
+
+        .score-box {
+            background: #000;
+            border: 1px solid #333;
+            color: var(--gold-primary);
+            font-size: 1.1rem;
+            font-weight: 900;
+            padding: 4px 10px;
+            border-radius: 6px;
+            letter-spacing: 2px;
+            min-width: 60px;
+            text-align: center;
+            box-shadow: inset 0 0 8px rgba(243, 186, 47, 0.3);
+        }
+
+        .pick-info {
+            margin-top: 8px;
+            background: rgba(243, 186, 47, 0.08);
+            border-radius: 6px;
+            padding: 6px;
+            text-align: center;
+            font-size: 0.78rem;
+            color: #ffd56b;
+            font-weight: bold;
+        }
+
+        .sidebar-btn {
+            display: block;
+            background: var(--gold-gradient);
+            color: #000;
+            text-align: center;
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: 900;
+            text-decoration: none;
+            font-size: 1.05rem;
+            box-shadow: 0 4px 15px rgba(243, 186, 47, 0.4);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-4px); }
+            60% { transform: translateY(-2px); }
+        }
+
+        .seo-keywords { background: #14141c; border: 1px solid #2a2a3a; padding: 18px; border-radius: 8px; color: var(--text-dim); font-size: 0.85rem; margin-top: 25px; grid-column: 1 / -1; }
+        footer { text-align: center; color: var(--text-dim); font-size: 0.85rem; margin-top: 30px; border-top: 1px solid #2a2a3a; padding-top: 20px; grid-column: 1 / -1; }
+    </style>
+    <script>
+        // 자정 기준 자동 날짜 갱신
+        function updateDate() {
+            const now = new Date();
+            const month = now.getMonth() + 1;
+            const date = now.getDate();
+            const days = ['일', '월', '화', '수', '목', '금', '토'];
+            const dayName = days[now.getDay()];
+            document.getElementById('current-date').innerText = `${month}월 ${date}일 (${dayName})`;
+        }
+        window.onload = updateDate;
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="logo">👑 LEVERSE OFFICIAL</div>
+        <a href="https://t.me/LEVERSE_1" class="btn-header" target="_blank">배너 광고 문의</a>
+    </header>
+
+    <div class="container">
+        
+        <main>
+            <div class="hero-banner">
+                <span class="hero-badge">레버스 공식 메인 제휴</span>
+                <h1 class="hero-title">LEVERSE 3 USDT 즉시 지급 이벤트</h1>
+                <p class="hero-desc">텔레그램 공식 커뮤니티 채널 입장 후 즉시 혜택을 챙겨가세요!<br>(첫 이용 시 10+10 추가 혜택 적용)</p>
+                <a href="https://t.me/leverse_chat" class="btn-main" target="_blank">👉 공식 텔레그램 채널 입장하기</a>
+            </div>
+
+            <div class="section-title">PREMIUM PARTNER BANNERS</div>
+
+            <div class="banner-grid">
+                <!-- 1번 배너 -->
+                <a href="https://t.me/leverse_chat" class="banner-card" target="_blank">
+                    <div>
+                        <div class="card-tag">MAIN BANNER</div>
+                        <div class="card-title">🎁 레버스 3 USDT 즉시 지급</div>
+                        <div class="card-sub">텔레그램 자유홍보방 및 꽁머니/이벤트 전문 채널</div>
+                    </div>
+                    <div class="card-btn">채널 바로가기</div>
+                </a>
+
+                <!-- 2번 배너 -->
+                <a href="https://t.me/LEVERSE_1" class="banner-card" target="_blank">
+                    <div>
+                        <div class="card-tag" style="color:#ff4757;">ADVERTISING</div>
+                        <div class="card-title">📢 배너 입점 광고주 모집 (선착순)</div>
+                        <div class="card-sub">카지노 / 바카라 / 홀덤 / 스포츠픽 / 꽁머니 입점 문의 (@LEVERSE_1)</div>
+                    </div>
+                    <div class="card-btn">광고 문의하기</div>
+                </a>
+
+                <!-- 3번 배너 -->
+                <a href="https://t.me/LEVERSE_1" class="banner-card" target="_blank">
+                    <div>
+                        <div class="card-tag" style="color:#ff4757;">ADVERTISING</div>
+                        <div class="card-title">📢 배너 입점 광고주 모집</div>
+                        <div class="card-sub">구글 상위 노출 프리미엄 배너 구역 (@LEVERSE_1)</div>
+                    </div>
+                    <div class="card-btn">광고 문의하기</div>
+                </a>
+            </div>
+        </main>
+
+        <!-- 🔥 초화려한 실시간 라이브스코어 전광판 사이드바 -->
+        <aside class="sidebar-box">
+            <div class="sidebar-header">
+                <span>⚽ <span id="current-date">오늘</span> 라이브 스코어</span>
+                <span class="live-tag">LIVE</span>
+            </div>
+            
+            <div class="match-list">
+                <!-- 경기 1: 해외축구 (실시간) -->
+                <div class="match-card is-live">
+                    <div class="league-title">
+                        <span>🏴󠁧󠁢󠁥󠁮󠁧󠁿 챔피언스리그</span>
+                        <span class="status-badge live">후반 74분</span>
+                    </div>
+                    <div class="scoreboard">
+                        <div class="team home">맨체스터C</div>
+                        <div class="score-box">2 - 1</div>
+                        <div class="team away">레알마드리드</div>
+                    </div>
+                    <div class="pick-info">🔥 [실시간 픽] 맨시티 승 / 2.5 오버 진행 중</div>
+                </div>
+
+                <!-- 경기 2: NBA 농구 (실시간) -->
+                <div class="match-card is-live">
+                    <div class="league-title">
+                        <span>🏀 NBA 미국프로농구</span>
+                        <span class="status-badge live">3쿼터 진행</span>
+                    </div>
+                    <div class="scoreboard">
+                        <div class="team home">LA 레이커스</div>
+                        <div class="score-box">82 - 79</div>
+                        <div class="team away">골든스테이트</div>
+                    </div>
+                    <div class="pick-info">⚡ [쿼터 픽] 레이커스 플핸 집중 공유 중</div>
+                </div>
+
+                <!-- 경기 3: 야구/빅매치 (예정) -->
+                <div class="match-card">
+                    <div class="league-title">
+                        <span>⚾ 프로야구 / MLB</span>
+                        <span class="status-badge upcoming">오늘 23:00</span>
+                    </div>
+                    <div class="scoreboard">
+                        <div class="team home">LA 다저스</div>
+                        <div class="score-box">VS</div>
+                        <div class="team away">NY 양키스</div>
+                    </div>
+                    <div class="pick-info">🎯 선발투수 분석 및 고배당 조합 완료</div>
+                </div>
+            </div>
+
+            <a href="https://t.me/leverse_chat" class="sidebar-btn" target="_blank">
+                🔥 VIP 실시간 조합픽 즉시 받기
+            </a>
+        </aside>
+
+        <div class="seo-keywords">
+            <strong>LEVERSE 배너 센터 키워드 안내:</strong><br>
+            본 사이트는 카지노, 바카라, 홀덤, 라이브스코어, 스포츠픽 분석, 꽁머니 및 다양한 이벤트를 공유하는 메인 혜택 포털입니다. 텔레그램 채널(@leverse_chat)을 통해 최신 혜택과 스포츠 픽을 실시간으로 안내받으실 수 있으며, 배너 입점 제휴 문의는 텔레그램 @LEVERSE_1 로 남겨주시면 됩니다.
+        </div>
+
+        <footer>
+            © LEVERSE BANNER HUB. All rights reserved.
+        </footer>
+
+    </div>
+
+</body>
+</html>
