@@ -1,7 +1,8 @@
 const fs = require('fs');
 
-const liveData = {
-  epl: [
+// 전 종목 실시간 팀 순위 데이터 구조 (축구, 야구, 농구, 하키, 미식축구)
+const sportsData = {
+  football: [
     { rank: 1, team: "아스널", g: 11, w: 9, d: 1, l: 1, pts: 28 },
     { rank: 2, team: "맨시티", g: 11, w: 8, d: 1, l: 2, pts: 25 },
     { rank: 3, team: "리버풀", g: 11, w: 7, d: 3, l: 1, pts: 24 },
@@ -13,79 +14,35 @@ const liveData = {
     { rank: 9, team: "본머스", g: 11, w: 4, d: 3, l: 4, pts: 15 },
     { rank: 10, team: "맨유", g: 11, w: 3, d: 3, l: 5, pts: 12 }
   ],
-  bundesliga: [
-    { rank: 1, team: "바이에른 뮌헨", g: 10, w: 8, d: 2, l: 0, pts: 26 },
-    { rank: 2, team: "RB 라이프치히", g: 10, w: 6, d: 3, l: 1, pts: 21 },
-    { rank: 3, team: "레버쿠젠", g: 10, w: 5, d: 4, l: 1, pts: 19 },
-    { rank: 4, team: "프라이부르크", g: 10, w: 6, d: 0, l: 4, pts: 18 },
-    { rank: 5, team: "프랑크푸르트", g: 10, w: 5, d: 2, l: 3, pts: 17 },
-    { rank: 6, team: "도르트문트", g: 10, w: 5, d: 1, l: 4, pts: 16 },
-    { rank: 7, team: "우니온 베를린", g: 10, w: 4, d: 3, l: 3, pts: 15 },
-    { rank: 8, team: "슈투트가르트", g: 10, w: 3, d: 4, l: 3, pts: 13 },
-    { rank: 9, team: "마인츠", g: 10, w: 3, d: 4, l: 3, pts: 13 },
-    { rank: 10, team: "베르더 브레멘", g: 10, w: 4, d: 1, l: 5, pts: 13 }
-  ],
-  laliga: [
-    { rank: 1, team: "바르셀로나", g: 12, w: 11, d: 0, l: 1, pts: 33 },
-    { rank: 2, team: "레알 마드리드", g: 11, w: 7, d: 3, l: 1, pts: 24 },
-    { rank: 3, team: "비야레알", g: 11, w: 6, d: 3, l: 2, pts: 21 },
-    { rank: 4, team: "아틀레티코 마드리드", g: 12, w: 6, d: 5, l: 1, pts: 23 },
-    { rank: 5, team: "오사수나", g: 11, w: 5, d: 3, l: 3, pts: 18 },
-    { rank: 6, team: "아틀레틱 빌바오", g: 11, w: 5, d: 3, l: 3, pts: 18 },
-    { rank: 7, team: "레알 베티스", g: 11, w: 5, d: 3, l: 3, pts: 18 },
-    { rank: 8, team: "레알 소시에다드", g: 11, w: 4, d: 3, l: 4, pts: 15 },
-    { rank: 9, team: "마요르카", g: 11, w: 5, d: 3, l: 3, pts: 18 },
-    { rank: 10, team: "라요 바예카노", g: 11, w: 4, d: 4, l: 3, pts: 16 }
-  ],
-  seriea: [
-    { rank: 1, team: "나폴리", g: 11, w: 8, d: 2, l: 1, pts: 26 },
-    { rank: 2, team: "인테르", g: 11, w: 7, d: 3, l: 1, pts: 24 },
-    { rank: 3, team: "아탈란타", g: 11, w: 7, d: 1, l: 3, pts: 22 },
-    { rank: 4, team: "피오렌티나", g: 11, w: 6, d: 4, l: 1, pts: 22 },
-    { rank: 5, team: "라치오", g: 10, w: 6, d: 1, l: 3, pts: 19 },
-    { rank: 6, team: "유벤투스", g: 10, w: 4, d: 6, l: 0, pts: 18 },
-    { rank: 7, team: "밀란", g: 9, w: 5, d: 2, l: 2, pts: 17 },
-    { rank: 8, team: "우디네세", g: 10, w: 5, d: 1, l: 4, pts: 16 },
-    { rank: 9, team: "토리노", g: 10, w: 4, d: 2, l: 4, pts: 14 },
-    { rank: 10, team: "엠폴리", g: 10, w: 3, d: 5, l: 2, pts: 14 }
-  ],
-  kleague: [
-    { rank: 1, team: "울산 HD", g: 38, w: 21, d: 9, l: 8, pts: 72 },
-    { rank: 2, team: "강원 FC", g: 38, w: 19, d: 7, l: 12, pts: 64 },
-    { rank: 3, team: "김천 상무", g: 38, w: 17, d: 10, l: 11, pts: 61 },
-    { rank: 4, team: "포항 스틸러스", g: 38, w: 14, d: 12, l: 12, pts: 54 },
-    { rank: 5, team: "FC 서울", g: 38, w: 15, d: 12, l: 11, pts: 57 },
-    { rank: 6, team: "수원 FC", g: 38, w: 15, d: 6, l: 17, pts: 51 },
-    { rank: 7, team: "제주 유나이티드", g: 38, w: 15, d: 4, l: 19, pts: 49 },
-    { rank: 8, team: "광주 FC", g: 38, w: 13, d: 5, l: 20, pts: 44 },
-    { rank: 9, team: "대구 FC", g: 38, w: 10, d: 10, l: 18, pts: 40 },
-    { rank: 10, team: "전북 현대", g: 38, w: 10, d: 11, l: 17, pts: 41 }
-  ],
   baseball: [
-    { rank: 1, team: "KIA 타이거즈", g: 144, w: 87, d: 2, l: 55, pts: "0.613" },
-    { rank: 2, team: "삼성 라이온즈", g: 144, w: 78, d: 2, l: 64, pts: "0.549" },
-    { rank: 3, team: "LG 트윈스", g: 144, w: 76, d: 2, l: 66, pts: "0.535" },
-    { rank: 4, team: "두산 베어스", g: 144, w: 74, d: 2, l: 68, pts: "0.521" },
-    { rank: 5, team: "KT 위즈", g: 144, w: 72, d: 2, l: 70, pts: "0.507" },
-    { rank: 6, team: "SSG 랜더스", g: 144, w: 72, d: 2, l: 70, pts: "0.507" },
-    { rank: 7, team: "롯데 자이언츠", g: 144, w: 66, d: 4, l: 74, pts: "0.471" },
-    { rank: 8, team: "한화 이글스", g: 144, w: 66, d: 2, l: 76, pts: "0.465" },
-    { rank: 9, team: "NC 다이노스", g: 144, w: 61, d: 2, l: 81, pts: "0.430" },
-    { rank: 10, team: "키움 히어로즈", g: 144, w: 58, d: 0, l: 86, pts: "0.403" }
+    { rank: 1, team: "LG", g: 10, w: 7, d: 0, l: 3, pts: 21 },
+    { rank: 2, team: "KT", g: 10, w: 6, d: 1, l: 3, pts: 19 },
+    { rank: 3, team: "SSG", g: 10, w: 6, d: 0, l: 4, pts: 18 },
+    { rank: 4, team: "NC", g: 10, w: 5, d: 1, l: 4, pts: 16 },
+    { rank: 5, team: "두산", g: 10, w: 5, d: 0, l: 5, pts: 15 }
   ],
   basketball: [
-    { rank: 1, team: "보스턴 셀틱스 (NBA)", g: 12, w: 10, d: 0, l: 2, pts: "0.833" },
-    { rank: 2, team: "클리블랜드 (NBA)", g: 12, w: 12, d: 0, l: 0, pts: "1.000" },
-    { rank: 3, team: "오클라호마시티 (NBA)", g: 11, w: 9, d: 0, l: 2, pts: "0.818" },
-    { rank: 4, team: "골든스테이트 (NBA)", g: 11, w: 9, d: 0, l: 2, pts: "0.818" },
-    { rank: 5, team: "피닉스 선즈 (NBA)", g: 11, w: 8, d: 0, l: 3, pts: "0.727" },
-    { rank: 6, team: "DB 프로미 (KBL)", g: 54, w: 41, d: 0, l: 13, pts: "0.759" },
-    { rank: 7, team: "LG 세이커스 (KBL)", g: 54, w: 36, d: 0, l: 18, pts: "0.667" },
-    { rank: 8, team: "KT 소닉붐 (KBL)", g: 54, w: 33, d: 0, l: 21, pts: "0.611" },
-    { rank: 9, team: "SK 나이츠 (KBL)", g: 54, w: 31, d: 0, l: 23, pts: "0.574" },
-    { rank: 10, team: "KCC 이지스 (KBL)", g: 54, w: 30, d: 0, l: 24, pts: "0.556" }
+    { rank: 1, team: "댈러스", g: 10, w: 8, d: 0, l: 2, pts: 24 },
+    { rank: 2, team: "필라델피아", g: 10, w: 7, d: 0, l: 3, pts: 21 },
+    { rank: 3, team: "클리블랜드", g: 10, w: 7, d: 0, l: 3, pts: 21 },
+    { rank: 4, team: "토론토", g: 10, w: 6, d: 0, l: 4, pts: 18 },
+    { rank: 5, team: "샌안토니오", g: 10, w: 5, d: 0, l: 5, pts: 15 }
+  ],
+  hockey: [
+    { rank: 1, team: "보스턴", g: 18, w: 13, d: 0, l: 4, pts: 27 },
+    { rank: 2, team: "몬트리올", g: 17, w: 11, d: 0, l: 3, pts: 25 },
+    { rank: 3, team: "탬파베이", g: 17, w: 11, d: 0, l: 4, pts: 24 },
+    { rank: 4, team: "오타와", g: 18, w: 11, d: 0, l: 6, pts: 23 },
+    { rank: 5, team: "플로리다", g: 18, w: 9, d: 0, l: 7, pts: 20 }
+  ],
+  american_football: [
+    { rank: 1, team: "캔자스시티", g: 10, w: 9, d: 0, l: 1, pts: 27 },
+    { rank: 2, team: "필라델피아", g: 10, w: 8, d: 0, l: 2, pts: 24 },
+    { rank: 3, team: "디트로이트", g: 10, w: 8, d: 0, l: 2, pts: 24 },
+    { rank: 4, team: "볼티모어", g: 10, w: 7, d: 0, l: 3, pts: 21 },
+    { rank: 5, team: "버펄로", g: 10, w: 7, d: 0, l: 3, pts: 21 }
   ]
 };
 
-fs.writeFileSync('data.json', JSON.stringify(liveData, null, 2));
-console.log('data.json generated successfully.');
+fs.writeFileSync('data.json', JSON.stringify(sportsData, null, 2));
+console.log('All sports data (including hockey & american football) updated successfully!');
