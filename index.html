@@ -55,7 +55,7 @@
             box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
         }
 
-        /* 메인 타이틀 섹션 (참고 이미지 스타일 반영) */
+        /* 메인 타이틀 섹션 */
         .hero-section { text-align: center; margin: 20px 0 45px; }
         .hero-category { 
             color: #d4af37; 
@@ -84,7 +84,7 @@
         .section-title { font-size: 14px; color: #ffd700; font-weight: bold; display: flex; align-items: center; gap: 6px; }
         .section-desc { font-size: 12px; color: #7f8c8d; }
 
-        /* 큼직하고 고급스러운 배너 그리드 (참고 이미지 비율 반영) */
+        /* 배너 그리드 */
         .banner-grid { 
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
@@ -179,10 +179,10 @@
         <!-- 상단 헤더 -->
         <div class="header">
             <div class="logo">👑 LEVERSE OFFICIAL</div>
-            <a href="https://t.me/LEVERSE_1" target="_blank" class="btn-ad-top">배너 광고 문의</a>
+            <a href="https://t.me/leverse_chat" target="_blank" class="btn-ad-top">배너 광고 문의</a>
         </div>
 
-        <!-- 메인 타이틀 (참고 이미지 스타일) -->
+        <!-- 메인 타이틀 -->
         <div class="hero-section">
             <div class="hero-category">PREMIUM PARTNER BANNER</div>
             <div class="hero-title">실시간 글로벌 파트너 & 배너 안내</div>
@@ -194,20 +194,9 @@
             <div class="section-desc">배너는 안전하고 공정하게 노출됩니다.</div>
         </div>
 
-        <!-- 배너 슬롯 그리드 (클릭시 LEVERSE_1로 연결) -->
-        <div class="banner-grid">
-            <div class="banner-slot">
-                <a href="https://t.me/LEVERSE_1" target="_blank">
-                    광고주 1번 배너 (등록 문의)
-                    <span>클릭하여 텔레그램으로 입점을 문의하세요</span>
-                </a>
-            </div>
-            <div class="banner-slot">
-                <a href="https://t.me/LEVERSE_1" target="_blank">
-                    광고주 2번 배너 (등록 문의)
-                    <span>클릭하여 텔레그램으로 입점을 문의하세요</span>
-                </a>
-            </div>
+        <!-- 배너 슬롯 그리드 (banners.json 연동 영역) -->
+        <div class="banner-grid" id="bannerGrid">
+            <!-- 자바스크립트로 동적 로드됨 -->
         </div>
 
         <!-- 광고주 모집 안내 박스 -->
@@ -216,7 +205,7 @@
                 <h4>배너 광고주 모집</h4>
                 <p>권장 이미지 크기는 1200 x 320px입니다. 다른 비율의 이미지도 자동으로 맞춰지며, PC와 모바일 모두 한 줄에 2개씩 노출됩니다.</p>
             </div>
-            <a href="https://t.me/LEVERSE_1" target="_blank" class="btn-apply">배너 광고 문의 →</a>
+            <a href="https://t.me/leverse_chat" target="_blank" class="btn-apply">배너 광고 문의 →</a>
         </div>
 
         <!-- 하단 법적 고지 및 안내 -->
@@ -225,5 +214,37 @@
             © 2026 LEVERSE OFFICIAL. All rights reserved.
         </div>
     </div>
+
+    <script>
+        // banners.json 데이터를 불러와서 화면에 렌더링
+        fetch('banners.json')
+            .then(response => response.json())
+            .then(banners => {
+                const grid = document.getElementById('bannerGrid');
+                grid.innerHTML = '';
+                
+                if (banners.length === 0) {
+                    grid.innerHTML = '<div style="grid-column: span 2; text-align:center; padding:40px; color:#8a99ad;">등록된 배너가 없습니다.</div>';
+                    return;
+                }
+
+                banners.forEach(banner => {
+                    const slot = document.createElement('div');
+                    slot.className = 'banner-slot';
+                    
+                    slot.innerHTML = `
+                        <a href="${banner.linkUrl}" target="_blank">
+                            <img src="${banner.imageUrl}" alt="${banner.title}">
+                        </a>
+                    `;
+                    grid.appendChild(slot);
+                });
+            })
+            .catch(error => {
+                console.Error('배너를 불러오는 중 오류가 발생했습니다:', error);
+            });
+    </script>
+</body>
+</html>
 </body>
 </html>
