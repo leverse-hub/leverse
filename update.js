@@ -1,48 +1,48 @@
 const fs = require('fs');
 
-// 전 종목 실시간 팀 순위 데이터 구조 (축구, 야구, 농구, 하키, 미식축구)
-const sportsData = {
-  football: [
-    { rank: 1, team: "아스널", g: 11, w: 9, d: 1, l: 1, pts: 28 },
-    { rank: 2, team: "맨시티", g: 11, w: 8, d: 1, l: 2, pts: 25 },
-    { rank: 3, team: "리버풀", g: 11, w: 7, d: 3, l: 1, pts: 24 },
-    { rank: 4, team: "첼시", g: 11, w: 5, d: 3, l: 3, pts: 18 },
-    { rank: 5, team: "아스톤 빌라", g: 11, w: 5, d: 2, l: 4, pts: 17 },
-    { rank: 6, team: "토트넘", g: 11, w: 5, d: 1, l: 5, pts: 16 },
-    { rank: 7, team: "뉴캐슬", g: 11, w: 4, d: 4, l: 3, pts: 16 },
-    { rank: 8, team: "브라이튼", g: 11, w: 4, d: 3, l: 4, pts: 15 },
-    { rank: 9, team: "본머스", g: 11, w: 4, d: 3, l: 4, pts: 15 },
-    { rank: 10, team: "맨유", g: 11, w: 3, d: 3, l: 5, pts: 12 }
+// 실시간 전세계 인기 경기 순위 데이터 (선호도 %, 경기일시)
+const trendingMatches = {
+  basketball: [
+    { rank: 1, team: "댈러스", preference: "75%", matchDate: "2026-11-10" },
+    { rank: 2, team: "필라델피아", preference: "69%", matchDate: "2026-11-11" },
+    { rank: 3, team: "샌안토니오", preference: "69%", matchDate: "2026-11-10" },
+    { rank: 4, team: "클리블랜드", preference: "69%", matchDate: "2026-11-10" },
+    { rank: 5, team: "토론토", preference: "69%", matchDate: "2026-11-10" },
+    { rank: 6, team: "골든스테이트", preference: "68%", matchDate: "2026-11-10" },
+    { rank: 7, team: "필라델피아", preference: "67%", matchDate: "2026-11-26" },
+    { rank: 8, team: "디트로이트", preference: "65%", matchDate: "2026-11-10" },
+    { rank: 9, team: "뉴욕", preference: "63%", matchDate: "2026-11-14" },
+    { rank: 10, team: "LA레이커스", preference: "62%", matchDate: "2026-11-10" }
   ],
   baseball: [
-    { rank: 1, team: "LG", g: 10, w: 7, d: 0, l: 3, pts: 21 },
-    { rank: 2, team: "KT", g: 10, w: 6, d: 1, l: 3, pts: 19 },
-    { rank: 3, team: "SSG", g: 10, w: 6, d: 0, l: 4, pts: 18 },
-    { rank: 4, team: "NC", g: 10, w: 5, d: 1, l: 4, pts: 16 },
-    { rank: 5, team: "두산", g: 10, w: 5, d: 0, l: 5, pts: 15 }
+    { rank: 1, team: "LG 트윈스", preference: "82%", matchDate: "2026-11-10" },
+    { rank: 2, team: "KT 위즈", preference: "75%", matchDate: "2026-11-10" },
+    { rank: 3, team: "SSG 랜더스", preference: "71%", matchDate: "2026-11-11" },
+    { rank: 4, team: "NC 다이노스", preference: "66%", matchDate: "2026-11-12" },
+    { rank: 5, team: "두산 베어스", preference: "60%", matchDate: "2026-11-10" }
   ],
-  basketball: [
-    { rank: 1, team: "댈러스", g: 10, w: 8, d: 0, l: 2, pts: 24 },
-    { rank: 2, team: "필라델피아", g: 10, w: 7, d: 0, l: 3, pts: 21 },
-    { rank: 3, team: "클리블랜드", g: 10, w: 7, d: 0, l: 3, pts: 21 },
-    { rank: 4, team: "토론토", g: 10, w: 6, d: 0, l: 4, pts: 18 },
-    { rank: 5, team: "샌안토니오", g: 10, w: 5, d: 0, l: 5, pts: 15 }
+  volleyball: [
+    { rank: 1, team: "대한항공", preference: "79%", matchDate: "2026-11-10" },
+    { rank: 2, team: "현대캐피탈", preference: "73%", matchDate: "2026-11-11" },
+    { rank: 3, team: "OK금융그룹", preference: "68%", matchDate: "2026-11-10" }
   ],
   hockey: [
-    { rank: 1, team: "보스턴", g: 18, w: 13, d: 0, l: 4, pts: 27 },
-    { rank: 2, team: "몬트리올", g: 17, w: 11, d: 0, l: 3, pts: 25 },
-    { rank: 3, team: "탬파베이", g: 17, w: 11, d: 0, l: 4, pts: 24 },
-    { rank: 4, team: "오타와", g: 18, w: 11, d: 0, l: 6, pts: 23 },
-    { rank: 5, team: "플로리다", g: 18, w: 9, d: 0, l: 7, pts: 20 }
+    { rank: 1, team: "보스턴 브루인스", preference: "84%", matchDate: "2026-11-10" },
+    { rank: 2, team: "몬트리올 가나디앵", preference: "77%", matchDate: "2026-11-11" },
+    { rank: 3, team: "탬파베이 라이트닝", preference: "70%", matchDate: "2026-11-12" }
+  ],
+  football: [
+    { rank: 1, team: "아스널", preference: "88%", matchDate: "2026-11-10" },
+    { rank: 2, team: "맨시티", preference: "85%", matchDate: "2026-11-10" },
+    { rank: 3, team: "리버풀", preference: "79%", matchDate: "2026-11-11" },
+    { rank: 4, team: "첼시", preference: "72%", matchDate: "2026-11-12" }
   ],
   american_football: [
-    { rank: 1, team: "캔자스시티", g: 10, w: 9, d: 0, l: 1, pts: 27 },
-    { rank: 2, team: "필라델피아", g: 10, w: 8, d: 0, l: 2, pts: 24 },
-    { rank: 3, team: "디트로이트", g: 10, w: 8, d: 0, l: 2, pts: 24 },
-    { rank: 4, team: "볼티모어", g: 10, w: 7, d: 0, l: 3, pts: 21 },
-    { rank: 5, team: "버펄로", g: 10, w: 7, d: 0, l: 3, pts: 21 }
+    { rank: 1, team: "캔자스시티 치프스", preference: "86%", matchDate: "2026-11-10" },
+    { rank: 2, team: "필라델피아 이글스", preference: "80%", matchDate: "2026-11-11" },
+    { rank: 3, team: "디트로이트 라이온스", preference: "74%", matchDate: "2026-11-10" }
   ]
 };
 
-fs.writeFileSync('data.json', JSON.stringify(sportsData, null, 2));
-console.log('All sports data (including hockey & american football) updated successfully!');
+fs.writeFileSync('data.json', JSON.stringify(trendingMatches, null, 2));
+console.log('Trending sports match data updated successfully!');
