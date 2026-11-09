@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEVERSE OFFICIAL</title>
+    <title>LEVERSE OFFICIAL - 실시간 경기 순위</title>
     <style>
         * { box-sizing: border-box; }
         body { background-color: #0b0e14; color: #fff; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; margin: 0; padding: 20px; }
         .container { max-width: 1280px; margin: 0 auto; }
         
+        /* 상단 헤더 */
         .header { display: flex; justify-content: space-between; align-items: center; background: #161b22; padding: 15px 25px; border-radius: 8px; border: 1px solid #30363d; margin-bottom: 25px; }
         .logo { color: #f0b90b; font-weight: bold; font-size: 20px; }
-        .btn-ad { background: #f0b90b; color: #000; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; }
+        .btn-ad { background: #f0b90b; color: #000; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; transition: 0.2s; }
+        .btn-ad:hover { opacity: 0.85; }
         
         .main-layout { display: flex; gap: 24px; align-items: flex-start; }
         .banner-section { flex: 2; min-width: 0; }
@@ -19,30 +21,34 @@
 
         .section-title { font-size: 15px; color: #f0b90b; letter-spacing: 1px; margin-bottom: 12px; font-weight: bold; }
         
-        /* 프리미엄 배너 그리드 */
+        /* 프리미엄 배너 영역 */
         .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 25px; }
         .banner-item { background: #161b22; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; min-height: 140px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s, border-color 0.2s; }
         .banner-item:hover { transform: translateY(-3px); border-color: #f0b90b; }
         .banner-item a { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #f0b90b; font-weight: bold; font-size: 16px; text-align: center; padding: 20px; }
         .banner-item img { width: 100%; height: auto; display: block; }
 
-        /* 실시간 경기 순위 위젯 */
-        .widget-card { background: #ffffff; color: #333333; border-radius: 6px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
-        .widget-header { background: #002b66; color: #ffffff; text-align: center; padding: 14px 10px; font-size: 16px; font-weight: bold; }
+        /* 라이브스코어 스타일 순위 위젯 */
+        .widget-card { background: #161b22; color: #ffffff; border-radius: 8px; overflow: hidden; border: 1px solid #30363d; box-shadow: 0 6px 16px rgba(0,0,0,0.6); }
+        .widget-header { background: #002b66; color: #ffffff; text-align: center; padding: 14px 10px; font-size: 16px; font-weight: bold; letter-spacing: 0.5px; }
         
-        .sport-tabs { display: flex; justify-content: space-around; align-items: center; border-bottom: 1px solid #e1e4e8; background: #fafbfc; padding: 8px 4px; }
-        .tab-btn { background: none; border: none; outline: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 12px; color: #586069; padding: 6px 8px; border-bottom: 3px solid transparent; font-weight: bold; }
-        .tab-btn .icon { font-size: 18px; }
-        .tab-btn.active { color: #002b66; border-bottom: 3px solid #002b66; }
-        
+        /* 종목 아이콘 탭 */
+        .sport-tabs { display: flex; justify-content: space-around; align-items: center; border-bottom: 1px solid #30363d; background: #0d1117; padding: 10px 4px; }
+        .tab-btn { background: none; border: none; outline: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 12px; color: #8b949e; padding: 6px 8px; border-bottom: 3px solid transparent; font-weight: bold; transition: 0.2s; }
+        .tab-btn .icon { font-size: 20px; }
+        .tab-btn.active { color: #f0b90b; border-bottom: 3px solid #f0b90b; }
+        .tab-btn:hover { color: #ffffff; }
+
+        /* 순위 표 디자인 */
         .match-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        .match-table th { border-bottom: 1px solid #e1e4e8; color: #586069; padding: 12px 8px; text-align: center; font-weight: bold; background: #fff; }
-        .match-table td { padding: 12px 8px; border-bottom: 1px solid #f1f3f5; color: #333; }
+        .match-table th { border-bottom: 1px solid #30363d; color: #8b949e; padding: 11px 8px; text-align: center; font-weight: bold; background: #161b22; }
+        .match-table td { padding: 11px 8px; border-bottom: 1px solid #21262d; color: #e6edf3; }
+        .match-table tr:hover { background-color: #1f242d; }
         
-        .col-rank { text-align: center; font-weight: bold; width: 45px; }
-        .col-team { font-weight: bold; color: #0a2540; text-align: left; }
-        .col-pref { text-align: center; font-weight: bold; color: #002b66; width: 75px; }
-        .col-date { text-align: center; font-weight: bold; color: #002b66; width: 95px; }
+        .col-rank { text-align: center; font-weight: bold; color: #f0b90b; width: 45px; }
+        .col-team { font-weight: bold; color: #ffffff; text-align: left; }
+        .col-pref { text-align: center; font-weight: bold; color: #f0b90b; width: 75px; }
+        .col-date { text-align: center; font-weight: bold; color: #58a6ff; width: 95px; }
 
         @media (max-width: 900px) {
             .main-layout { flex-direction: column; }
@@ -105,8 +111,8 @@
                 banners.forEach(b => {
                     container.innerHTML += `
                         <div class="banner-item">
-                            <a href="${b.linkUrl}" target="_blank">
-                                ${b.imageUrl.startsWith('http') ? `<img src="${b.imageUrl}" alt="${b.title}">` : b.title}
+                            <a href="${b.linkUrl || '#'}" target="_blank">
+                                ${b.imageUrl && b.imageUrl.startsWith('http') ? `<img src="${b.imageUrl}" alt="${b.title || ''}">` : (b.title || 'LEVERSE BANNER')}
                             </a>
                         </div>
                     `;
@@ -144,8 +150,8 @@
                 tbody.innerHTML += `<tr>
                     <td class="col-rank">${item.rank}</td>
                     <td class="col-team">${item.team}</td>
-                    <td class="col-pref">${item.preference || '70%'}</td>
-                    <td class="col-date">${item.matchDate || '2026-11-10'}</td>
+                    <td class="col-pref">${item.preference}</td>
+                    <td class="col-date">${item.matchDate}</td>
                 </tr>`;
             });
         }
