@@ -14,7 +14,6 @@
             --text-color: #ffffff;
             --text-dim: #a0a0b0;
             --accent-red: #ff4757;
-            --live-green: #2ed573;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Pretendard', -apple-system, sans-serif; }
@@ -33,7 +32,7 @@
             margin: 0 auto;
             padding: 20px;
             display: grid;
-            grid-template-columns: 1fr 350px;
+            grid-template-columns: 1fr 360px;
             gap: 20px;
         }
 
@@ -63,119 +62,108 @@
         .card-sub { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 12px; }
         .card-btn { background: #2a2a3a; text-align: center; padding: 8px; border-radius: 6px; font-size: 0.85rem; font-weight: bold; color: var(--gold-primary); }
 
-        /* 라이브스코어 전광판 사이드바 CSS */
-        .sidebar-box {
-            background: linear-gradient(180deg, #181824 0%, #101018 100%);
-            border: 2px solid #333348;
-            border-radius: 14px;
-            padding: 18px;
-            height: fit-content;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-        }
-
-        .sidebar-header {
-            font-size: 1.05rem;
-            font-weight: 900;
-            color: var(--gold-primary);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 2px solid #2a2a3a;
-            padding-bottom: 12px;
-        }
-
-        .live-tag {
-            background: var(--accent-red);
-            color: white;
-            font-size: 0.75rem;
-            font-weight: bold;
-            padding: 3px 10px;
+        /* 🏆 종목별 팀순위 위젯 스타일 */
+        .rank-widget {
+            background: #14141c;
+            border: 1px solid #2a2a3a;
             border-radius: 12px;
-            animation: pulse-glow 1.2s infinite alternate;
+            padding: 16px;
+            height: fit-content;
         }
 
-        @keyframes pulse-glow {
-            0% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 71, 87, 0.5); }
-            100% { transform: scale(1.05); box-shadow: 0 0 15px rgba(255, 71, 87, 0.9); }
-        }
-
-        .match-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 18px;
-        }
-
-        .match-card {
-            background: #12121a;
-            border: 1px solid #2d2d3f;
-            border-radius: 10px;
-            padding: 12px;
-        }
-        .match-card.is-live { border-left: 4px solid var(--live-green); }
-
-        .league-title {
-            font-size: 0.75rem;
-            color: #8888a0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .status-badge {
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-        .status-badge.live { background: rgba(46, 213, 115, 0.2); color: var(--live-green); border: 1px solid var(--live-green); }
-        .status-badge.upcoming { background: rgba(243, 186, 47, 0.2); color: var(--gold-primary); }
-
-        .scoreboard {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            align-items: center;
-            gap: 8px;
-            padding: 4px 0;
+        .widget-title {
             text-align: center;
-        }
-
-        .team {
+            font-size: 1.05rem;
             font-weight: bold;
-            font-size: 0.85rem;
-            color: #ffffff;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .team.home { text-align: right; }
-        .team.away { text-align: left; }
-
-        .score-box {
-            background: #000;
-            border: 1px solid var(--gold-primary);
             color: var(--gold-primary);
-            font-size: 0.95rem;
-            font-weight: 900;
-            padding: 4px 8px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #2a2a3a;
+            margin-bottom: 12px;
+        }
+
+        /* 종목 탭 (축구, 야구, 농구) */
+        .sport-tabs {
+            display: flex;
+            justify-content: space-around;
+            background: #1e1e2d;
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 10px;
+        }
+
+        .sport-btn {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
             border-radius: 6px;
+            transition: 0.2s;
+        }
+
+        .sport-btn.active {
+            background: var(--gold-primary);
+            color: #000;
+        }
+
+        /* 리그 서브 탭 (EPL, 라리가 등) */
+        .league-tabs {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+            font-size: 0.78rem;
+        }
+        .league-tabs::-webkit-scrollbar { height: 3px; }
+        .league-tabs::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+        .league-btn {
+            background: #1a1a24;
+            border: 1px solid #2a2a3a;
+            color: #aaa;
+            padding: 3px 8px;
+            border-radius: 4px;
             white-space: nowrap;
-            min-width: 65px;
+            cursor: pointer;
+        }
+        .league-btn.active {
+            border-color: var(--gold-primary);
+            color: var(--gold-primary);
+            font-weight: bold;
+        }
+
+        /* 팀순위 테이블 디자인 */
+        .rank-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
             text-align: center;
         }
 
-        .pick-info {
-            margin-top: 10px;
-            background: rgba(243, 186, 47, 0.08);
-            border-radius: 6px;
-            padding: 6px;
-            text-align: center;
-            font-size: 0.75rem;
-            color: #ffd56b;
+        .rank-table th {
+            color: var(--text-dim);
+            font-weight: normal;
+            padding: 6px 4px;
+            border-bottom: 1px solid #2a2a3a;
+        }
+
+        .rank-table td {
+            padding: 7px 4px;
+            border-bottom: 1px solid #1a1a24;
+        }
+
+        .rank-table .rank-num {
             font-weight: bold;
+            color: var(--gold-primary);
+        }
+
+        .rank-table .team-name {
+            text-align: left;
+            font-weight: bold;
+            color: #fff;
         }
 
         .sidebar-btn {
@@ -183,19 +171,12 @@
             background: var(--gold-gradient);
             color: #000;
             text-align: center;
-            padding: 14px;
-            border-radius: 10px;
-            font-weight: 900;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
             text-decoration: none;
-            font-size: 1.05rem;
-            box-shadow: 0 4px 15px rgba(243, 186, 47, 0.4);
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-4px); }
-            60% { transform: translateY(-2px); }
+            font-size: 0.95rem;
+            margin-top: 15px;
         }
 
         .seo-keywords { background: #14141c; border: 1px solid #2a2a3a; padding: 18px; border-radius: 8px; color: var(--text-dim); font-size: 0.85rem; margin-top: 25px; grid-column: 1 / -1; }
@@ -212,4 +193,164 @@
     <div class="container">
         
         <main>
-            <div class="hero-banner
+            <div class="hero-banner">
+                <span class="hero-badge">레버스 공식 메인 제휴</span>
+                <h1 class="hero-title">LEVERSE 3 USDT 즉시 지급 이벤트</h1>
+                <p class="hero-desc">텔레그램 공식 커뮤니티 채널 입장 후 즉시 혜택을 챙겨가세요!<br>(첫 이용 시 10+10 추가 혜택 적용)</p>
+                <a href="https://t.me/leverse_chat" class="btn-main" target="_blank">👉 공식 텔레그램 채널 입장하기</a>
+            </div>
+
+            <div class="section-title">PREMIUM PARTNER BANNERS</div>
+
+            <div class="banner-grid">
+                <a href="https://t.me/leverse_chat" class="banner-card" target="_blank">
+                    <div>
+                        <div class="card-tag">MAIN BANNER</div>
+                        <div class="card-title">🎁 레버스 3 USDT 즉시 지급</div>
+                        <div class="card-sub">텔레그램 자유홍보방 및 꽁머니/이벤트 전문 채널</div>
+                    </div>
+                    <div class="card-btn">채널 바로가기</div>
+                </a>
+
+                <a href="https://t.me/LEVERSE_1" class="banner-card" target="_blank">
+                    <div>
+                        <div class="card-tag" style="color:#ff4757;">ADVERTISING</div>
+                        <div class="card-title">📢 배너 입점 광고주 모집 (선착순)</div>
+                        <div class="card-sub">카지노 / 바카라 / 홀덤 / 스포츠픽 / 꽁머니 입점 문의 (@LEVERSE_1)</div>
+                    </div>
+                    <div class="card-btn">광고 문의하기</div>
+                </a>
+
+                <a href="https://t.me/LEVERSE_1" class="banner-card" target="_blank">
+                    <div>
+                        <div class="card-tag" style="color:#ff4757;">ADVERTISING</div>
+                        <div class="card-title">📢 배너 입점 광고주 모집</div>
+                        <div class="card-sub">구글 상위 노출 프리미엄 배너 구역 (@LEVERSE_1)</div>
+                    </div>
+                    <div class="card-btn">광고 문의하기</div>
+                </a>
+            </div>
+        </main>
+
+        <!-- 🏆 종목별 팀순위 사이드바 위젯 -->
+        <aside class="rank-widget">
+            <div class="widget-title">🏆 종목별 팀순위</div>
+
+            <!-- 메인 종목 탭 -->
+            <div class="sport-tabs">
+                <button class="sport-btn active" onclick="switchSport('football')">⚽ 축구</button>
+                <button class="sport-btn" onclick="switchSport('baseball')">⚾ 야구</button>
+                <button class="sport-btn" onclick="switchSport('basketball')">🏀 농구</button>
+            </div>
+
+            <!-- 서브 리그 탭 (축구 기준) -->
+            <div class="league-tabs" id="league-container">
+                <span class="league-btn active">EPL</span>
+                <span class="league-btn">분데스리가</span>
+                <span class="league-btn">라리가</span>
+                <span class="league-btn">세리에A</span>
+                <span class="league-btn">K리그1</span>
+            </div>
+
+            <!-- 팀 순위 표 -->
+            <table class="rank-table">
+                <thead>
+                    <tr>
+                        <th style="width: 12%;">순위</th>
+                        <th style="width: 40%; text-align: left;">팀</th>
+                        <th>경기</th>
+                        <th>승</th>
+                        <th>무</th>
+                        <th>패</th>
+                        <th>승점</th>
+                    </tr>
+                </thead>
+                <tbody id="rank-tbody">
+                    <!-- 자바스크립트로 데이터 표시 -->
+                </tbody>
+            </table>
+
+            <a href="https://t.me/leverse_chat" class="sidebar-btn" target="_blank">
+                🔥 실시간 분석픽 & 승무패 공유방
+            </a>
+        </aside>
+
+        <div class="seo-keywords">
+            <strong>LEVERSE 배너 센터 키워드 안내:</strong><br>
+            본 사이트는 카지노, 바카라, 홀덤, 라이브스코어, 스포츠픽 분석, 꽁머니 및 다양한 이벤트를 공유하는 메인 혜택 포털입니다. 텔레그램 채널(@leverse_chat)을 통해 최신 혜택과 스포츠 픽을 실시간으로 안내받으실 수 있으며, 배너 입점 제휴 문의는 텔레그램 @LEVERSE_1 로 남겨주시면 됩니다.
+        </div>
+
+        <footer>
+            © LEVERSE BANNER HUB. All rights reserved.
+        </footer>
+
+    </div>
+
+    <!-- 순위표 데이터를 보여주는 스크립트 -->
+    <script>
+        const rankData = {
+            football: [
+                { rank: 1, team: "아스널", g: 10, w: 9, d: 0, l: 1, pts: 27 },
+                { rank: 2, team: "브라이튼", g: 10, w: 7, d: 1, l: 2, pts: 22 },
+                { rank: 3, team: "맨시티", g: 10, w: 7, d: 0, l: 3, pts: 21 },
+                { rank: 4, team: "리버풀", g: 10, w: 5, d: 3, l: 2, pts: 18 },
+                { rank: 5, team: "첼시", g: 10, w: 5, d: 1, l: 4, pts: 16 },
+                { rank: 6, team: "에버턴", g: 10, w: 4, d: 4, l: 2, pts: 16 },
+                { rank: 7, team: "본머스", g: 10, w: 4, d: 3, l: 3, pts: 15 },
+                { rank: 8, team: "브렌트포드", g: 10, w: 3, d: 5, l: 2, pts: 14 },
+                { rank: 9, team: "토트넘", g: 10, w: 3, d: 3, l: 4, pts: 12 },
+                { rank: 10, team: "맨유", g: 10, w: 1, d: 5, l: 4, pts: 8 }
+            ],
+            baseball: [
+                { rank: 1, team: "KIA 타이거즈", g: 144, w: 87, d: 2, l: 55, pts: "0.613" },
+                { rank: 2, team: "삼성 라이온즈", g: 144, w: 78, d: 2, l: 64, pts: "0.549" },
+                { rank: 3, team: "LG 트윈스", g: 144, w: 76, d: 2, l: 66, pts: "0.535" },
+                { rank: 4, team: "두산 베어스", g: 144, w: 74, d: 2, l: 68, pts: "0.521" },
+                { rank: 5, team: "KT 위즈", g: 144, w: 72, d: 2, l: 70, pts: "0.507" }
+            ],
+            basketball: [
+                { rank: 1, team: "DB 프로미", g: 54, w: 41, d: 0, l: 13, pts: "0.759" },
+                { rank: 2, team: "LG 세이커스", g: 54, w: 36, d: 0, l: 18, pts: "0.667" },
+                { rank: 3, team: "KT 소닉붐", g: 54, w: 33, d: 0, l: 21, pts: "0.611" },
+                { rank: 4, team: "SK 나이츠", g: 54, w: 31, d: 0, l: 23, pts: "0.574" },
+                { rank: 5, team: "KCC 이지스", g: 54, w: 30, d: 0, l: 24, pts: "0.556" }
+            ]
+        };
+
+        function renderRankTable(sport) {
+            const tbody = document.getElementById('rank-tbody');
+            const data = rankData[sport];
+            let html = '';
+
+            data.forEach(item => {
+                html += `
+                    <tr>
+                        <td class="rank-num">${item.rank}</td>
+                        <td class="team-name">${item.team}</td>
+                        <td>${item.g}</td>
+                        <td>${item.w}</td>
+                        <td>${item.d}</td>
+                        <td>${item.l}</td>
+                        <td style="color:var(--gold-primary); font-weight:bold;">${item.pts}</td>
+                    </tr>
+                `;
+            });
+
+            tbody.innerHTML = html;
+        }
+
+        function switchSport(sport) {
+            const buttons = document.querySelectorAll('.sport-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            renderRankTable(sport);
+        }
+
+        window.onload = function() {
+            renderRankTable('football');
+        };
+    </script>
+
+</body>
+</html>
