@@ -73,7 +73,6 @@
         
         #status-msg { margin-top: 10px; font-size: 13px; font-weight: bold; text-align: center; }
         
-        /* 로그인 화면 스타일 */
         #loginBox { text-align: center; max-width: 400px; margin: 0 auto; }
         #adminContent { display: none; }
     </style>
@@ -84,13 +83,13 @@
         <div class="card" id="loginBox">
             <h3>🔒 관리자 인증</h3>
             <div class="form-group">
-                <label>비밀번호를 입력하세요 (5711)</label>
-                <input type="password" id="loginPw" placeholder="비밀번호 입력">
+                <label>관리자 비밀번호를 입력하세요</label>
+                <input type="password" id="loginPw" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter') checkPassword()">
             </div>
             <button class="btn" style="width:100%;" onclick="checkPassword()">로그인</button>
         </div>
 
-        <!-- 실제 관리자 패널 (로그인 전 숨김) -->
+        <!-- 실제 관리자 패널 -->
         <div id="adminContent">
             <h1>👑 LEVERSE 실시간 배너 광고 관리자</h1>
 
@@ -134,7 +133,6 @@
     </div>
 
     <script>
-        // 이미 로그인한 적이 있다면 바로 보여주기
         if (sessionStorage.getItem('is_admin') === 'true') {
             showAdmin();
         }
@@ -152,9 +150,10 @@
         function showAdmin() {
             document.getElementById('loginBox').style.display = 'none';
             document.getElementById('adminContent').style.display = 'block';
+            document.body.style.display = 'block';
             
             document.getElementById('masterKey').value = "$2a$10$z02BCvLiUiJxAdGwNLshJeQHmEmBK0dRsCnGRF.xsuMwIAFFqO2dW";
-            document.getElementById('binId').value = localStorage.getItem('jsonbin_bin_id'] || '';
+            document.getElementById('binId').value = localStorage.getItem('jsonbin_bin_id') || '';
             if (localStorage.getItem('jsonbin_bin_id')) {
                 loadBanners();
             }
