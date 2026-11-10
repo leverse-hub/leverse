@@ -32,9 +32,6 @@
             margin-bottom: 50px; 
             width: 100% !important;
         }
-        @media (max-width: 768px) {
-            .banner-grid { grid-template-columns: 1fr !important; }
-        }
 
         .banner-card { 
             background: #11151e; 
@@ -85,6 +82,25 @@
         .btn-contact { background: linear-gradient(135deg, #e6c547, #b8860b); color: #111; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
         .btn-contact:hover { background: linear-gradient(135deg, #ffd700, #daa520); }
         .footer-text { text-align: center; color: #404b57; font-size: 11px; margin-top: 5px; line-height: 1.6; }
+
+        /* 🔥 모바일 반응형 수정한 핵심 부분 🔥 */
+        @media (max-width: 768px) {
+            .banner-grid { 
+                grid-template-columns: 1fr !important; 
+            }
+            .banner-card {
+                height: auto !important; 
+            }
+            .banner-img {
+                height: auto !important;
+                aspect-ratio: 1200 / 320 !important; /* 이미지 비율(1200:320)을 강제로 유지시킴 */
+                object-fit: cover !important;
+            }
+            .banner-empty-card {
+                height: auto !important;
+                aspect-ratio: 1200 / 320 !important;
+            }
+        }
     </style>
 </head>
 <body>
