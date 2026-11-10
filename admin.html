@@ -7,302 +7,231 @@
     <style>
         * { box-sizing: border-box; }
         body { 
-            background-color: #0b0d12; 
+            background-color: #08090c; 
             color: #ffffff; 
             font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; 
             margin: 0; 
             padding: 30px 20px; 
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
-        .wrapper { width: 100%; max-width: 800px; }
-        .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
-        h1 { color: #ffd700; margin: 0; font-size: 22px; }
-        .card { 
-            background: #121722; 
-            border: 1px solid rgba(255, 215, 0, 0.25); 
-            border-radius: 8px; 
-            padding: 25px; 
-            margin-bottom: 25px; 
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { color: #ffd700; font-size: 24px; margin-bottom: 20px; }
+        .card {
+            background: #11151e;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
         }
-        .card h3 { color: #ffd700; margin-top: 0; margin-bottom: 20px; font-size: 16px; border-bottom: 1px solid rgba(255,215,0,0.1); padding-bottom: 10px; }
         .form-group { margin-bottom: 15px; }
         label { display: block; color: #8a99ad; font-size: 13px; margin-bottom: 6px; }
-        input[type="text"], input[type="password"] { 
-            width: 100%; 
-            padding: 12px; 
-            background: #0b0d12; 
-            border: 1px solid rgba(255,215,0,0.2); 
-            border-radius: 5px; 
-            color: #fff; 
-            font-size: 14px; 
+        input[type="text"] {
+            width: 100%;
+            background: #08090c;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 6px;
+            padding: 10px 12px;
+            color: #fff;
+            font-size: 14px;
         }
-        input:focus { border-color: #ffd700; outline: none; }
-        .btn { 
-            background: linear-gradient(135deg, #e6c547, #b8860b); 
-            color: #111; 
-            padding: 12px 20px; 
+        input[type="text"]:focus {
+            border-color: #ffd700;
+            outline: none;
+        }
+        .btn {
+            background: linear-gradient(135deg, #ffd700, #b8860b);
+            color: #111;
             border: none;
-            border-radius: 5px; 
-            font-weight: bold; 
-            font-size: 14px; 
-            cursor: pointer; 
-            transition: all 0.3s;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
         }
-        .btn:hover { background: linear-gradient(135deg, #ffd700, #daa520); }
-        .btn-danger { background: #e74c3c; color: white; padding: 6px 12px; font-size: 12px; }
-        .btn-logout { background: #34495e; color: #fff; padding: 8px 15px; font-size: 13px; }
-        .banner-item { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            background: #0b0d12; 
-            padding: 12px 15px; 
-            border-radius: 5px; 
-            margin-bottom: 10px; 
-            border: 1px solid rgba(255,215,0,0.1);
+        .btn:hover { opacity: 0.9; }
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
         }
-        .banner-info { font-size: 13px; color: #fff; }
-        .banner-info span { color: #8a99ad; display: block; font-size: 11px; margin-top: 3px; }
-        #status-msg { margin-top: 10px; font-size: 13px; font-weight: bold; text-align: center; }
-        #loginBox { text-align: center; max-width: 400px; margin: 0 auto; display: block; }
-        #adminContent { display: none; }
+        .banner-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #181f2c;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+        .msg { margin-top: 10px; font-size: 13px; color: #2ecc71; }
     </style>
 </head>
 <body>
-    <div class="wrapper">
-        <div class="card" id="loginBox">
-            <h3>🔒 관리자 인증</h3>
-            <div class="form-group" style="text-align: left;">
-                <label>관리자 비밀번호를 입력하세요</label>
-                <input type="password" id="loginPw" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter') tryLogin()">
+    <div class="container">
+        <h1>LEVERSE OFFICIAL 관리자 센터</h1>
+
+        <!-- 설정 카드 -->
+        <div class="card">
+            <h3 style="margin-top:0; color:#ffd700; font-size:16px;">데이터베이스 설정</h3>
+            <div class="form-group">
+                <label>JSONBin Master Key</label>
+                <input type="text" id="masterKey" value="$2a$10$z02BCvLiUiJxAdGwNLshJeQHmEmBK0dRsCnGRF.xsuMwIAFFqO2dW">
             </div>
-            <button class="btn" style="width:100%;" onclick="tryLogin()">로그인</button>
+            <div class="form-group">
+                <label>Bin ID</label>
+                <input type="text" id="binId" value="6af2586bffd5d16053b5085a">
+            </div>
+            <button class="btn" onclick="saveConfig()">설정 저장</button>
         </div>
 
-        <div id="adminContent">
-            <div class="header-bar">
-                <h1>👑 LEVERSE 실시간 배너 관리자</h1>
-                <button class="btn btn-logout" onclick="logout()">🔒 전역 로그아웃</button>
+        <!-- 배너 추가 카드 -->
+        <div class="card">
+            <h3 style="margin-top:0; color:#ffd700; font-size:16px;">+ 새 배너 추가</h3>
+            <div class="form-group">
+                <label>광고주 / 배너 제목</label>
+                <input type="text" id="title" placeholder="예: 신규가입 이벤트">
             </div>
+            <div class="form-group">
+                <label>배너 이미지 주소 (URL)</label>
+                <input type="text" id="imageUrl" placeholder="https://...">
+            </div>
+            <div class="form-group">
+                <label>클릭 시 이동할 링크 주소 (URL)</label>
+                <input type="text" id="linkUrl" placeholder="https://t.me/...">
+            </div>
+            <button class="btn" onclick="addBanner()">배너 등록 및 실시간 반영</button>
+            <div id="statusMsg" class="msg"></div>
+        </div>
 
-            <div class="card">
-                <h3>⚙️ 연동 설정</h3>
-                <div class="form-group">
-                    <label>JSONBin Master Key</label>
-                    <input type="text" id="masterKey" value="$2a$10$z02BCvLiUiJxAdGwNLshJeQHmEmBK0dRsCnGRF.xsuMwIAFFqO2dW">
-                </div>
-                <div class="form-group">
-                    <label>Bin ID (데이터 보관함 ID)</label>
-                    <input type="text" id="binId" value="6af2586bffd5d16053b5085a">
-                </div>
-                <button class="btn" onclick="saveConfig()">설정 저장하기</button>
-            </div>
-
-            <div class="card">
-                <h3>➕ 새 배너 추가</h3>
-                <div class="form-group">
-                    <label>광고주 / 배너 제목</label>
-                    <input type="text" id="title" placeholder="예: 신규가입 이벤트">
-                </div>
-                <div class="form-group">
-                    <label>배너 이미지 주소 (URL)</label>
-                    <input type="text" id="imageUrl" placeholder="https://domain.com/banner.gif">
-                </div>
-                <div class="form-group">
-                    <label>클릭 시 이동할 링크 주소 (URL)</label>
-                    <input type="text" id="linkUrl" placeholder="https://t.me/...">
-                </div>
-                <button class="btn" onclick="addBanner()">배너 등록 및 실시간 반영</button>
-                <div id="status-msg"></div>
-            </div>
-
-            <div class="card">
-                <h3>📋 현재 등록된 배너 목록</h3>
-                <div id="bannerList">목록을 불러오는 중...</div>
-            </div>
+        <!-- 등록된 배너 목록 -->
+        <div class="card">
+            <h3 style="margin-top:0; color:#ffd700; font-size:16px;">📋 현재 등록된 배너 목록</h3>
+            <div id="bannerList">불러오는 중...</div>
         </div>
     </div>
 
     <script>
-        const MASTER_KEY = "$2a$10$z02BCvLiUiJxAdGwNLshJeQHmEmBK0dRsCnGRF.xsuMwIAFFqO2dW";
-        const BIN_ID = "6af2586bffd5d16053b5085a";
+        let currentBanners = [];
 
-        window.addEventListener('DOMContentLoaded', async () => {
-            try {
-                const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-                    headers: { 'X-Master-Key': MASTER_KEY }
-                });
-                const data = await res.json();
-                
-                if (data.record && data.record.sessionActive === true) {
-                    document.getElementById('loginBox').style.display = 'none';
-                    document.getElementById('adminContent').style.display = 'block';
-                    loadBanners(data.record.banners || []);
-                }
-            } catch (e) {
-                console.error("세션 체크 실패", e);
-            }
-        });
-
-        async function tryLogin() {
-            const pwInput = document.getElementById('loginPw').value.trim();
-            if (pwInput === '5711') {
-                try {
-                    const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-                        headers: { 'X-Master-Key': MASTER_KEY }
-                    });
-                    const data = await res.json();
-                    let currentBanners = data.record && Array.isArray(data.record) ? data.record : (data.record.banners || []);
-
-                    const updateRes = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-Master-Key': MASTER_KEY
-                        },
-                        body: JSON.stringify({
-                            sessionActive: true,
-                            banners: currentBanners
-                        })
-                    });
-
-                    if (updateRes.ok) {
-                        document.getElementById('loginBox').style.display = 'none';
-                        document.getElementById('adminContent').style.display = 'block';
-                        loadBanners(currentBanners);
-                    } else {
-                        alert('로그인 동기화 실패');
-                    }
-                } catch (e) {
-                    alert('서버 오류: ' + e.message);
-                }
-            } else {
-                alert('비밀번호가 틀렸습니다!');
-                document.getElementById('loginPw').value = '';
-            }
-        }
-
-        async function logout() {
-            if (!confirm('정말 전역 로그아웃 하시겠습니까? (모든 기기에서 차단됩니다)')) return;
-            try {
-                const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-                    headers: { 'X-Master-Key': MASTER_KEY }
-                });
-                const data = await res.json();
-                let currentBanners = data.record && Array.isArray(data.record) ? data.record : (data.record.banners || []);
-
-                await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Master-Key': MASTER_KEY
-                    },
-                    body: JSON.stringify({
-                        sessionActive: false,
-                        banners: currentBanners
-                    })
-                });
-
-                document.getElementById('adminContent').style.display = 'none';
-                document.getElementById('loginBox').style.display = 'block';
-                document.getElementById('loginPw').value = '';
-                alert('전역 로그아웃되었습니다. 다른 기기에서도 즉시 차단됩니다.');
-            } catch (e) {
-                alert('로그아웃 처리 중 오류 발생');
-            }
-        }
-
-        let banners = [];
-
-        function loadBanners(list) {
-            banners = list || [];
-            renderList();
-        }
-
-        async function fetchAndUpdateCloud(newBanners) {
-            const msg = document.getElementById('status-msg');
-            try {
-                const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Master-Key': MASTER_KEY
-                    },
-                    body: JSON.stringify({
-                        sessionActive: true,
-                        banners: newBanners
-                    })
-                });
-                if (res.ok) {
-                    msg.style.color = '#2ecc71';
-                    msg.innerText = '✨ 성공적으로 실시간 반영되었습니다!';
-                    banners = newBanners;
-                    renderList();
-                } else {
-                    msg.style.color = '#e74c3c';
-                    msg.innerText = '❌ 저장 실패';
-                }
-            } catch (e) {
-                msg.style.color = '#e74c3c';
-                msg.innerText = '❌ 오류: ' + e.message;
-            }
-        }
-
-        function addBanner() {
-            const title = document.getElementById('title').value.trim();
-            const imageUrl = document.getElementById('imageUrl').value.trim();
-            const linkUrl = document.getElementById('linkUrl').value.trim();
-
-            if (!title || !imageUrl || !linkUrl) {
-                alert('모든 항목을 입력해주세요!');
-                return;
-            }
-
-            let updated = [...banners, { title, imageUrl, linkUrl }];
-            fetchAndUpdateCloud(updated);
-
-            document.getElementById('title').value = '';
-            document.getElementById('imageUrl').value = '';
-            document.getElementById('linkUrl').value = '';
-        }
-
-        function removeBanner(index) {
-            if (confirm('정말 이 배너를 삭제하시겠습니까?')) {
-                let updated = [...banners];
-                updated.splice(index, 1);
-                fetchAndUpdateCloud(updated);
-            }
-        }
-
-        function renderList() {
-            const listDiv = document.getElementById('bannerList');
-            if (banners.length === 0) {
-                listDiv.innerHTML = '<div style="color:#8a99ad; text-align:center; padding:15px;">등록된 배너가 없습니다.</div>';
-                return;
-            }
-
-            let html = '';
-            banners.forEach((b, idx) => {
-                html += `
-                    <div class="banner-item">
-                        <div class="banner-info">
-                            <strong>${b.title}</strong>
-                            <span>링크: ${b.linkUrl}</span>
-                        </div>
-                        <button class="btn btn-danger" onclick="removeBanner(${idx})">삭제</button>
-                    </div>
-                `;
-            });
-            listDiv.innerHTML = html;
+        function getConfig() {
+            return {
+                masterKey: document.getElementById('masterKey').value.trim(),
+                binId: document.getElementById('binId').value.trim()
+            };
         }
 
         function saveConfig() {
             alert('설정이 저장되었습니다!');
+            loadBanners();
         }
+
+        async function loadBanners() {
+            const { masterKey, binId } = getConfig();
+            const listEl = document.getElementById('bannerList');
+            
+            try {
+                const res = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
+                    headers: { 'X-Master-Key': masterKey }
+                });
+                const data = await res.json();
+                console.log("불러온 원본 데이터:", data); // F12 콘솔에서 구조 확인용
+
+                // 데이터 구조 유연하게 추출
+                let raw = data.record ? (data.record.record || data.record) : data;
+                if (raw && Array.isArray(raw.banners)) {
+                    currentBanners = raw.banners;
+                } else if (Array.isArray(raw)) {
+                    currentBanners = raw;
+                } else {
+                    currentBanners = [];
+                }
+
+                renderAdminList();
+            } catch (e) {
+                console.error(e);
+                listEl.innerHTML = '<span style="color:#e74c3c;">데이터를 불러오는 중 오류가 발생했습니다.</span>';
+            }
+        }
+
+        function renderAdminList() {
+            const listEl = document.getElementById('bannerList');
+            if (currentBanners.length === 0) {
+                listEl.innerHTML = '<span style="color:#8a99ad;">등록된 배너가 없습니다.</span>';
+                return;
+            }
+
+            let html = '';
+            currentBanners.forEach((b, index) => {
+                html += `
+                    <div class="banner-item">
+                        <div>
+                            <strong style="color:#fff;">${b.title || '제목 없음'}</strong><br>
+                            <span style="color:#7a8b9e; font-size:11px;">링크: ${b.linkUrl || b.link || ''}</span>
+                        </div>
+                        <button class="btn-danger" onclick="deleteBanner(${index})">삭제</button>
+                    </div>
+                `;
+            });
+            listEl.innerHTML = html;
+        }
+
+        async function addBanner() {
+            const title = document.getElementById('title').value.trim();
+            const imageUrl = document.getElementById('imageUrl').value.trim();
+            const linkUrl = document.getElementById('linkUrl').value.trim();
+
+            if (!imageUrl) {
+                alert('배너 이미지 주소를 입력해주세요.');
+                return;
+            }
+
+            currentBanners.push({
+                title: title || '제목 없음',
+                imageUrl: imageUrl,
+                linkUrl: linkUrl || '#'
+            });
+
+            await saveToCloud();
+        }
+
+        async function deleteBanner(index) {
+            if (!confirm('정말 삭제하시겠습니까?')) return;
+            currentBanners.splice(index, 1);
+            await saveToCloud();
+        }
+
+        async function saveToCloud() {
+            const { masterKey, binId } = getConfig();
+            const msgEl = document.getElementById('statusMsg');
+
+            try {
+                const res = await fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': masterKey
+                    },
+                    body: JSON.stringify(currentBanners)
+                });
+
+                if (res.ok) {
+                    msgEl.textContent = '성공적으로 실시간 반영되었습니다!';
+                    renderAdminList();
+                    setTimeout(() => { msgEl.textContent = ''; }, 3000);
+                } else {
+                    alert('저장 실패');
+                }
+            } catch (e) {
+                console.error(e);
+                alert('저장 중 오류 발생');
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', loadBanners);
     </script>
 </body>
 </html>
