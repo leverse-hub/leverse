@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEVERSE - 실시간 배너 광고 관리자</title>
+    <title>LEVERSE - 관리자 센터</title>
     <style>
         * { box-sizing: border-box; }
         body { 
@@ -82,7 +82,7 @@
         
         #status-msg { margin-top: 10px; font-size: 13px; font-weight: bold; text-align: center; }
         
-        #loginBox { text-align: center; max-width: 400px; margin: 0 auto; }
+        #loginBox { text-align: center; max-width: 400px; margin: 0 auto; display: block; }
         #adminContent { display: none; }
     </style>
 </head>
@@ -91,11 +91,11 @@
         <!-- 로그인 화면 -->
         <div class="card" id="loginBox">
             <h3>🔒 관리자 인증</h3>
-            <div class="form-group">
+            <div class="form-group" style="text-align: left;">
                 <label>관리자 비밀번호를 입력하세요</label>
-                <input type="password" id="loginPw" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter') checkPassword()">
+                <input type="password" id="loginPw" placeholder="비밀번호 입력">
             </div>
-            <button class="btn" style="width:100%;" onclick="checkPassword()">로그인</button>
+            <button class="btn" style="width:100%;" onclick="tryLogin()">로그인</button>
         </div>
 
         <!-- 실제 관리자 패널 -->
@@ -106,17 +106,16 @@
             </div>
 
             <div class="card">
-                <h3>⚙️ 연동 설정 (최초 1회 저장)</h3>
+                <h3>⚙️ 연동 설정</h3>
                 <div class="form-group">
                     <label>JSONBin Master Key</label>
                     <input type="text" id="masterKey" value="$2a$10$z02BCvLiUiJxAdGwNLshJeQHmEmBK0dRsCnGRF.xsuMwIAFFqO2dW">
                 </div>
                 <div class="form-group">
                     <label>Bin ID (데이터 보관함 ID)</label>
-                    <input type="text" id="binId" placeholder="아래 [새 빈 자동 생성하기]를 누르세요">
+                    <input type="text" id="binId" value="6af2586bffd5d16053b5085a">
                 </div>
                 <button class="btn" onclick="saveConfig()">설정 저장하기</button>
-                <button class="btn" style="background:#2ecc71; color:#111; margin-left:10px;" onclick="createNewBin()">새 빈(Bin) 자동 생성하기</button>
             </div>
 
             <div class="card">
@@ -139,71 +138,105 @@
 
             <div class="card">
                 <h3>📋 현재 등록된 배너 목록</h3>
-                <div id="bannerList">설정을 완료하면 목록이 불러와집니다.</div>
+                <div id="bannerList">목록을 불러오는 중...</div>
             </div>
         </div>
     </div>
 
     <script>
-        if (sessionStorage.getItem('is_admin') === 'true') {
-            showAdmin();
-        }
+        // 페이지 로드 시 로그인 상태 확인
+        window.onload = function() {
+            if (sessionStorage.getItem('is_admin') === 'true') {
+                document.getElementById('loginBox').style.display = 'none';
+                document.getElementById('adminContent').style.display = 'block';
+                loadBanners();
+            }
+        };
 
-        function checkPassword() {
-            const pw = document.getElementById('loginPw').value.trim();
-            if (pw === '5711') {
+        function tryLogin() {
+            const pwInput = document.getElementById('loginPw').value;
+            if (pwInput === '5711') {
                 sessionStorage.setItem('is_admin', 'true');
-                showAdmin();
+                document.getElementById('loginBox').style.display = 'none';
+                document.getElementById('adminContent').style.display = 'block';
+                loadBanners();
             } else {
                 alert('비밀번호가 틀렸습니다!');
+                document.getElementById('loginPw').value = '';
             }
         }
 
         function logout() {
             sessionStorage.removeItem('is_admin');
-            document.getElementById('loginPw').value = '';
             document.getElementById('adminContent').style.display = 'none';
             document.getElementById('loginBox').style.display = 'block';
-            alert('로그아웃 되었습니다.');
+            document.getElementById('loginPw').value = '';
         }
 
-        function showAdmin() {
-            document.getElementById('loginBox').style.display = 'none';
-            document.getElementById('adminContent').style.display = 'block';
-            
-            document.getElementById('masterKey').value = "$2a$10$z02BCvLiUiJxAdGwNLshJeQHmEmBK0dRsCnGRF.xsuMwIAFFqO2dW";
-            document.getElementById('binId').value = localStorage.getItem('jsonbin_bin_id') || '6af2586bffd5d16053b5085a';
+        function saveConfig() {
+            alert('설정이 저장되었습니다!');
             loadBanners();
         }
 
         let banners = [];
 
-        function saveConfig() {
+        async function loadBanners() {
             const key = document.getElementById('masterKey').value.trim();
             const id = document.getElementById('binId').value.trim();
-            localStorage.setItem('jsonbin_master_key', key);
-            localStorage.setItem('jsonbin_bin_id', id);
-            alert('설정이 저장되었습니다!');
-            loadBanners();
-        }
 
-        async function createNewBin() {
-            const key = document.getElementById('masterKey').value.trim();
-            if (!key) { alert('Master Key를 입력해주세요!'); return; }
             try {
-                const res = await fetch('https://api.jsonbin.io/v3/b', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Master-Key': key,
-                        'X-Bin-Name': 'LeverseBanners'
-                    },
-                    body: JSON.stringify([
-                        { title: "초기 배너", imageUrl: "https://via.placeholder.com/1200x320", linkUrl: "https://t.me" }
-                    ])
+                const res = await fetch(`https://api.jsonbin.io/v3/b/${id}/latest`, {
+                    headers: { 'X-Master-Key': key }
                 });
                 const data = await res.json();
-                if (data.metadata && data.metadata.id) {
-                    document.getElementById('binId').value = data.metadata.id;
-                    localStorage.setItem('jsonbin_bin_id', data.metadata.id);
-                    alert('새 빈(Bin)이 생성되었습니다! 상단의 [설정 저장하기
+                banners = data.record || [];
+                renderList();
+            } catch (e) {
+                console.error('불러오기 실패', e);
+            }
+        }
+
+        async function saveToCloud() {
+            const key = document.getElementById('masterKey').value.trim();
+            const id = document.getElementById('binId').value.trim();
+            const msg = document.getElementById('status-msg');
+
+            try {
+                const res = await fetch(`https://api.jsonbin.io/v3/b/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': key
+                    },
+                    body: JSON.stringify(banners)
+                });
+                if (res.ok) {
+                    msg.style.color = '#2ecc71';
+                    msg.innerText = '✨ 성공적으로 실시간 반영되었습니다!';
+                    renderList();
+                } else {
+                    msg.style.color = '#e74c3c';
+                    msg.innerText = '❌ 저장 실패';
+                }
+            } catch (e) {
+                msg.style.color = '#e74c3c';
+                msg.innerText = '❌ 오류: ' + e.message;
+            }
+        }
+
+        function addBanner() {
+            const title = document.getElementById('title').value.trim();
+            const imageUrl = document.getElementById('imageUrl').value.trim();
+            const linkUrl = document.getElementById('linkUrl').value.trim();
+
+            if (!title || !imageUrl || !linkUrl) {
+                alert('모든 항목을 입력해주세요!');
+                return;
+            }
+
+            banners.push({ title, imageUrl, linkUrl });
+            saveToCloud();
+
+            document.getElementById('title').value = '';
+            document.getElementById('imageUrl').value = '';
+            document.getElementById('linkUrl').value = '';
