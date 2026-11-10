@@ -86,7 +86,7 @@
         <div id="adminContent">
             <div class="header-bar">
                 <h1>👑 LEVERSE 실시간 배너 관리자</h1>
-                <button class="btn btn-logout" onclick="logout()">🔒 로그아웃</button>
+                <button class="btn btn-logout" onclick="logout()">🔒 전역 로그아웃</button>
             </div>
 
             <div class="card">
@@ -128,72 +128,123 @@
     </div>
 
     <script>
-        if (sessionStorage.getItem('is_admin') === 'true') {
-            document.getElementById('loginBox').style.display = 'none';
-            document.getElementById('adminContent').style.display = 'block';
-            window.addEventListener('DOMContentLoaded', loadBanners);
-        }
+        const MASTER_KEY = "$2a$10$z02BCvLiUiJxAdGwNLshJeQHmEmBK0dRsCnGRF.xsuMwIAFFqO2dW";
+        const BIN_ID = "6af2586bffd5d16053b5085a";
 
-        function tryLogin() {
+        // 페이지 접속 시 클라우드에서 로그인 허용 상태(sessionActive) 확인
+        window.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+                    headers: { 'X-Master-Key': MASTER_KEY }
+                });
+                const data = await res.json();
+                
+                // 만약 클라우드 데이터에 sessionActive: true 가 들어있다면 자동 통과
+                if (data.record && data.record.sessionActive === true) {
+                    document.getElementById('loginBox').style.display = 'none';
+                    document.getElementById('adminContent').style.display = 'block';
+                    loadBanners(data.record.banners || []);
+                }
+            } catch (e) {
+                console.error("세션 체크 실패", e);
+            }
+        });
+
+        async function tryLogin() {
             const pwInput = document.getElementById('loginPw').value.trim();
             if (pwInput === '5711') {
-                sessionStorage.setItem('is_admin', 'true');
-                document.getElementById('loginBox').style.display = 'none';
-                document.getElementById('adminContent').style.display = 'block';
-                loadBanners();
+                try {
+                    // 1. 기존 배너 목록 유지하면서 sessionActive를 true로 세팅하여 클라우드에 저장
+                    const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+                        headers: { 'X-Master-Key': MASTER_KEY }
+                    });
+                    const data = await res.json();
+                    let currentBanners = data.record && Array.isArray(data.record) ? data.record : (data.record.banners || []);
+
+                    const updateRes = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Master-Key': MASTER_KEY
+                        },
+                        body: JSON.stringify({
+                            sessionActive: true,
+                            banners: currentBanners
+                        })
+                    });
+
+                    if (updateRes.ok) {
+                        document.getElementById('loginBox').style.display = 'none';
+                        document.getElementById('adminContent').style.display = 'block';
+                        loadBanners(currentBanners);
+                    } else {
+                        alert('로그인 동기화 실패');
+                    }
+                } catch (e) {
+                    alert('서버 오류: ' + e.message);
+                }
             } else {
                 alert('비밀번호가 틀렸습니다!');
                 document.getElementById('loginPw').value = '';
             }
         }
 
-        function logout() {
-            sessionStorage.removeItem('is_admin');
-            document.getElementById('adminContent').style.display = 'none';
-            document.getElementById('loginBox').style.display = 'block';
-            document.getElementById('loginPw').value = '';
-        }
+        async function logout() {
+            if (!confirm('정말 전역 로그아웃 하시겠습니까? (모든 기기에서 차단됩니다)')) return;
+            try {
+                // 클라우드의 sessionActive를 false로 바꾸어 전 세계 모든 기기의 권한을 파괴
+                const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+                    headers: { 'X-Master-Key': MASTER_KEY }
+                });
+                const data = await res.json();
+                let currentBanners = data.record && Array.isArray(data.record) ? data.record : (data.record.banners || []);
 
-        function saveConfig() {
-            alert('설정이 저장되었습니다!');
-            loadBanners();
+                await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': MASTER_KEY
+                    },
+                    body: JSON.stringify({
+                        sessionActive: false,
+                        banners: currentBanners
+                    })
+                });
+
+                document.getElementById('adminContent').style.display = 'none';
+                document.getElementById('loginBox').style.display = 'block';
+                document.getElementById('loginPw').value = '';
+                alert('전역 로그아웃되었습니다. 다른 기기에서도 즉시 차단됩니다.');
+            } catch (e) {
+                alert('로그아웃 처리 중 오류 발생');
+            }
         }
 
         let banners = [];
 
-        async function loadBanners() {
-            const key = document.getElementById('masterKey').value.trim();
-            const id = document.getElementById('binId').value.trim();
-
-            try {
-                const res = await fetch(`https://api.jsonbin.io/v3/b/${id}/latest`, {
-                    headers: { 'X-Master-Key': key }
-                });
-                const data = await res.json();
-                banners = data.record || [];
-                renderList();
-            } catch (e) {
-                console.error('불러오기 실패', e);
-            }
+        function loadBanners(list) {
+            banners = list || [];
+            renderList();
         }
 
-        async function saveToCloud() {
-            const key = document.getElementById('masterKey').value.trim();
-            const id = document.getElementById('binId').value.trim();
+        async function fetchAndUpdateCloud(newBanners) {
             const msg = document.getElementById('status-msg');
-
             try {
-                const res = await fetch(`https://api.jsonbin.io/v3/b/${id}`, {
+                const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-Master-Key': key
+                        'X-Master-Key': MASTER_KEY
                     },
-                    body: JSON.stringify(banners)
+                    body: JSON.stringify({
+                        sessionActive: true,
+                        banners: newBanners
+                    })
                 });
                 if (res.ok) {
                     msg.style.color = '#2ecc71';
                     msg.innerText = '✨ 성공적으로 실시간 반영되었습니다!';
+                    banners = newBanners;
                     renderList();
                 } else {
                     msg.style.color = '#e74c3c';
@@ -215,8 +266,8 @@
                 return;
             }
 
-            banners.push({ title, imageUrl, linkUrl });
-            saveToCloud();
+            let updated = [...banners, { title, imageUrl, linkUrl }];
+            fetchAndUpdateCloud(updated);
 
             document.getElementById('title').value = '';
             document.getElementById('imageUrl').value = '';
@@ -225,8 +276,9 @@
 
         function removeBanner(index) {
             if (confirm('정말 이 배너를 삭제하시겠습니까?')) {
-                banners.splice(index, 1);
-                saveToCloud();
+                let updated = [...banners];
+                updated.splice(index, 1);
+                fetchAndUpdateCloud(updated);
             }
         }
 
@@ -250,6 +302,10 @@
                 `;
             });
             listDiv.innerHTML = html;
+        }
+
+        function saveConfig() {
+            alert('설정이 저장되었습니다!');
         }
     </script>
 </body>
