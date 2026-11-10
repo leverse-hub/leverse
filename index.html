@@ -18,162 +18,73 @@
         }
         .container { max-width: 1200px; margin: 0 auto; }
         
-        /* 상단 네비게이션 */
         .header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            background: rgba(18, 22, 31, 0.9); 
-            backdrop-filter: blur(10px);
-            padding: 16px 30px; 
-            border-radius: 8px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            background: rgba(18, 22, 31, 0.9); backdrop-filter: blur(10px);
+            padding: 16px 30px; border-radius: 8px; 
             border: 1px solid rgba(255, 215, 0, 0.2); 
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            margin-bottom: 45px; 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); margin-bottom: 45px; 
         }
         .logo { 
-            color: #ffd700; 
-            font-weight: 900; 
-            font-size: 20px; 
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            cursor: pointer;
+            color: #ffd700; font-weight: 900; font-size: 20px; letter-spacing: 1px;
+            display: flex; align-items: center; gap: 8px; text-decoration: none; cursor: pointer;
         }
         .logo:hover { opacity: 0.9; }
         
         .btn-ad-top { 
-            background: linear-gradient(135deg, #e6c547, #b8860b); 
-            color: #111; 
-            padding: 10px 22px; 
-            border-radius: 5px; 
-            text-decoration: none; 
-            font-weight: bold; 
-            font-size: 13px; 
-            box-shadow: 0 0 15px rgba(218, 165, 32, 0.3);
+            background: linear-gradient(135deg, #e6c547, #b8860b); color: #111; 
+            padding: 10px 22px; border-radius: 5px; text-decoration: none; 
+            font-weight: bold; font-size: 13px; box-shadow: 0 0 15px rgba(218, 165, 32, 0.3);
             transition: all 0.3s ease; 
         }
-        .btn-ad-top:hover { 
-            background: linear-gradient(135deg, #ffd700, #daa520);
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
-        }
+        .btn-ad-top:hover { background: linear-gradient(135deg, #ffd700, #daa520); box-shadow: 0 0 25px rgba(255, 215, 0, 0.6); }
 
-        /* 메인 타이틀 섹션 */
         .hero-section { text-align: center; margin: 20px 0 45px; }
-        .hero-category { 
-            color: #d4af37; 
-            font-size: 12px; 
-            letter-spacing: 3px; 
-            font-weight: bold; 
-            margin-bottom: 12px; 
-        }
-        .hero-title { 
-            font-size: 36px; 
-            font-weight: 900; 
-            color: #ffffff; 
-            margin: 0 0 12px; 
-            letter-spacing: -1px;
-        }
+        .hero-category { color: #d4af37; font-size: 12px; letter-spacing: 3px; font-weight: bold; margin-bottom: 12px; }
+        .hero-title { font-size: 36px; font-weight: 900; color: #ffffff; margin: 0 0 12px; letter-spacing: -1px; }
         .hero-desc { color: #8a99ad; font-size: 14px; }
         
-        /* 섹션 구분 바 */
-        .section-bar { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-bottom: 18px; 
-            padding: 0 5px;
-        }
+        .section-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding: 0 5px; }
         .section-title { font-size: 14px; color: #ffd700; font-weight: bold; display: flex; align-items: center; gap: 6px; }
         .section-desc { font-size: 12px; color: #7f8c8d; }
 
-        /* 배너 그리드 */
-        .banner-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 22px; 
-            margin-bottom: 35px; 
-        }
+        .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; margin-bottom: 35px; }
         .banner-slot { 
-            background: #121722; 
-            border: 1px solid rgba(255, 215, 0, 0.25); 
-            border-radius: 8px; 
-            overflow: hidden; 
-            min-height: 180px; 
-            position: relative;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
-            transition: all 0.3s ease;
+            background: #121722; border: 1px solid rgba(255, 215, 0, 0.25); 
+            border-radius: 8px; overflow: hidden; min-height: 180px; position: relative;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7); transition: all 0.3s ease;
         }
-        .banner-slot:hover { 
-            border-color: #ffd700; 
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.25);
-            transform: translateY(-3px);
-        }
+        .banner-slot:hover { border-color: #ffd700; box-shadow: 0 0 25px rgba(255, 215, 0, 0.25); transform: translateY(-3px); }
         .banner-slot a { 
-            display: flex; 
-            flex-direction: column;
-            align-items: center; 
-            justify-content: center; 
-            width: 100%; 
-            height: 100%; 
-            min-height: 180px;
-            text-decoration: none; 
-            color: #ffd700; 
-            font-weight: bold; 
-            font-size: 16px; 
-            text-align: center; 
-            padding: 20px; 
-            gap: 8px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            width: 100%; height: 100%; min-height: 180px; text-decoration: none; 
+            color: #ffd700; font-weight: bold; font-size: 16px; text-align: center; padding: 20px; gap: 8px;
         }
         .banner-slot span { color: #8a99ad; font-size: 12px; font-weight: normal; }
-        .banner-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .banner-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* 광고주 모집 박스 */
         .recruitment-box { 
-            background: #121722; 
-            border: 1px solid rgba(255, 215, 0, 0.2); 
-            border-radius: 8px; 
-            padding: 25px 30px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-bottom: 60px; 
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+            background: #121722; border: 1px solid rgba(255, 215, 0, 0.2); border-radius: 8px; 
+            padding: 25px 30px; display: flex; justify-content: space-between; align-items: center; 
+            margin-bottom: 60px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
         }
         .recruitment-info h4 { color: #ffd700; margin: 0 0 6px; font-size: 15px; }
         .recruitment-info p { color: #8a99ad; margin: 0; font-size: 13px; line-height: 1.5; }
         
         .btn-apply { 
-            background: linear-gradient(135deg, #e6c547, #b8860b); 
-            color: #111; 
-            padding: 12px 24px; 
-            border-radius: 5px; 
-            text-decoration: none; 
-            font-weight: bold; 
-            font-size: 13px; 
-            white-space: nowrap;
-            box-shadow: 0 0 15px rgba(218, 165, 32, 0.3);
-            transition: all 0.3s;
+            background: linear-gradient(135deg, #e6c547, #b8860b); color: #111; padding: 12px 24px; 
+            border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 13px; white-space: nowrap;
+            box-shadow: 0 0 15px rgba(218, 165, 32, 0.3); transition: all 0.3s;
         }
-        .btn-apply:hover { 
-            background: linear-gradient(135deg, #ffd700, #daa520);
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
-        }
+        .btn-apply:hover { background: linear-gradient(135deg, #ffd700, #daa520); box-shadow: 0 0 25px rgba(255, 215, 0, 0.6); }
 
-        /* 푸터 */
-        .footer { 
-            text-align: center; 
-            padding-top: 25px; 
-            border-top: 1px solid rgba(255, 255, 255, 0.08); 
-            color: #7f8c8d; 
-            font-size: 12px; 
-            line-height: 1.7; 
-        }
+        .footer { text-align: center; padding-top: 25px; border-top: 1px solid rgba(255, 255, 255, 0.08); color: #7f8c8d; font-size: 12px; line-height: 1.7; }
 
         @media (max-width: 768px) {
             .banner-grid { grid-template-columns: 1fr; }
+            .banner-slot { min-height: auto; aspect-ratio: 1200 / 320; }
+            .banner-slot a { min-height: auto; height: 100%; }
+            .banner-slot img { height: auto; aspect-ratio: 1200 / 320; object-fit: cover; }
             .recruitment-box { flex-direction: column; gap: 20px; text-align: center; }
             .hero-title { font-size: 28px; }
         }
@@ -181,13 +92,11 @@
 </head>
 <body>
     <div class="container">
-        <!-- 상단 헤더 -->
         <div class="header">
             <a href="./" class="logo">👑 LEVERSE OFFICIAL</a>
             <a href="https://t.me/LEVERSE_1" target="_blank" class="btn-ad-top">배너 광고 문의</a>
         </div>
 
-        <!-- 메인 타이틀 -->
         <div class="hero-section">
             <div class="hero-category">PREMIUM PARTNER BANNER</div>
             <div class="hero-title">실시간 글로벌 파트너 & 배너 안내</div>
@@ -199,23 +108,10 @@
             <div class="section-desc">배너는 안전하고 공정하게 노출됩니다.</div>
         </div>
 
-        <!-- 배너 슬롯 그리드 -->
-        <div class="banner-grid">
-            <div class="banner-slot">
-                <a href="https://t.me/LEVERSE_1" target="_blank">
-                    광고주 1번 배너 (등록 문의)
-                    <span>클릭하여 텔레그램으로 입점을 문의하세요</span>
-                </a>
-            </div>
-            <div class="banner-slot">
-                <a href="https://t.me/LEVERSE_1" target="_blank">
-                    광고주 2번 배너 (등록 문의)
-                    <span>클릭하여 텔레그램으로 입점을 문의하세요</span>
-                </a>
-            </div>
+        <div class="banner-grid" id="bannerContainer">
+            <div style="grid-column: 1 / -1; text-align: center; color: #8a99ad; padding: 40px;">배너 목록을 불러오는 중...</div>
         </div>
 
-        <!-- 광고주 모집 안내 박스 -->
         <div class="recruitment-box">
             <div class="recruitment-info">
                 <h4>배너 광고주 모집</h4>
@@ -224,11 +120,78 @@
             <a href="https://t.me/LEVERSE_1" target="_blank" class="btn-apply">배너 광고 문의 →</a>
         </div>
 
-        <!-- 하단 푸터 -->
         <div class="footer">
             LEVERSE OFFICIAL | 광고 안내 및 제휴를 위한 페이지입니다. 이용 전 해당 지역의 관련 법규 및 이용 조건을 확인하세요.<br>
             © 2026 LEVERSE OFFICIAL. All rights reserved.
         </div>
     </div>
+
+    <script>
+        const MASTER_KEY = "$2a$10$z02BCvLiUiJxAdGwNLshJeQHmEmBK0dRsCnGRF.xsuMwIAFFqO2dW";
+        const BIN_ID = "6af2586bffd5d16053b5085a";
+
+        async function fetchBanners() {
+            try {
+                const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+                    headers: { 'X-Master-Key': MASTER_KEY }
+                });
+                if (!res.ok) throw new Error('API 로드 실패');
+                const data = await res.json();
+                
+                let banners = [];
+                const raw = data.record;
+                // 관리자 저장 포맷인 { banners: [...] } 구조를 확실하게 추출
+                if (raw && Array.isArray(raw.banners)) {
+                    banners = raw.banners;
+                } else if (Array.isArray(raw)) {
+                    banners = raw;
+                }
+
+                renderBanners(banners);
+            } catch (e) {
+                console.error('배너 로드 오류:', e);
+                renderBanners([]);
+            }
+        }
+
+        function renderBanners(banners) {
+            const container = document.getElementById('bannerContainer');
+            let html = '';
+
+            if (banners && banners.length > 0) {
+                banners.forEach(b => {
+                    let link = (b.linkUrl || b.link || '#').trim();
+                    if (link && !link.startsWith('http://') && !link.startsWith('https://')) {
+                        link = 'https://' + link;
+                    }
+
+                    html += `
+                        <div class="banner-slot">
+                            <a href="${link}" target="_blank" style="padding:0;">
+                                <img src="${b.imageUrl}" alt="${b.title || '배너'}" class="banner-img">
+                            </a>
+                        </div>
+                    `;
+                });
+            }
+
+            const currentCount = banners ? banners.length : 0;
+            for (let i = currentCount; i < 2; i++) {
+                const num = i + 1;
+                html += `
+                    <div class="banner-slot">
+                        <a href="https://t.me/LEVERSE_1" target="_blank">
+                            광고주 ${num}번 배너 (등록 문의)
+                            <span>클릭하여 텔레그램으로 입점을 문의하세요</span>
+                        </a>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+        }
+
+        window.addEventListener('DOMContentLoaded', fetchBanners);
+    </script>
 </body>
 </html>
