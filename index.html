@@ -140,7 +140,6 @@
                 
                 let banners = [];
                 const raw = data.record;
-                // 관리자 저장 포맷인 { banners: [...] } 구조를 확실하게 추출
                 if (raw && Array.isArray(raw.banners)) {
                     banners = raw.banners;
                 } else if (Array.isArray(raw)) {
@@ -159,6 +158,12 @@
             let html = '';
 
             if (banners && banners.length > 0) {
+                // 🔄 접속할 때마다 배너 순서를 무작위로 섞어주는 로테이션 기능
+                for (let i = banners.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [banners[i], banners[j]] = [banners[j], banners[i]];
+                }
+
                 banners.forEach(b => {
                     let link = (b.linkUrl || b.link || '#').trim();
                     if (link && !link.startsWith('http://') && !link.startsWith('https://')) {
