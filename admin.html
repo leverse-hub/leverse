@@ -185,7 +185,6 @@
         const MASTER_KEY = "$2a$10$z02BCvLiUiJxAdGwNLshJeQHmEmBK0dRsCnGRF.xsuMwIAFFqO2dW";
         const BIN_ID = "6af2586bffd5d16053b5085a";
 
-        // 클라우드에서 배너 데이터 로드
         async function fetchBanners() {
             const container = document.getElementById('bannerContainer');
             try {
@@ -215,7 +214,6 @@
 
             let html = '';
             banners.forEach(b => {
-                // 링크에 http가 안 붙어있으면 붙여주는 처리
                 let link = b.linkUrl.trim();
                 if (!link.startsWith('http://') && !link.startsWith('https://')) {
                     link = 'https://' + link;
@@ -234,7 +232,6 @@
             container.innerHTML = html;
         }
 
-        // 페이지 진입 시 실행
         window.addEventListener('DOMContentLoaded', fetchBanners);
     </script>
 </body>
