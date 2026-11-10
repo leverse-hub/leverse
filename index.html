@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEVERSE - 공식 파트너 및 배너 센터</title>
+    <title>LEVERSE - 공식 파트너 및 배너 광고 센터</title>
     <style>
         * { box-sizing: border-box; }
         body { 
@@ -14,131 +14,96 @@
             padding: 40px 20px; 
             min-height: 100vh;
         }
-        .container { max-width: 1000px; margin: 0 auto; }
-        
+        .container { max-width: 1200px; margin: 0 auto; }
         .header { 
-            text-align: center; 
-            margin-bottom: 40px; 
-            border-bottom: 1px solid rgba(255, 215, 0, 0.2); 
-            padding-bottom: 30px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid rgba(255, 215, 0, 0.15); 
         }
-        .brand { color: #ffd700; font-size: 14px; font-weight: bold; margin-bottom: 8px; letter-spacing: 2px; }
-        h1 { color: #ffffff; font-size: 26px; margin: 0 0 12px 0; font-weight: bold; }
-        .subtitle { color: #8a99ad; font-size: 14px; line-height: 1.5; }
-
-        .banner-container { display: flex; flex-direction: column; gap: 20px; margin-bottom: 35px; }
-        
+        .header-title h2 { color: #ffd700; font-size: 14px; letter-spacing: 2px; margin: 0 0 5px 0; }
+        .header-title h1 { font-size: 28px; margin: 0; color: #ffffff; }
+        .header-sub { color: #8a99ad; font-size: 13px; margin-top: 5px; }
+        .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 40px; }
+        @media (max-width: 768px) { .banner-grid { grid-template-columns: 1fr; } }
         .banner-card { 
-            background: #121722; 
-            border: 1px solid rgba(255, 215, 0, 0.3); 
-            border-radius: 8px; 
-            overflow: hidden; 
-            cursor: pointer; 
-            transition: all 0.2s;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+            background: #121722; border: 1px solid rgba(255, 215, 0, 0.2); 
+            border-radius: 10px; overflow: hidden; text-decoration: none; display: block; transition: 0.2s; 
         }
-        .banner-card:hover { 
-            transform: translateY(-3px); 
-            border-color: #ffd700; 
+        .banner-card:hover { transform: translateY(-4px); border-color: #ffd700; box-shadow: 0 6px 20px rgba(255, 215, 0, 0.15); }
+        .banner-img { width: 100%; aspect-ratio: 1200 / 320; object-fit: cover; display: block; background: #1a2130; }
+        .banner-footer { padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; background: #161c2b; }
+        .banner-title { color: #ffffff; font-weight: bold; font-size: 15px; }
+        .badge { background: rgba(255, 215, 0, 0.1); color: #ffd700; border: 1px solid #ffd700; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+        .btn-contact { 
+            background: linear-gradient(135deg, #e6c547, #b8860b); color: #111; 
+            padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; 
+            display: inline-flex; align-items: center; gap: 6px; 
         }
-        .banner-card img { width: 100%; height: auto; display: block; max-height: 320px; object-fit: cover; }
-        .banner-info { padding: 15px 20px; background: #0f131c; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,215,0,0.1); }
-        .banner-title { font-size: 16px; font-weight: bold; color: #ffd700; margin: 0; }
-        .banner-badge { font-size: 12px; background: rgba(255, 215, 0, 0.1); color: #ffd700; padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(255, 215, 0, 0.2); }
-
-        .info-card {
-            background: #121722;
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 8px;
-            padding: 20px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
+        .btn-contact:hover { background: linear-gradient(135deg, #ffd700, #daa520); }
+        .ad-banner-box { 
+            background: #121722; border: 1px solid rgba(255, 215, 0, 0.25); 
+            border-radius: 10px; padding: 20px 25px; display: flex; justify-content: space-between; align-items: center; margin-top: 30px; 
         }
-        .info-card h4 { color: #ffd700; margin: 0 0 5px 0; font-size: 15px; }
-        .info-card p { color: #8a99ad; margin: 0; font-size: 13px; }
-        
-        .btn-inquiry {
-            background: linear-gradient(135deg, #e6c547, #b8860b);
-            color: #111;
-            padding: 10px 18px;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 13px;
-            text-decoration: none;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-        .btn-inquiry:hover { background: linear-gradient(135deg, #ffd700, #daa520); }
-
-        .footer { text-align: center; color: #556275; font-size: 12px; line-height: 1.5; }
-        .no-banner { color: #8a99ad; padding: 40px; text-align: center; background: #121722; border-radius: 8px; border: 1px dashed rgba(255,215,0,0.2); font-size: 14px; }
+        .ad-info h3 { color: #ffd700; margin: 0 0 5px 0; font-size: 16px; }
+        .ad-info p { color: #8a99ad; margin: 0; font-size: 13px; }
+        .footer-text { text-align: center; color: #556270; font-size: 12px; margin-top: 40px; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="brand">LEVERSE OFFICIAL</div>
-            <h1>공식 파트너 및 배너 광고 센터</h1>
-            <div class="subtitle">안전하고 검증된 제휴 파트너들의 프로모션과 실시간 링크를 안내해 드립니다.</div>
+            <div class="header-title">
+                <h2>LEVERSE OFFICIAL</h2>
+                <h1>공식 파트너 및 배너 광고 센터</h1>
+                <div class="header-sub">안전하고 검증된 제휴 파트너들의 프로모션과 실시간 링크를 안내해 드립니다.</div>
+            </div>
+            <a href="https://t.me/LEVERSE_1" target="_blank" class="btn-contact">📢 배너 광고 문의 →</a>
         </div>
-
-        <div class="banner-container" id="mainBannerList">
-            <div class="no-banner">배너를 불러오는 중입니다...</div>
+        <div class="banner-grid" id="bannerContainer">
+            <div style="grid-column: 1 / -1; text-align: center; color: #8a99ad; padding: 40px;">배너 목록을 불러오는 중...</div>
         </div>
-
-        <div class="info-card">
-            <div>
-                <h4>📢 배너 광고 및 파트너 입점 문의</h4>
+        <div class="ad-banner-box">
+            <div class="ad-info">
+                <h3>📢 배너 광고 및 파트너 입점 문의</h3>
                 <p>제휴 및 광고 등록을 원하시면 언제든 문의해 주세요. (권장 이미지: 1200 x 320px)</p>
             </div>
-            <a href="https://t.me/" target="_blank" class="btn-inquiry">광고 문의하기 →</a>
+            <a href="https://t.me/LEVERSE_1" target="_blank" class="btn-contact">광고 문의하기 →</a>
         </div>
-
-        <div class="footer">
-            LEVERSE OFFICIAL | 제휴 및 파트너 광고 전용 공식 플랫폼입니다.<br>
-            © 2026 LEVERSE. All rights reserved.
+        <div class="footer-text">
+            LEVERSE OFFICIAL | 제휴 및 파트너 광고 전용 공식 플랫폼입니다.<br>© 2026 LEVERSE. All rights reserved.
         </div>
     </div>
-
     <script>
         const MASTER_KEY = "$2a$10$z02BCvLiUiJxAdGwNLshJeQHmEmBK0dRsCnGRF.xsuMwIAFFqO2dW";
         const BIN_ID = "6af2586bffd5d16053b5085a";
-
-        async function loadMainBanners() {
-            const container = document.getElementById('mainBannerList');
+        async function fetchBanners() {
+            const container = document.getElementById('bannerContainer');
             try {
-                const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-                    headers: { 'X-Master-Key': MASTER_KEY }
-                });
+                const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, { headers: { 'X-Master-Key': MASTER_KEY } });
                 const data = await res.json();
-                const banners = data.record || [];
-
-                if (banners.length === 0) {
-                    container.innerHTML = '<div class="no-banner">현재 등록된 배너가 없습니다.</div>';
-                    return;
-                }
-
-                let html = '';
-                banners.forEach(b => {
-                    html += `
-                        <div class="banner-card" onclick="window.open('${b.linkUrl}', '_blank')">
-                            <img src="${b.imageUrl}" alt="${b.title}" onerror="this.src='https://via.placeholder.com/1200x320?text=Image+Load+Error'">
-                            <div class="banner-info">
-                                <h3 class="banner-title">${b.title}</h3>
-                                <span class="banner-badge">공식 파트너</span>
-                            </div>
-                        </div>
-                    `;
-                });
-                container.innerHTML = html;
+                let list = data.record ? (Array.isArray(data.record) ? data.record : (data.record.banners || [])) : [];
+                renderBanners(list);
             } catch (e) {
-                container.innerHTML = '<div class="no-banner">배너를 불러오지 못했습니다.</div>';
+                container.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: #e74c3c; padding: 40px;">배너 데이터를 불러오지 못했습니다.</div>';
             }
         }
-
-        loadMainBanners();
+        function renderBanners(banners) {
+            const container = document.getElementById('bannerContainer');
+            if (!banners || banners.length === 0) {
+                container.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: #8a99ad; padding: 40px;">현재 등록된 배너가 없습니다.</div>';
+                return;
+            }
+            let html = '';
+            banners.forEach(b => {
+                let link = b.linkUrl.trim();
+                if (!link.startsWith('http://') && !link.startsWith('https://')) link = 'https://' + link;
+                html += `<a href="${link}" target="_blank" class="banner-card">
+                    <img src="${b.imageUrl}" alt="${b.title}" class="banner-img" onerror="this.src='https://via.placeholder.com/1200x320/1a2130/ffffff?text=Image+Load+Failed'">
+                    <div class="banner-footer"><span class="banner-title">${b.title}</span><span class="badge">공식 파트너</span></div>
+                </a>`;
+            });
+            container.innerHTML = html;
+        }
+        window.addEventListener('DOMContentLoaded', fetchBanners);
     </script>
 </body>
 </html>
