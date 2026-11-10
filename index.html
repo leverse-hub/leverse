@@ -19,11 +19,37 @@
         .section-title { color: #8a99ad; font-size: 12px; font-weight: bold; letter-spacing: 1px; display: flex; align-items: center; gap: 6px; }
         .section-title::before { content: "•"; color: #ffd700; font-size: 16px; }
         .section-sub { color: #556270; font-size: 11px; }
-        .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 50px; }
-        @media (max-width: 768px) { .banner-grid { grid-template-columns: 1fr; } }
-        .banner-card { background: #11151e; border: 1px solid rgba(255, 215, 0, 0.2); border-radius: 12px; overflow: hidden; display: block; text-decoration: none; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; }
+        
+        /* 2열 그리드 강제 고정 및 꽉 채우기 설정 */
+        .banner-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr) !important; 
+            gap: 20px; 
+            margin-bottom: 50px; 
+        }
+        @media (max-width: 768px) {
+            .banner-grid { grid-template-columns: 1fr !important; }
+        }
+
+        .banner-card { 
+            background: #11151e; 
+            border: 1px solid rgba(255, 215, 0, 0.2); 
+            border-radius: 12px; 
+            overflow: hidden; 
+            display: block; 
+            text-decoration: none; 
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; 
+        }
         .banner-card:hover { transform: translateY(-4px); border-color: #ffd700; box-shadow: 0 8px 25px rgba(255, 215, 0, 0.15); }
-        .banner-img { width: 100%; height: 120px; object-fit: cover; display: block; background: #11151e; }
+        
+        /* 이미지가 카드 폭에 완전히 꽉 차도록 수정된 스타일 */
+        .banner-img { 
+            width: 100% !important; 
+            height: 120px !important; 
+            object-fit: fill !important; 
+            display: block !important; 
+        }
+
         .ad-banner-box { background: #0e121a; border: 1px solid rgba(255, 215, 0, 0.2); border-radius: 12px; padding: 25px 30px; display: flex; justify-content: space-between; align-items: center; }
         .ad-info-tag { color: #b8860b; font-size: 11px; font-weight: bold; letter-spacing: 1px; margin-bottom: 5px; }
         .ad-info h3 { color: #ffffff; margin: 0 0 8px 0; font-size: 20px; }
@@ -114,7 +140,7 @@
 
                 html += `
                     <a href="${link}" target="_blank" class="banner-card">
-                        <img src="${b.imageUrl}" alt="${b.title || 'Banner'}" class="banner-img" onerror="this.src='https://via.placeholder.com/1200x320/181f2c/ffffff?text=Image+Load+Failed'">
+                        <img src="${b.imageUrl}" alt="${b.title || 'Banner'}" class="banner-img">
                     </a>
                 `;
             });
