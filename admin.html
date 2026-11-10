@@ -16,7 +16,7 @@
         input[type="text"]:focus { border-color: #ffd700; outline: none; }
         .btn { background: linear-gradient(135deg, #ffd700, #b8860b); color: #111; border: none; padding: 12px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; }
         .btn:hover { opacity: 0.9; }
-        .btn-reset { background: #e74c3c; color: white; padding: 8px 15px; border-radius: 6px; border: none; cursor: pointer; font-weight: bold; margin-left: 10px; }
+        .btn-reset { background: #e74c3c; color: white; padding: 8px 15px; border-radius: 6px; border: none; cursor: pointer; font-weight: bold; }
         .btn-danger { background: #e74c3c; color: white; padding: 6px 12px; border-radius: 4px; border: none; cursor: pointer; font-size: 12px; }
         .banner-item { display: flex; justify-content: space-between; align-items: center; background: #181f2c; padding: 12px 15px; border-radius: 6px; margin-bottom: 10px; border: 1px solid rgba(255, 215, 0, 0.1); }
         .msg { margin-top: 10px; font-size: 13px; color: #2ecc71; }
@@ -59,7 +59,7 @@
         <div class="card">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
                 <h3 style="margin:0; color:#ffd700; font-size:16px;">📋 현재 등록된 배너 목록</h3>
-                <button class="btn-reset" onclick="resetDB()">데이터베이스 초기화(리셋)</button>
+                <button class="btn-reset" onclick="resetDB()">초기화 및 새로고침</button>
             </div>
             <div id="bannerList">불러오는 중...</div>
         </div>
@@ -83,6 +83,7 @@
                 const res = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
                     headers: { 'X-Master-Key': masterKey }
                 });
+                if (!res.ok) throw new Error('API 응답 실패');
                 const data = await res.json();
                 
                 let raw = data.record;
@@ -93,18 +94,18 @@
                 } else {
                     currentBanners = [];
                 }
-
                 renderAdminList();
             } catch (e) {
                 console.error(e);
-                listEl.innerHTML = '<span style="color:#e74c3c;">데이터 로드 실패. 초기화 버튼을 눌러주세요.</span>';
+                currentBanners = [];
+                renderAdminList();
             }
         }
 
         function renderAdminList() {
             const listEl = document.getElementById('bannerList');
             if (currentBanners.length === 0) {
-                listEl.innerHTML = '<span style="color:#8a99ad;">등록된 배너가 없습니다. 새 배너를 등록해주세요.</span>';
+                listEl.innerHTML = '<span style="color:#8a99ad;">등록된 배너가 없습니다.새 배너를 등록해주세요.</span>';
                 return;
             }
 
@@ -150,3 +151,41 @@
             currentBanners.splice(index, 1);
             await saveToCloud();
         }
+
+        async function resetDB() {
+            currentBanners = [];
+            await saveToCloud();
+            alert('데이터베이스가 초기화되었습니다.');
+        }
+
+        async function saveToCloud() {
+            const { masterKey, binId } = getConfig();
+            const msgEl = document.getElementById('statusMsg');
+
+            try {
+                const res = await fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': masterKey
+                    },
+                    body: JSON.stringify({ banners: currentBanners })
+                });
+
+                if (res.ok) {
+                    msgEl.textContent = '성공적으로 저장 및 반영되었습니다!';
+                    renderAdminList();
+                    setTimeout(() => { msgEl.textContent = ''; }, 3000);
+                } else {
+                    alert('저장 실패 (Master Key나 Bin ID를 확인해주세요)');
+                }
+            } catch (e) {
+                console.error(e);
+                alert('저장 중 네트워크 오류 발생');
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', loadBanners);
+    </script>
+</body>
+</html>
