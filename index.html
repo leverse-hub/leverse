@@ -120,13 +120,14 @@
             border-color: #ffd700; 
             box-shadow: 0 8px 25px rgba(255, 215, 0, 0.15);
         }
+        
+        /* 이미지 맞춤 설정 (어떤 비율이든 여백 없이 꽉 차게) */
         .banner-img { 
             width: 100%; 
-            height: auto; 
-            aspect-ratio: 1200 / 320; 
+            height: 120px; 
             object-fit: cover; 
             display: block; 
-            background: #181f2c;
+            background: #11151e;
         }
 
         /* 하단 문의 박스 */
@@ -204,83 +205,4 @@
         </div>
 
         <!-- 배너 그리드 영역 -->
-        <div class="banner-grid" id="bannerContainer">
-            <div style="grid-column: 1 / -1; text-align: center; color: #8a99ad; padding: 40px;">
-                배너 목록을 불러오는 중...
-            </div>
-        </div>
-
-        <!-- 하단 광고 문의 바 -->
-        <div class="ad-banner-box">
-            <div class="ad-info">
-                <div class="ad-info-tag">BANNER ADVERTISING</div>
-                <h3>배너 광고주 모집</h3>
-                <p>권장 이미지 크기는 1200 × 320px입니다. PC와 모바일 모두 한 줄에 2개씩 노출됩니다.</p>
-            </div>
-            <a href="https://t.me/LEVERSE_1" target="_blank" class="btn-contact">
-                배너 광고 문의 →
-            </a>
-        </div>
-
-        <div class="footer-text">
-            <br>
-            LEVERSE OFFICIAL | 본 페이지는 광고 배너 안내 및 연결을 위한 페이지입니다.<br>
-            © 2026 LEVERSE. All rights reserved.
-        </div>
-    </div>
-
-    <script>
-        const MASTER_KEY = "$2a$10$z02BCvLiUiJxAdGwNLshJeQHmEmBK0dRsCnGRF.xsuMwIAFFqO2dW";
-        const BIN_ID = "6af2586bffd5d16053b5085a";
-
-        async function fetchBanners() {
-            const container = document.getElementById('bannerContainer');
-            try {
-                const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-                    headers: { 'X-Master-Key': MASTER_KEY }
-                });
-                const data = await res.json();
-                
-                let banners = [];
-                // 관리자 구조(record.record 등)에 맞게 안전하게 배열 추출
-                const recordData = data.record ? (data.record.record || data.record) : data;
-                if (Array.isArray(recordData)) {
-                    banners = recordData;
-                } else if (recordData && Array.isArray(recordData.banners)) {
-                    banners = recordData.banners;
-                }
-
-                renderBanners(banners);
-            } catch (e) {
-                console.error('배너 로드 오류:', e);
-                container.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: #e74c3c; padding: 40px;">배너 데이터를 불러오지 못했습니다.</div>';
-            }
-        }
-
-        function renderBanners(banners) {
-            const container = document.getElementById('bannerContainer');
-            if (!banners || banners.length === 0) {
-                container.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: #8a99ad; padding: 40px;">현재 등록된 배너가 없습니다.</div>';
-                return;
-            }
-
-            let html = '';
-            banners.forEach(b => {
-                let link = (b.linkUrl || b.link || '#').trim();
-                if (link && !link.startsWith('http://') && !link.startsWith('https://')) {
-                    link = 'https://' + link;
-                }
-
-                html += `
-                    <a href="${link}" target="_blank" class="banner-card">
-                        <img src="${b.imageUrl}" alt="${b.title || 'Banner'}" class="banner-img" onerror="this.src='https://via.placeholder.com/1200x320/181f2c/ffffff?text=Image+Load+Failed'">
-                    </a>
-                `;
-            });
-            container.innerHTML = html;
-        }
-
-        window.addEventListener('DOMContentLoaded', fetchBanners);
-    </script>
-</body>
-</html>
+        <div class="banner-grid" id="bannerContainer
