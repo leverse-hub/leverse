@@ -10,7 +10,7 @@
         .container { max-width: 1100px; margin: 0 auto; }
         .gnb-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; }
         
-        /* 로고 클릭 가능하도록 스타일 적용 */
+        /* 로고 클릭 시 새로고침 */
         .brand-logo { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: bold; color: #ffffff; text-decoration: none; cursor: pointer; }
         .brand-logo:hover { opacity: 0.9; }
         .brand-logo-icon { width: 26px; height: 26px; border: 1px solid rgba(255, 215, 0, 0.6); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ffd700; font-size: 13px; }
@@ -24,12 +24,13 @@
         .section-title::before { content: "•"; color: #ffd700; font-size: 16px; }
         .section-sub { color: #556270; font-size: 11px; }
         
-        /* 2열 그리드 고정 */
+        /* 2열 그리드 설정 */
         .banner-grid { 
             display: grid; 
             grid-template-columns: repeat(2, 1fr) !important; 
             gap: 20px; 
             margin-bottom: 50px; 
+            width: 100% !important;
         }
         @media (max-width: 768px) {
             .banner-grid { grid-template-columns: 1fr !important; }
@@ -40,19 +41,42 @@
             border: 1px solid rgba(255, 215, 0, 0.2); 
             border-radius: 12px; 
             overflow: hidden; 
-            display: block; 
+            display: block !important; 
+            width: 100% !important;
             text-decoration: none; 
             transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; 
         }
         .banner-card:hover { transform: translateY(-4px); border-color: #ffd700; box-shadow: 0 8px 25px rgba(255, 215, 0, 0.15); }
         
-        /* 이미지가 양옆 여백 없이 카드를 완전히 꽉 채우도록 수정 (object-fit: cover) */
         .banner-img { 
             width: 100% !important; 
-            height: 120px !important; 
+            max-width: 100% !important;
+            min-width: 100% !important;
+            height: 140px !important; 
             object-fit: cover !important; 
             display: block !important; 
         }
+
+        /* 광고 없을 때 보여줄 빈 자리(모집중) 카드 디자인 */
+        .banner-empty-card {
+            background: #11151e;
+            border: 1px dashed rgba(255, 215, 0, 0.3);
+            border-radius: 12px;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #7a8b9e;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .banner-empty-card:hover {
+            border-color: #ffd700;
+            color: #ffd700;
+        }
+        .empty-icon { font-size: 20px; margin-bottom: 6px; color: #b8860b; }
+        .empty-text { font-size: 13px; font-weight: bold; }
 
         .ad-banner-box { background: #0e121a; border: 1px solid rgba(255, 215, 0, 0.2); border-radius: 12px; padding: 25px 30px; display: flex; justify-content: space-between; align-items: center; }
         .ad-info-tag { color: #b8860b; font-size: 11px; font-weight: bold; letter-spacing: 1px; margin-bottom: 5px; }
@@ -66,7 +90,6 @@
 <body>
     <div class="container">
         <div class="gnb-bar">
-            <!-- 로고 클릭 시 새로고침 기능 적용 -->
             <a href="#" onclick="location.reload(); return false;" class="brand-logo">
                 <div class="brand-logo-icon">₩</div>
                 <span>LEVERSE OFFICIAL</span>
@@ -125,30 +148,39 @@
                 renderBanners(banners);
             } catch (e) {
                 console.error('배너 로드 오류:', e);
-                container.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: #8a99ad; padding: 40px;">현재 등록된 배너가 없습니다.</div>';
+                renderBanners([]);
             }
         }
 
         function renderBanners(banners) {
             const container = document.getElementById('bannerContainer');
-            if (!banners || banners.length === 0) {
-                container.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: #8a99ad; padding: 40px;">현재 등록된 배너가 없습니다.</div>';
-                return;
+            let html = '';
+
+            if (banners && banners.length > 0) {
+                banners.forEach(b => {
+                    let link = (b.linkUrl || b.link || '#').trim();
+                    if (link && !link.startsWith('http://') && !link.startsWith('https://')) {
+                        link = 'https://' + link;
+                    }
+
+                    html += `
+                        <a href="${link}" target="_blank" class="banner-card">
+                            <img src="${b.imageUrl}" alt="${b.title || 'Banner'}" class="banner-img">
+                        </a>
+                    `;
+                });
             }
 
-            let html = '';
-            banners.forEach(b => {
-                let link = (b.linkUrl || b.link || '#').trim();
-                if (link && !link.startsWith('http://') && !link.startsWith('https://')) {
-                    link = 'https://' + link;
-                }
-
+            const currentCount = banners ? banners.length : 0;
+            for (let i = currentCount; i < 2; i++) {
                 html += `
-                    <a href="${link}" target="_blank" class="banner-card">
-                        <img src="${b.imageUrl}" alt="${b.title || 'Banner'}" class="banner-img">
+                    <a href="https://t.me/LEVERSE_1" target="_blank" class="banner-empty-card">
+                        <div class="empty-icon">＋</div>
+                        <div class="empty-text">프리미엄 배너 광고 자리 (모집중)</div>
                     </a>
                 `;
-            });
+            }
+
             container.innerHTML = html;
         }
 
