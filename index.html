@@ -82,6 +82,9 @@
             -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 4px 20px rgba(218, 165, 32, 0.5));
             line-height: 1.25;
+            /* 📱 글자가 어색하게 잘리지 않고 단어 단위로 예쁘게 떨어지도록 처리하는 속성 추가 */
+            word-break: keep-all;
+            overflow-wrap: break-word;
         }
         
         .hero-desc { 
