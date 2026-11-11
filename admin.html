@@ -55,18 +55,6 @@
         </div>
 
         <div class="card">
-            <h3 style="margin-top:0; color:#ffd700; font-size:16px;">데이터베이스 설정</h3>
-            <div class="form-group">
-                <label>JSONBin Master Key</label>
-                <input type="text" id="masterKey" value="$2a$10$z02BCvLiUiJxAdGwNLshJeQHmEmBK0dRsCnGRF.xsuMwIAFFqO2dW">
-            </div>
-            <div class="form-group">
-                <label>Bin ID</label>
-                <input type="text" id="binId" value="6af2586bffd5d16053b5085a">
-            </div>
-        </div>
-
-        <div class="card">
             <h3 style="margin-top:0; color:#ffd700; font-size:16px;">+ 새 배너 추가</h3>
             <div class="form-group">
                 <label>광고주 / 배너 제목</label>
@@ -95,9 +83,9 @@
 
     <script>
         const ADMIN_PW = "5711"; 
+        const API_BASE_URL = "https://api.yourdomain.com"; // 사장님의 백엔드 서버 주소로 변경하세요
         let currentBanners = [];
 
-        // 🛡️ [실무 프론트엔드 보안] 새로고침해도 로그인 상태 유지 체크
         window.addEventListener('DOMContentLoaded', () => {
             if (sessionStorage.getItem('leverse_admin_auth') === 'true') {
                 document.getElementById('loginOverlay').style.display = 'none';
@@ -125,22 +113,11 @@
             location.reload(); 
         }
 
-        function getConfig() {
-            return {
-                masterKey: document.getElementById('masterKey').value.trim(),
-                binId: document.getElementById('binId').value.trim()
-            };
-        }
-
+        // 🔒 백엔드 프록시 서버를 통해 안전하게 배너 목록 로드
         async function loadBanners() {
-            const { masterKey, binId } = getConfig();
-            const listEl = document.getElementById('bannerList');
-            
             try {
-                const res = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
-                    headers: { 'X-Master-Key': masterKey }
-                });
-                if (!res.ok) throw new Error('API 응답 실패');
+                const res = await fetch(`${API_BASE_URL}/api/banners`);
+                if (!res.ok) throw new Error('서버 통신 실패');
                 const data = await res.json();
                 
                 let raw = data.record;
@@ -216,39 +193,36 @@
             alert('데이터베이스가 초기화되었습니다.');
         }
 
+        // 🔒 백엔드 프록시 서버를 통해 안전하게 클라우드 저장
         async function saveToCloud() {
-            const { masterKey, binId } = getConfig();
             const msgEl = document.getElementById('statusMsg');
             const submitBtn = document.getElementById('submitBtn');
 
-            // 🛡️ [실무 프론트엔드] 중복 전송 방지 (버튼 락)
             if (submitBtn) {
                 submitBtn.disabled = true;
                 submitBtn.textContent = '저장 및 반영 중...';
             }
 
             try {
-                const res = await fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
+                const res = await fetch(`${API_BASE_URL}/api/banners`, {
                     method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Master-Key': masterKey
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ banners: currentBanners })
                 });
 
-                if (res.ok) {
+                const result = await res.json();
+
+                if (res.ok && result.success) {
                     msgEl.textContent = '성공적으로 저장 및 반영되었습니다!';
                     renderAdminList();
                     setTimeout(() => { msgEl.textContent = ''; }, 3000);
                 } else {
-                    alert('저장 실패');
+                    alert('저장 실패: ' + (result.message || '알 수 없는 오류'));
                 }
             } catch (e) {
                 console.error(e);
                 alert('저장 중 네트워크 오류 발생');
             } finally {
-                // 🛡️ [실무 프론트엔드] 버튼 해제
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.textContent = '배너 등록 및 실시간 반영';
