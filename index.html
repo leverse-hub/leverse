@@ -2,19 +2,35 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="google-site-verification" content="Ti1RlbPxQ7-tNZhRJ2KFkGqSk_nZOqBMrZ5p7f2YqFw" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LEVERSE OFFICIAL - 메이저 카지노 & 슬롯 공식 파트너 센터</title>
 
-    <!-- 텔레그램 / SNS 공유 시 큼지막한 대형 카드로 띄우는 오픈그래프 및 트위터 메타 태그 -->
+    <!-- 구글 / 네이버 서치콘솔 소유권 확인 -->
+    <meta name="google-site-verification" content="Ti1RlbPxQ7-tNZhRJ2KFkGqSk_nZOqBMrZ5p7f2YqFw" />
+    
+    <!-- SEO 기본 메타 태그 -->
+    <meta name="description" content="검증된 최상위 카지노 파트너 배너 라운지. 공정한 무작위 로테이션 노출 제공.">
+    <meta name="keywords" content="LEVERSE, 카지노배너, 슬롯파트너, 메이저카지노, 파트너센터">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://leverse-hub.github.io/leverse/">
+
+    <!-- 보안 관련 메타 태그 (클릭재킹 및 보안 강화) -->
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+
+    <!-- 텔레그램 / SNS 대형 카드(Large Image Card) 메타 태그 -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="LEVERSE OFFICIAL - 메이저 카지노 & 슬롯 공식 파트너 센터">
     <meta property="og:description" content="검증된 최상위 카지노 파트너 배너 라운지. 공정한 무작위 로테이션 노출 제공.">
     <meta property="og:image" content="https://leverse-hub.github.io/leverse/preview.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:url" content="https://leverse-hub.github.io/leverse/">
-    
-    <!-- 텔레그램/트위터에서 작은 정사각형이 아닌 큼지막한 와이드 카드로 출력되게 만드는 설정 -->
+
+    <!-- 텔레그램/트위터 대형 와이드 카드 출력을 위한 강제 설정 -->
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LEVERSE OFFICIAL - 메이저 카지노 & 슬롯 공식 파트너 센터">
+    <meta name="twitter:description" content="검증된 최상위 카지노 파트너 배너 라운지. 공정한 무작위 로테이션 노출 제공.">
     <meta name="twitter:image" content="https://leverse-hub.github.io/leverse/preview.png">
 
     <style>
@@ -85,12 +101,11 @@
 
         .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 40px; }
         
-        /* [최상위 고성능 렌더링 스타일] 레이아웃 강제 고정으로 버퍼링/깜빡임 원천 차단 */
         .banner-slot { 
             background: linear-gradient(135deg, #0f141d 0%, #141b26 100%); 
             border: 1px solid rgba(255, 215, 0, 0.3); 
             border-radius: 12px; overflow: hidden; 
-            aspect-ratio: 1200 / 320; /* 가로세로 비율 완벽 고정 */
+            aspect-ratio: 1200 / 320; 
             position: relative;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(255, 215, 0, 0.03); 
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -178,7 +193,8 @@
     <script>
         async function loadBanners() {
             try {
-                const res = await fetch('./banners.json?t=' + Date.now());
+                // 캐시 지연 방지를 위한 고성능 타임스탬프 파라미터 적용
+                const res = await fetch('./banners.json?v=' + new Date().getTime());
                 const data = await res.json();
                 let banners = Array.isArray(data) ? data : (data.banners || []);
                 renderBanners(banners);
@@ -193,7 +209,6 @@
             let html = '';
 
             if (banners && banners.length > 0) {
-                // 피셔-예이츠 셔플 알고리즘으로 무작위 섞기
                 for (let i = banners.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
                     [banners[i], banners[j]] = [banners[j], banners[i]];
@@ -207,14 +222,13 @@
                     html += `
                         <div class="banner-slot">
                             <a href="${link}" target="_blank" style="padding:0;">
-                                <img src="${b.imageUrl}" alt="${b.title || '배너'}" class="banner-img" loading="lazy">
+                                <img src="${b.imageUrl}" alt="${b.title || '배너'}" class="banner-img" loading="eager">
                             </a>
                         </div>
                     `;
                 });
             }
 
-            // 빈 슬롯 채우기 (배너가 2개 미만일 경우 기본 광고주 모집 슬롯 노출)
             const currentCount = banners ? banners.length : 0;
             const minSlots = Math.max(2, currentCount);
             for (let i = currentCount; i < minSlots; i++) {
