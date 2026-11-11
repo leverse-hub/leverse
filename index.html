@@ -92,7 +92,7 @@
             transform: translateY(-5px); 
         }
         .banner-slot a { 
-            display: flex; flex-direction: column; align-items: center; justifyContent: center; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
             width: 100%; height: 100%; min-height: 185px; text-decoration: none; 
             color: #ffd700; font-weight: bold; font-size: 16px; text-align: center; padding: 20px; gap: 8px;
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
@@ -167,11 +167,10 @@
     </div>
 
     <script>
-        // 🔒 렌더 프록시 서버 주소로 안전하게 연결 완료
         const API_BASE_URL = "https://leverse.onrender.com";
         const CACHE_KEY = "leverse_banners_cache_v1";
         const CACHE_TIME_KEY = "leverse_banners_time_v1";
-        const TTL_MS = 5 * 60 * 1000; // 5분 TTL 캐시 정책 (그대로 유지)
+        const TTL_MS = 5 * 60 * 1000; // 5분 TTL 캐시 정책
 
         function loadCachedBanners() {
             const cachedData = localStorage.getItem(CACHE_KEY);
@@ -197,11 +196,12 @@
                 const data = await res.json();
                 
                 let banners = [];
-                const raw = data.record;
-                if (raw && Array.isArray(raw.banners)) {
-                    banners = raw.banners;
-                } else if (Array.isArray(raw)) {
+                // 관리자 페이지와 데이터 구조 완벽 호환 처리
+                const raw = data.banners || (data.record && data.record.banners) || data.record;
+                if (Array.isArray(raw)) {
                     banners = raw;
+                } else if (raw && Array.isArray(raw.banners)) {
+                    banners = raw.banners;
                 }
 
                 localStorage.setItem(CACHE_KEY, JSON.stringify(banners));
@@ -212,6 +212,7 @@
             }
         }
 
+        // 사장님이 작성하신 무작위 셔플 & 렌더링 로직 100% 보존
         function renderBanners(banners) {
             const container = document.getElementById('bannerContainer');
             if (!container) return;
