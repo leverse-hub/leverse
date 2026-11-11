@@ -1,7 +1,14 @@
-[
-  {
-    "title": "LEVERSE 이벤트",
-    "imageUrl": "https://github.com/user-attachments/assets/77e0c35d-2d6b-47f9-a9ea-c2537ba32191",
-    "linkUrl": "https://t.me/leverse_chat"
-  }
-]
+{
+  "banners": [
+    {
+      "title": "LEVERSE 이벤트",
+      "imageUrl": "https://github.com/user-attachments/assets/77e0c35d-2d6b-47f9-a9ea-c2537ba32191",
+      "linkUrl": "https://t.me/leverse_chat"
+    },
+    {
+      "title": "신규가입 이벤트",
+      "imageUrl": "https://i.ibb.co/WWvx3QJD/image.jpg",
+      "linkUrl": "t.me/leverse_chat"
+    }
+  ]
+}
