@@ -167,8 +167,8 @@
     </div>
 
     <script>
-        const MASTER_KEY = "$2a$10$z02BCvLiUiJxAdGwNLshJeQHmEmBK0dRsCnGRF.xsuMwIAFFqO2dW";
-        const BIN_ID = "6af2586bffd5d16053b5085a";
+        // 🔒 [보안 업그레이드] 프론트엔드에 노출되던 MASTER_KEY와 BIN_ID를 완전히 제거했습니다.
+        const API_BASE_URL = "https://api.yourdomain.com"; // 사장님의 백엔드 서버 주소
         const CACHE_KEY = "leverse_banners_cache_v1";
         const CACHE_TIME_KEY = "leverse_banners_time_v1";
         const TTL_MS = 5 * 60 * 1000; // 5분 TTL 캐시 정책
@@ -192,10 +192,9 @@
             }
 
             try {
-                const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-                    headers: { 'X-Master-Key': MASTER_KEY }
-                });
-                if (!res.ok) throw new Error('API 로드 실패');
+                // 🔒 JSONBin 직접 호출 대신 백엔드 프록시 서버 API를 호출합니다.
+                const res = await fetch(`${API_BASE_URL}/api/banners`);
+                if (!res.ok) throw new Error('서버 통신 실패');
                 const data = await res.json();
                 
                 let banners = [];
