@@ -55,16 +55,22 @@
         .header { 
             display: flex; justify-content: space-between; align-items: center; 
             background: rgba(8, 12, 19, 0.85); backdrop-filter: blur(16px);
-            padding: 18px 32px; border-radius: 14px; 
+            padding: 16px 32px; border-radius: 14px; 
             border: 1px solid rgba(212, 175, 55, 0.35); 
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(212, 175, 55, 0.05); 
             margin-bottom: 50px; 
         }
         .logo { 
             color: #f3e5ab; font-weight: 900; font-size: 22px; letter-spacing: 2.5px;
-            display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer;
+            display: flex; align-items: center; gap: 12px; text-decoration: none; cursor: pointer;
             font-family: 'Orbitron', sans-serif;
             text-shadow: 0 0 15px rgba(212, 175, 55, 0.6), 0 2px 5px rgba(0,0,0,0.9);
+        }
+        .logo img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6));
         }
         .logo:hover { opacity: 0.95; text-shadow: 0 0 25px rgba(255, 215, 0, 0.9); }
         
@@ -84,7 +90,7 @@
             transform: translateY(-2px) scale(1.03);
         }
 
-        /* 히어로 섹션: 극강의 타이포그래피와 시네마틱 입체감 */
+        /* 히어로 섹션 */
         .hero-section { text-align: center; margin: 40px 0 60px; position: relative; }
         .hero-section::after {
             content: ''; position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%);
@@ -102,7 +108,22 @@
             filter: drop-shadow(0 5px 25px rgba(212, 175, 55, 0.4));
             line-height: 1.25; word-break: keep-all; overflow-wrap: break-word;
         }
-        .hero-desc { color: #8c9eb5; font-size: 15.5px; font-weight: 500; letter-spacing: -0.3px; text-shadow: 0 2px 6px rgba(0,0,0,0.9); }
+        .hero-desc { color: #8c9eb5; font-size: 15.5px; font-weight: 500; letter-spacing: -0.3px; text-shadow: 0 2px 6px rgba(0,0,0,0.9); margin-bottom: 15px; }
+        
+        /* 엄격한 검증 및 보증 강조 배지 스타일 */
+        .trust-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: #f3e5ab;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13.5px;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+        }
         
         .section-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; padding: 0 5px; }
         .section-title { 
@@ -150,7 +171,7 @@
         }
         .banner-slot:hover .banner-img { transform: scale(1.03); }
 
-        /* 입점 문의 하단 박스: VIP 골드 글래스 카드 */
+        /* 입점 문의 하단 박스 */
         .recruitment-box { 
             background: linear-gradient(135deg, rgba(10, 15, 24, 0.95) 0%, rgba(18, 25, 38, 0.95) 100%); 
             border: 1px solid rgba(212, 175, 55, 0.35); 
@@ -185,13 +206,17 @@
             .recruitment-box::after { width: 100%; height: 4px; top: 0; left: 0; }
             .hero-title { font-size: 32px; }
             .header { padding: 14px 20px; }
+            .trust-badge { font-size: 12px; padding: 6px 14px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <a href="./" class="logo">👑 LEVERSE OFFICIAL</a>
+            <!-- 왕관 이미지 로고 적용 -->
+            <a href="./" class="logo">
+                <img src="./preview.png" alt="LEVERSE 왕관 로고"> LEVERSE OFFICIAL
+            </a>
             <a href="https://t.me/LEVERSE_1" target="_blank" class="btn-ad-top">배너 광고 문의</a>
         </div>
 
@@ -199,6 +224,8 @@
             <div class="hero-category">OASIS PREMIUM CASINO BANNER</div>
             <div class="hero-title">메이저 카지노 & 슬롯 공식 파트너 센터</div>
             <div class="hero-desc">검증된 최고급 카지노 파트너 배너를 등록하세요. 접속할 때마다 공평한 로테이션으로 최상위 노출됩니다.</div>
+            <!-- 엄선된 검증 보증 멘트 추가 -->
+            <div class="trust-badge">🛡️ 철저한 자본력 검증과 무사고 이력이 확인된 글로벌 & 국내 최고 수준의 메이저 파트너사만 입점됩니다.</div>
         </div>
 
         <div class="section-bar">
