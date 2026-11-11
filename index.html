@@ -80,10 +80,14 @@
         .section-desc { font-size: 12px; color: #64748b; }
 
         .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 40px; }
+        
+        /* [최상위 고성능 렌더링 스타일] 레이아웃 강제 고정으로 버퍼링/깜빡임 원천 차단 */
         .banner-slot { 
             background: linear-gradient(135deg, #0f141d 0%, #141b26 100%); 
             border: 1px solid rgba(255, 215, 0, 0.3); 
-            border-radius: 12px; overflow: hidden; min-height: 185px; position: relative;
+            border-radius: 12px; overflow: hidden; 
+            aspect-ratio: 1200 / 320; /* 가로세로 비율 완벽 고정 */
+            position: relative;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(255, 215, 0, 0.03); 
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -94,12 +98,15 @@
         }
         .banner-slot a { 
             display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            width: 100%; height: 100%; min-height: 185px; text-decoration: none; 
+            width: 100%; height: 100%; text-decoration: none; 
             color: #ffd700; font-weight: bold; font-size: 16px; text-align: center; padding: 20px; gap: 8px;
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
         }
         .banner-slot span { color: #64748b; font-size: 12px; font-weight: normal; text-shadow: none; }
-        .banner-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+        .banner-img { 
+            width: 100%; height: 100%; object-fit: cover; display: block; 
+            transition: transform 0.5s ease; 
+        }
         .banner-slot:hover .banner-img { transform: scale(1.02); }
 
         .recruitment-box { 
@@ -125,9 +132,6 @@
 
         @media (max-width: 768px) {
             .banner-grid { grid-template-columns: 1fr; }
-            .banner-slot { min-height: auto; aspect-ratio: 1200 / 320; }
-            .banner-slot a { min-height: auto; height: 100%; }
-            .banner-slot img { height: auto; aspect-ratio: 1200 / 320; object-fit: cover; }
             .recruitment-box { flex-direction: column; gap: 20px; text-align: center; }
             .hero-title { font-size: 30px; }
         }
@@ -185,6 +189,7 @@
             let html = '';
 
             if (banners && banners.length > 0) {
+                // 피셔-예이츠 셔플 알고리즘으로 무작위 섞기
                 for (let i = banners.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
                     [banners[i], banners[j]] = [banners[j], banners[i]];
@@ -198,15 +203,17 @@
                     html += `
                         <div class="banner-slot">
                             <a href="${link}" target="_blank" style="padding:0;">
-                                <img src="${b.imageUrl}" alt="${b.title || '배너'}" class="banner-img">
+                                <img src="${b.imageUrl}" alt="${b.title || '배너'}" class="banner-img" loading="lazy">
                             </a>
                         </div>
                     `;
                 });
             }
 
+            // 빈 슬롯 채우기 (배너가 2개 미만일 경우 기본 광고주 모집 슬롯 노출)
             const currentCount = banners ? banners.length : 0;
-            for (let i = currentCount; i < 2; i++) {
+            const minSlots = Math.max(2, currentCount); // 배너가 많아지면 늘어난 개수만큼 완벽 대응
+            for (let i = currentCount; i < minSlots; i++) {
                 const num = i + 1;
                 html += `
                     <div class="banner-slot">
