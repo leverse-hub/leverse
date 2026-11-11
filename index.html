@@ -60,17 +60,35 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(212, 175, 55, 0.05); 
             margin-bottom: 50px; 
         }
+
+        /* 👑 아까 그 이미지 왕관의 화려한 3D 회전 및 네온 효과 */
+        @keyframes crownGlowSpin {
+            0% { transform: perspective(500px) rotateY(0deg) scale(1); filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6)); }
+            50% { transform: perspective(500px) rotateY(15deg) scale(1.08); filter: drop-shadow(0 0 22px rgba(255, 215, 0, 0.95)); }
+            100% { transform: perspective(500px) rotateY(0deg) scale(1); filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6)); }
+        }
+
+        .logo-crown-img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212,175,55,0.3) 0%, transparent 70%);
+            padding: 3px;
+            animation: crownGlowSpin 4s infinite ease-in-out;
+            transform-style: preserve-3d;
+        }
+
         .logo { 
             color: #f3e5ab; font-weight: 900; font-size: 22px; letter-spacing: 2.5px;
             display: flex; align-items: center; gap: 12px; text-decoration: none; cursor: pointer;
             font-family: 'Orbitron', sans-serif;
             text-shadow: 0 0 15px rgba(212, 175, 55, 0.6), 0 2px 5px rgba(0,0,0,0.9);
         }
-        .logo img {
-            width: 32px;
-            height: 32px;
-            object-fit: contain;
-            filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6));
+        .logo:hover .logo-crown-img {
+            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 1));
+            transform: scale(1.15) rotateY(360deg);
+            transition: transform 0.8s ease;
         }
         .logo:hover { opacity: 0.95; text-shadow: 0 0 25px rgba(255, 215, 0, 0.9); }
         
@@ -213,9 +231,9 @@
 <body>
     <div class="container">
         <div class="header">
-            <!-- 왕관 이미지 로고 적용 -->
+            <!-- 👑 아까 그 화려한 preview.png 왕관 이미지가 3D로 회전하며 반짝이는 로고 -->
             <a href="./" class="logo">
-                <img src="./preview.png" alt="LEVERSE 왕관 로고"> LEVERSE OFFICIAL
+                <img src="./preview.png" alt="LEVERSE 왕관 로고" class="logo-crown-img"> LEVERSE OFFICIAL
             </a>
             <a href="https://t.me/LEVERSE_1" target="_blank" class="btn-ad-top">배너 광고 문의</a>
         </div>
@@ -224,7 +242,7 @@
             <div class="hero-category">OASIS PREMIUM CASINO BANNER</div>
             <div class="hero-title">메이저 카지노 & 슬롯 공식 파트너 센터</div>
             <div class="hero-desc">검증된 최고급 카지노 파트너 배너를 등록하세요. 접속할 때마다 공평한 로테이션으로 최상위 노출됩니다.</div>
-            <!-- 엄선된 검증 보증 멘트 추가 -->
+            <!-- 검증 보증 멘트 -->
             <div class="trust-badge">🛡️ 철저한 자본력 검증과 무사고 이력이 확인된 글로벌 & 국내 최고 수준의 메이저 파트너사만 입점됩니다.</div>
         </div>
 
