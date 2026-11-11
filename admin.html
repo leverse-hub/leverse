@@ -83,7 +83,6 @@
 
     <script>
         const ADMIN_PW = "5711"; 
-        // 🔒 렌더 프록시 서버 주소로 완벽하게 연결 완료
         const API_BASE_URL = "https://leverse.onrender.com";
         let currentBanners = [];
 
@@ -114,18 +113,17 @@
             location.reload(); 
         }
 
-        // 🔒 백엔드 프록시 서버를 통해 안전하게 배너 목록 로드
         async function loadBanners() {
             try {
                 const res = await fetch(`${API_BASE_URL}/api/banners`);
                 if (!res.ok) throw new Error('서버 통신 실패');
                 const data = await res.json();
                 
-                let raw = data.record;
-                if (raw && Array.isArray(raw.banners)) {
-                    currentBanners = raw.banners;
-                } else if (Array.isArray(raw)) {
+                let raw = data.banners || (data.record && data.record.banners) || data.record;
+                if (Array.isArray(raw)) {
                     currentBanners = raw;
+                } else if (raw && Array.isArray(raw.banners)) {
+                    currentBanners = raw.banners;
                 } else {
                     currentBanners = [];
                 }
@@ -194,7 +192,6 @@
             alert('데이터베이스가 초기화되었습니다.');
         }
 
-        // 🔒 백엔드 프록시 서버를 통해 안전하게 클라우드 저장
         async function saveToCloud() {
             const msgEl = document.getElementById('statusMsg');
             const submitBtn = document.getElementById('submitBtn');
