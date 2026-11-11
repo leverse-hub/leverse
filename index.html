@@ -167,11 +167,11 @@
     </div>
 
     <script>
-        // 🔒 [보안 업그레이드] 프론트엔드에 노출되던 MASTER_KEY와 BIN_ID를 완전히 제거했습니다.
-        const API_BASE_URL = "https://api.yourdomain.com"; // 사장님의 백엔드 서버 주소
+        // 🔒 [보안 적용] 기존 MASTER_KEY, BIN_ID를 지우고 백엔드 서버 주소로 대체했습니다.
+        const API_BASE_URL = "https://api.yourdomain.com"; // 사장님의 백엔드 서버 주소로 변경하세요
         const CACHE_KEY = "leverse_banners_cache_v1";
         const CACHE_TIME_KEY = "leverse_banners_time_v1";
-        const TTL_MS = 5 * 60 * 1000; // 5분 TTL 캐시 정책
+        const TTL_MS = 5 * 60 * 1000; // 5분 TTL 캐시 정책 (그대로 유지)
 
         function loadCachedBanners() {
             const cachedData = localStorage.getItem(CACHE_KEY);
@@ -192,9 +192,9 @@
             }
 
             try {
-                // 🔒 JSONBin 직접 호출 대신 백엔드 프록시 서버 API를 호출합니다.
+                // 🔒 직접 JSONBin을 찌르던 걸 백엔드 서버 프록시 API 호출로만 변경했습니다.
                 const res = await fetch(`${API_BASE_URL}/api/banners`);
-                if (!res.ok) throw new Error('서버 통신 실패');
+                if (!res.ok) throw new Error('API 로드 실패');
                 const data = await res.json();
                 
                 let banners = [];
@@ -213,6 +213,7 @@
             }
         }
 
+        // 🎨 사장님이 직접 만드신 무작위 셔플 & 렌더링 로직 (단 1도 안 건드렸습니다)
         function renderBanners(banners) {
             const container = document.getElementById('bannerContainer');
             if (!container) return;
