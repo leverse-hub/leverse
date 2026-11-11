@@ -92,7 +92,7 @@
             transform: translateY(-5px); 
         }
         .banner-slot a { 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            display: flex; flex-direction: column; align-items: center; justifyContent: center; 
             width: 100%; height: 100%; min-height: 185px; text-decoration: none; 
             color: #ffd700; font-weight: bold; font-size: 16px; text-align: center; padding: 20px; gap: 8px;
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
@@ -167,8 +167,8 @@
     </div>
 
     <script>
-        // 🔒 [보안 적용] 기존 MASTER_KEY, BIN_ID를 지우고 백엔드 서버 주소로 대체했습니다.
-        const API_BASE_URL = "https://api.yourdomain.com"; // 사장님의 백엔드 서버 주소로 변경하세요
+        // 🔒 렌더 프록시 서버 주소로 안전하게 연결 완료
+        const API_BASE_URL = "https://leverse.onrender.com";
         const CACHE_KEY = "leverse_banners_cache_v1";
         const CACHE_TIME_KEY = "leverse_banners_time_v1";
         const TTL_MS = 5 * 60 * 1000; // 5분 TTL 캐시 정책 (그대로 유지)
@@ -192,7 +192,6 @@
             }
 
             try {
-                // 🔒 직접 JSONBin을 찌르던 걸 백엔드 서버 프록시 API 호출로만 변경했습니다.
                 const res = await fetch(`${API_BASE_URL}/api/banners`);
                 if (!res.ok) throw new Error('API 로드 실패');
                 const data = await res.json();
@@ -213,7 +212,6 @@
             }
         }
 
-        // 🎨 사장님이 직접 만드신 무작위 셔플 & 렌더링 로직 (단 1도 안 건드렸습니다)
         function renderBanners(banners) {
             const container = document.getElementById('bannerContainer');
             if (!container) return;
