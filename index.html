@@ -61,16 +61,16 @@
             margin-bottom: 50px; 
         }
 
-        /* 👑 전용 crown.png 이미지 3D 입체 회전 및 황금 네온 광채 */
+        /* 👑 crown.png (마스크 로고) 3D 입체 회전 애니메이션 */
         @keyframes crownCustomSpin {
             0% { transform: perspective(500px) rotateY(0deg) scale(1); filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.7)); }
-            50% { transform: perspective(500px) rotateY(180deg) scale(1.1); filter: drop-shadow(0 0 18px rgba(255, 215, 0, 1)); }
+            50% { transform: perspective(500px) rotateY(180deg) scale(1.08); filter: drop-shadow(0 0 18px rgba(255, 215, 0, 1)); }
             100% { transform: perspective(500px) rotateY(360deg) scale(1); filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.7)); }
         }
 
         .custom-crown-img {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             object-fit: contain;
             animation: crownCustomSpin 6s infinite ease-in-out;
             transform-style: preserve-3d;
@@ -84,7 +84,7 @@
         }
         .logo:hover { opacity: 0.95; text-shadow: 0 0 25px rgba(255, 215, 0, 0.9); }
         
-        /* 상단 광고문의 버튼: 레디플레이어원 골드 네온 */
+        /* 상단 광고문의 버튼 */
         .btn-ad-top { 
             background: linear-gradient(135deg, #ffe57f 0%, #d4af37 50%, #85581A 100%); 
             color: #030508; 
@@ -120,19 +120,29 @@
         }
         .hero-desc { color: #8c9eb5; font-size: 15.5px; font-weight: 500; letter-spacing: -0.3px; text-shadow: 0 2px 6px rgba(0,0,0,0.9); margin-bottom: 15px; }
         
-        /* 엄격한 검증 및 보증 강조 배지 스타일 */
+        /* 신뢰 검증 배지 및 캐릭터 아바타 스타일 */
         .trust-badge {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             background: rgba(212, 175, 55, 0.08);
             border: 1px solid rgba(212, 175, 55, 0.3);
             color: #f3e5ab;
-            padding: 8px 20px;
-            border-radius: 20px;
+            padding: 6px 18px 6px 8px;
+            border-radius: 25px;
             font-size: 13.5px;
             font-weight: 700;
             letter-spacing: -0.2px;
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
             text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+        }
+
+        .badge-avatar {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid rgba(212, 175, 55, 0.6);
         }
         
         .section-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; padding: 0 5px; }
@@ -223,9 +233,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <!-- 👑 투명 crown.png를 불러와 화려하게 3D 회전시키는 최종 로고 -->
             <a href="./" class="logo">
-                <img src="./crown.png" alt="LEVERSE Crown" class="custom-crown-img"> LEVERSE OFFICIAL
+                <img src="./crown.png" alt="LEVERSE Mask Logo" class="custom-crown-img"> LEVERSE OFFICIAL
             </a>
             <a href="https://t.me/LEVERSE_1" target="_blank" class="btn-ad-top">배너 광고 문의</a>
         </div>
@@ -234,8 +243,12 @@
             <div class="hero-category">OASIS PREMIUM CASINO BANNER</div>
             <div class="hero-title">메이저 카지노 & 슬롯 공식 파트너 센터</div>
             <div class="hero-desc">검증된 최고급 카지노 파트너 배너를 등록하세요. 접속할 때마다 공평한 로테이션으로 최상위 노출됩니다.</div>
-            <!-- 검증 보증 멘트 -->
-            <div class="trust-badge">🛡️ 철저한 자본력 검증과 무사고 이력이 확인된 글로벌 & 국내 최고 수준의 메이저 파트너사만 입점됩니다.</div>
+            
+            <!-- 캐릭터 얼굴 아바타가 포함된 세련된 검증 보증 배지 -->
+            <div class="trust-badge">
+                <img src="./character-icon.png" alt="Verified Avatar" class="badge-avatar">
+                철저한 자본력 검증과 무사고 이력이 확인된 글로벌 & 국내 최고 수준의 메이저 파트너사만 입점됩니다.
+            </div>
         </div>
 
         <div class="section-bar">
