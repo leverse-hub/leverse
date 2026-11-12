@@ -132,7 +132,6 @@
 
         .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; margin-bottom: 45px; }
         
-        /* 🔥 모바일 GPU 하드웨어 가속 및 스크롤 버벅임 방지 최적화 적용 */
         .banner-slot { 
             background: linear-gradient(135deg, #0a0e17 0%, #131a26 100%); 
             border: 1px solid rgba(212, 175, 55, 0.28); 
@@ -169,13 +168,28 @@
         .recruitment-info h4 { color: #f3e5ab; margin: 0 0 8px; font-size: 18px; font-weight: 900; }
         .recruitment-info p { color: #8c9eb5; margin: 0; font-size: 14px; line-height: 1.6; }
         
+        /* 🔥 하단 광고 문의 버튼에 상단 버튼과 동일한 골드 발광 및 호버 인터랙션 부여 */
         .btn-apply { 
-            background: linear-gradient(135deg, #ffe57f 0%, #d4af37 50%, #85581A 100%); color: #030508; padding: 14px 28px; 
-            border-radius: 8px; text-decoration: none; font-weight: 900; font-size: 14px; white-space: nowrap;
+            background: linear-gradient(135deg, #ffe57f 0%, #d4af37 50%, #85581A 100%); 
+            color: #030508; 
+            padding: 14px 28px; 
+            border-radius: 8px; 
+            text-decoration: none; 
+            font-weight: 900; 
+            font-size: 14px; 
+            white-space: nowrap;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
+        .btn-apply:hover {
+            background: linear-gradient(135deg, #ffffff 0%, #fff1b0 100%); 
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+            transform: translateY(-2px) scale(1.03);
+        }
+
         .footer { text-align: center; padding-top: 35px; border-top: 1px solid rgba(255, 255, 255, 0.06); color: #4a5c72; font-size: 12px; line-height: 1.8; }
 
-        /* 모바일 최적화 및 로고/버튼 수직 정렬 방어 */
+        /* 모바일 최적화 및 수직 정렬 방어 */
         @media (max-width: 768px) {
             body { padding: 16px 12px; }
             .header { padding: 12px 14px; margin-bottom: 30px; gap: 8px; }
