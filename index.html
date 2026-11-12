@@ -132,6 +132,7 @@
 
         .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; margin-bottom: 45px; }
         
+        /* 🔥 배너 영역의 레이아웃 크기를 완벽하게 고정하여 밀림 현상(CLS) 원천 차단 */
         .banner-slot { 
             background: linear-gradient(135deg, #0a0e17 0%, #131a26 100%); 
             border: 1px solid rgba(212, 175, 55, 0.28); 
@@ -140,6 +141,7 @@
             transition: all 0.4s ease;
             transform: translateZ(0);
             will-change: transform;
+            contain: layout size style;
         }
         .banner-slot:hover { border-color: #d4af37; transform: translateY(-6px); }
 
@@ -168,7 +170,6 @@
         .recruitment-info h4 { color: #f3e5ab; margin: 0 0 8px; font-size: 18px; font-weight: 900; }
         .recruitment-info p { color: #8c9eb5; margin: 0; font-size: 14px; line-height: 1.6; }
         
-        /* 🔥 하단 광고 문의 버튼에 상단 버튼과 동일한 골드 발광 및 호버 인터랙션 부여 */
         .btn-apply { 
             background: linear-gradient(135deg, #ffe57f 0%, #d4af37 50%, #85581A 100%); 
             color: #030508; 
@@ -241,7 +242,11 @@
             <div class="section-desc">배너는 안전하고 공정하게 무작위 로테이션 노출됩니다.</div>
         </div>
 
-        <div class="banner-grid" id="bannerContainer"></div>
+        <!-- 🔥 HTML 초기 로딩 시점부터 빈 슬롯 뼈대를 미리 그려두어 밀림 현상 완벽 방어 -->
+        <div class="banner-grid" id="bannerContainer">
+            <div class="banner-slot"><a href="https://t.me/LEVERSE_1" target="_blank">프리미엄 골드 배너 로딩 중...<span>잠시만 기다려주세요</span></a></div>
+            <div class="banner-slot"><a href="https://t.me/LEVERSE_1" target="_blank">프리미엄 골드 배너 로딩 중...<span>잠시만 기다려주세요</span></a></div>
+        </div>
 
         <div class="recruitment-box">
             <div class="sub-info recruitment-info">
