@@ -132,12 +132,15 @@
 
         .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; margin-bottom: 45px; }
         
+        /* 🔥 모바일 GPU 하드웨어 가속 및 스크롤 버벅임 방지 최적화 적용 */
         .banner-slot { 
             background: linear-gradient(135deg, #0a0e17 0%, #131a26 100%); 
             border: 1px solid rgba(212, 175, 55, 0.28); 
             border-radius: 14px; overflow: hidden; aspect-ratio: 1200 / 320; 
             position: relative; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.85); 
             transition: all 0.4s ease;
+            transform: translateZ(0);
+            will-change: transform;
         }
         .banner-slot:hover { border-color: #d4af37; transform: translateY(-6px); }
 
@@ -148,7 +151,10 @@
         }
         .banner-slot span { color: #5a6e85; font-size: 12px; font-weight: normal; }
 
-        .banner-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .banner-img { 
+            width: 100%; height: 100%; object-fit: cover; display: block; 
+            backface-visibility: hidden;
+        }
 
         .recruitment-box { 
             background: linear-gradient(135deg, rgba(10, 15, 24, 0.95) 0%, rgba(18, 25, 38, 0.95) 100%); 
@@ -169,30 +175,30 @@
         }
         .footer { text-align: center; padding-top: 35px; border-top: 1px solid rgba(255, 255, 255, 0.06); color: #4a5c72; font-size: 12px; line-height: 1.8; }
 
-        /* 모바일 전용 줄바꿈 교정 (PC 및 기존 로직 100% 유지) */
+        /* 모바일 최적화 및 로고/버튼 수직 정렬 방어 */
         @media (max-width: 768px) {
             body { padding: 16px 12px; }
-            .header { padding: 12px 14px; margin-bottom: 32px; gap: 8px; }
-            .logo { font-size: 14px; letter-spacing: 0.8px; gap: 6px; white-space: nowrap; }
-            .custom-crown-img { width: 24px; height: 24px; flex-shrink: 0; }
+            .header { padding: 12px 14px; margin-bottom: 30px; gap: 8px; }
+            .logo { font-size: 12.5px; letter-spacing: 0.3px; gap: 6px; white-space: nowrap; align-items: center; }
+            .custom-crown-img { width: 22px; height: 22px; flex-shrink: 0; }
             .btn-ad-top { padding: 9px 12px; font-size: 11px; white-space: nowrap; letter-spacing: -0.5px; }
 
-            .hero-section { margin: 24px 0 42px; }
-            .hero-category { font-size: 10.5px; letter-spacing: 3.5px; }
-            .hero-title { font-size: 26px; letter-spacing: -1px; }
-            .hero-desc { font-size: 13.5px; line-height: 1.5; word-break: keep-all; }
-            .trust-badge { font-size: 11.5px; padding: 8px 14px 8px 8px; line-height: 1.4; text-align: left; }
-            .badge-avatar { flex-shrink: 0; }
+            .hero-section { margin: 24px 0 40px; }
+            .hero-category { font-size: 10px; letter-spacing: 3px; }
+            .hero-title { font-size: 25px; letter-spacing: -1px; }
+            .hero-desc { font-size: 13px; line-height: 1.5; word-break: keep-all; }
+            .trust-badge { font-size: 11px; padding: 8px 12px 8px 8px; line-height: 1.4; text-align: left; }
+            .badge-avatar { flex-shrink: 0; width: 22px; height: 22px; }
 
             .section-bar { flex-direction: column; align-items: flex-start; gap: 4px; margin-bottom: 16px; }
-            .section-title { font-size: 13px; white-space: nowrap; }
-            .section-desc { font-size: 11.5px; }
+            .section-title { font-size: 12.5px; white-space: nowrap; }
+            .section-desc { font-size: 11px; }
 
             .banner-grid { grid-template-columns: 1fr; gap: 18px; }
             .recruitment-box { flex-direction: column; gap: 20px; text-align: center; padding: 24px 18px; }
             .recruitment-box::after { width: 100%; height: 4px; top: 0; left: 0; }
-            .recruitment-info p { word-break: keep-all; }
-            .btn-apply { width: 100%; }
+            .recruitment-info p { word-break: keep-all; font-size: 13px; }
+            .btn-apply { width: 100%; text-align: center; }
         }
     </style>
 </head>
