@@ -61,34 +61,24 @@
             margin-bottom: 50px; 
         }
 
-        /* 👑 아까 그 이미지 왕관의 화려한 3D 회전 및 네온 효과 */
+        /* 왕관 이모지 3D 입체 회전 및 네온 효과 */
         @keyframes crownGlowSpin {
-            0% { transform: perspective(500px) rotateY(0deg) scale(1); filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6)); }
-            50% { transform: perspective(500px) rotateY(15deg) scale(1.08); filter: drop-shadow(0 0 22px rgba(255, 215, 0, 0.95)); }
-            100% { transform: perspective(500px) rotateY(0deg) scale(1); filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6)); }
+            0% { transform: perspective(400px) rotateY(0deg) scale(1); filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.6)); }
+            50% { transform: perspective(400px) rotateY(20deg) scale(1.1); filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.9)); }
+            100% { transform: perspective(400px) rotateY(0deg) scale(1); filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.6)); }
         }
 
-        .logo-crown-img {
-            width: 42px;
-            height: 42px;
-            object-fit: contain;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(212,175,55,0.3) 0%, transparent 70%);
-            padding: 3px;
+        .crown-icon {
+            display: inline-block;
             animation: crownGlowSpin 4s infinite ease-in-out;
             transform-style: preserve-3d;
         }
 
         .logo { 
             color: #f3e5ab; font-weight: 900; font-size: 22px; letter-spacing: 2.5px;
-            display: flex; align-items: center; gap: 12px; text-decoration: none; cursor: pointer;
+            display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer;
             font-family: 'Orbitron', sans-serif;
             text-shadow: 0 0 15px rgba(212, 175, 55, 0.6), 0 2px 5px rgba(0,0,0,0.9);
-        }
-        .logo:hover .logo-crown-img {
-            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 1));
-            transform: scale(1.15) rotateY(360deg);
-            transition: transform 0.8s ease;
         }
         .logo:hover { opacity: 0.95; text-shadow: 0 0 25px rgba(255, 215, 0, 0.9); }
         
@@ -231,10 +221,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <!-- 👑 아까 그 화려한 preview.png 왕관 이미지가 3D로 회전하며 반짝이는 로고 -->
-            <a href="./" class="logo">
-                <img src="./preview.png" alt="LEVERSE 왕관 로고" class="logo-crown-img"> LEVERSE OFFICIAL
-            </a>
+            <!-- 깔끔하게 반짝이며 3D 효과를 내는 왕관 로고 -->
+            <a href="./" class="logo"><span class="crown-icon">👑</span> LEVERSE OFFICIAL</a>
             <a href="https://t.me/LEVERSE_1" target="_blank" class="btn-ad-top">배너 광고 문의</a>
         </div>
 
