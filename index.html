@@ -61,22 +61,24 @@
             margin-bottom: 50px; 
         }
 
-        /* 왕관 이모지 3D 입체 회전 및 네온 효과 */
-        @keyframes crownGlowSpin {
-            0% { transform: perspective(400px) rotateY(0deg) scale(1); filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.6)); }
-            50% { transform: perspective(400px) rotateY(20deg) scale(1.1); filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.9)); }
-            100% { transform: perspective(400px) rotateY(0deg) scale(1); filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.6)); }
+        /* 👑 전용 crown.png 이미지 3D 입체 회전 및 황금 네온 광채 */
+        @keyframes crownCustomSpin {
+            0% { transform: perspective(500px) rotateY(0deg) scale(1); filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.7)); }
+            50% { transform: perspective(500px) rotateY(180deg) scale(1.1); filter: drop-shadow(0 0 18px rgba(255, 215, 0, 1)); }
+            100% { transform: perspective(500px) rotateY(360deg) scale(1); filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.7)); }
         }
 
-        .crown-icon {
-            display: inline-block;
-            animation: crownGlowSpin 4s infinite ease-in-out;
+        .custom-crown-img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            animation: crownCustomSpin 6s infinite ease-in-out;
             transform-style: preserve-3d;
         }
 
         .logo { 
             color: #f3e5ab; font-weight: 900; font-size: 22px; letter-spacing: 2.5px;
-            display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer;
+            display: flex; align-items: center; gap: 12px; text-decoration: none; cursor: pointer;
             font-family: 'Orbitron', sans-serif;
             text-shadow: 0 0 15px rgba(212, 175, 55, 0.6), 0 2px 5px rgba(0,0,0,0.9);
         }
@@ -221,8 +223,10 @@
 <body>
     <div class="container">
         <div class="header">
-            <!-- 깔끔하게 반짝이며 3D 효과를 내는 왕관 로고 -->
-            <a href="./" class="logo"><span class="crown-icon">👑</span> LEVERSE OFFICIAL</a>
+            <!-- 👑 투명 crown.png를 불러와 화려하게 3D 회전시키는 최종 로고 -->
+            <a href="./" class="logo">
+                <img src="./crown.png" alt="LEVERSE Crown" class="custom-crown-img"> LEVERSE OFFICIAL
+            </a>
             <a href="https://t.me/LEVERSE_1" target="_blank" class="btn-ad-top">배너 광고 문의</a>
         </div>
 
