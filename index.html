@@ -132,7 +132,7 @@
 
         .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; margin-bottom: 45px; }
         
-        /* 🔥 배너 영역의 레이아웃 크기를 완벽하게 고정하여 밀림 현상(CLS) 원천 차단 */
+        /* 🔥 레이아웃 밀림(CLS) 방어 및 GPU 가속 */
         .banner-slot { 
             background: linear-gradient(135deg, #0a0e17 0%, #131a26 100%); 
             border: 1px solid rgba(212, 175, 55, 0.28); 
@@ -141,7 +141,7 @@
             transition: all 0.4s ease;
             transform: translateZ(0);
             will-change: transform;
-            contain: layout size style;
+            contain: layout style;
         }
         .banner-slot:hover { border-color: #d4af37; transform: translateY(-6px); }
 
@@ -190,7 +190,7 @@
 
         .footer { text-align: center; padding-top: 35px; border-top: 1px solid rgba(255, 255, 255, 0.06); color: #4a5c72; font-size: 12px; line-height: 1.8; }
 
-        /* 모바일 최적화 및 수직 정렬 방어 */
+        /* 모바일 최적화 및 정렬 완벽 고정 */
         @media (max-width: 768px) {
             body { padding: 16px 12px; }
             .header { padding: 12px 14px; margin-bottom: 30px; gap: 8px; }
@@ -205,9 +205,10 @@
             .trust-badge { font-size: 11px; padding: 8px 12px 8px 8px; line-height: 1.4; text-align: left; }
             .badge-avatar { flex-shrink: 0; width: 22px; height: 22px; }
 
-            .section-bar { flex-direction: column; align-items: flex-start; gap: 4px; margin-bottom: 16px; }
-            .section-title { font-size: 12.5px; white-space: nowrap; }
-            .section-desc { font-size: 11px; }
+            /* 🔥 모바일에서 섹션 바 정렬 흐트러짐 원천 방어 (가로 배치 유지 혹은 안정적 정렬) */
+            .section-bar { display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 16px; padding: 0 2px; }
+            .section-title { font-size: 11.5px; white-space: nowrap; letter-spacing: 0.5px; }
+            .section-desc { font-size: 10px; color: #5a6e85; white-space: nowrap; }
 
             .banner-grid { grid-template-columns: 1fr; gap: 18px; }
             .recruitment-box { flex-direction: column; gap: 20px; text-align: center; padding: 24px 18px; }
@@ -239,10 +240,10 @@
 
         <div class="section-bar">
             <div class="section-title">◆ PREFERRED PARTNERS</div>
-            <div class="section-desc">배너는 안전하고 공정하게 무작위 로테이션 노출됩니다.</div>
+            <div class="section-desc">공정한 무작위 로테이션 노출</div>
         </div>
 
-        <!-- 🔥 HTML 초기 로딩 시점부터 빈 슬롯 뼈대를 미리 그려두어 밀림 현상 완벽 방어 -->
+        <!-- 🔥 초기 HTML 뼈대에 고정 슬롯을 미리 두어 로딩 밀림 현상 방어 -->
         <div class="banner-grid" id="bannerContainer">
             <div class="banner-slot"><a href="https://t.me/LEVERSE_1" target="_blank">프리미엄 골드 배너 로딩 중...<span>잠시만 기다려주세요</span></a></div>
             <div class="banner-slot"><a href="https://t.me/LEVERSE_1" target="_blank">프리미엄 골드 배너 로딩 중...<span>잠시만 기다려주세요</span></a></div>
