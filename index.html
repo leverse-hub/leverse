@@ -307,7 +307,7 @@
                     html += `
                         <div class="banner-slot">
                             <a href="${link}" target="_blank" style="padding:0;">
-                                <img src="${b.imageUrl}" alt="${b.title || '배너'}" class="banner-img" loading="lazy">
+                                <img src="${b.imageUrl}" alt="${b.title || '배너'}" class="banner-img" loading="lazy" decoding="async">
                             </a>
                         </div>
                     `;
@@ -315,7 +315,11 @@
             }
 
             const currentCount = banners ? banners.length : 0;
-            const minSlots = Math.max(2, currentCount);
+            let minSlots = Math.max(2, currentCount);
+            if (minSlots % 2 !== 0) {
+                minSlots += 1; // 배너 개수가 홀수일 때도 그리드 레이아웃이 안 깨지도록 짝수 맞춤 보장
+            }
+
             for (let i = currentCount; i < minSlots; i++) {
                 const num = i + 1;
                 html += `
