@@ -151,9 +151,7 @@
             border: 1px solid rgba(212, 175, 55, 0.28); 
             border-radius: 12px; overflow: hidden; aspect-ratio: 1200 / 320; 
             position: relative; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.85); 
-            transition: all 0.35s ease;
-            transform: translateZ(0);
-            will-change: transform;
+            transition: border-color 0.25s ease, transform 0.25s ease;
             contain: layout size style;
         }
         .banner-grid.cols-3 .banner-slot,
@@ -162,11 +160,6 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
         }
         .banner-slot:hover { border-color: #d4af37; transform: translateY(-4px); z-index: 2; }
-
-        .banner-grid.is-ready .banner-slot {
-            opacity: 1;
-            transition: opacity 0.18s ease, border-color 0.35s ease, transform 0.35s ease;
-        }
 
         .banner-slot a { 
             display: flex; flex-direction: column; align-items: center; justify-content: center; 
@@ -264,7 +257,7 @@
     <div class="container">
         <div class="header">
             <a href="./" class="logo">
-                <img src="./crown.png" alt="LEVERSE Mask Logo" class="custom-crown-img" loading="eager" decoding="async"> LEVERSE OFFICIAL
+                <img src="./crown.png" alt="LEVERSE Mask Logo" class="custom-crown-img" loading="eager" decoding="sync"> LEVERSE OFFICIAL
             </a>
             <a href="https://t.me/LEVERSE_1" target="_blank" class="btn-ad-top">배너 광고 문의</a>
         </div>
@@ -275,7 +268,7 @@
             <div class="hero-desc">검증된 최고급 카지노 파트너 배너를 등록하세요. 접속할 때마다 공평한 로테이션으로 최상위 노출됩니다.</div>
             
             <div class="trust-badge">
-                <img src="./character-icon.png" alt="Verified Avatar" class="badge-avatar" loading="eager" decoding="async">
+                <img src="./character-icon.png" alt="Verified Avatar" class="badge-avatar" loading="eager" decoding="sync">
                 철저한 자본력 검증과 무사고 이력이 확인된 글로벌 & 국내 최고 수준의 메이저 파트너사만 입점됩니다.
             </div>
         </div>
@@ -286,8 +279,8 @@
         </div>
 
         <div class="banner-grid" id="bannerContainer">
-            <div class="banner-slot" style="opacity:0;"><a href="https://t.me/LEVERSE_1" target="_blank">광고주 1번 프리미엄 골드 배너 (입점 문의)<span>클릭하여 텔레그램 공식 채널로 문의하세요</span></a></div>
-            <div class="banner-slot" style="opacity:0;"><a href="https://t.me/LEVERSE_1" target="_blank">광고주 2번 프리미엄 골드 배너 (입점 문의)<span>클릭하여 텔레그램 공식 채널로 문의하세요</span></a></div>
+            <div class="banner-slot"><a href="https://t.me/LEVERSE_1" target="_blank">광고주 1번 프리미엄 골드 배너 (입점 문의)<span>클릭하여 텔레그램 공식 채널로 문의하세요</span></a></div>
+            <div class="banner-slot"><a href="https://t.me/LEVERSE_1" target="_blank">광고주 2번 프리미엄 골드 배너 (입점 문의)<span>클릭하여 텔레그램 공식 채널로 문의하세요</span></a></div>
         </div>
 
         <div class="recruitment-box">
@@ -314,39 +307,14 @@
             return trimmed;
         }
 
-        function preloadImage(src) {
-            return new Promise((resolve) => {
-                if (!src) return resolve();
-                const img = new Image();
-                img.decoding = 'async';
-                img.onload = () => resolve();
-                img.onerror = () => resolve();
-                img.src = src;
-            });
-        }
-
         async function loadBanners() {
-            const container = document.getElementById('bannerContainer');
             try {
                 const res = await fetch('./banners.json?t=' + Date.now(), { cache: 'no-store' });
                 const data = await res.json();
-                let banners = Array.isArray(data) ? data : (data.banners || []);
-
-                if (banners.length > 0) {
-                    const preloadAll = Promise.all(banners.map(b => preloadImage(b.imageUrl)));
-                    const timeout = new Promise(resolve => setTimeout(resolve, 1500));
-                    await Promise.race([preloadAll, timeout]);
-                }
-
+                const banners = Array.isArray(data) ? data : (data.banners || []);
                 renderBanners(banners);
             } catch (e) {
                 renderBanners([]);
-            } finally {
-                if (container) {
-                    window.requestAnimationFrame(() => {
-                        container.classList.add('is-ready');
-                    });
-                }
             }
         }
 
@@ -384,7 +352,7 @@
                     html += `
                         <div class="banner-slot">
                             <a href="${link}" target="_blank" style="padding:0;">
-                                <img src="${b.imageUrl}" alt="${b.title || '배너'}" class="banner-img" loading="eager" decoding="async">
+                                <img src="${b.imageUrl}" alt="${b.title || '배너'}" class="banner-img" loading="eager" decoding="sync">
                             </a>
                         </div>
                     `;
