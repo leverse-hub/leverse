@@ -128,7 +128,6 @@
             flex-shrink: 0;
         }
 
-        /* 배너가 7개 이상 많아지면 상단 여백을 자동으로 줄여 한 화면에 더 많이 노출 */
         body.compact-mode .header { margin-bottom: 20px; padding: 12px 24px; }
         body.compact-mode .hero-section { margin: 12px 0 28px; }
         body.compact-mode .hero-section::after { bottom: -14px; }
@@ -143,11 +142,8 @@
         }
         .section-desc { font-size: 12px; color: #5a6e85; }
 
-        /* 기본: PC 2열 (1~6개일 때) */
         .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 45px; }
-        /* 7~16개일 때: PC 3열 */
         .banner-grid.cols-3 { grid-template-columns: repeat(3, 1fr); gap: 16px; }
-        /* 17개 이상일 때: PC 4열 (한 화면에 꽉 차게 노출) */
         .banner-grid.cols-4 { grid-template-columns: repeat(4, 1fr); gap: 12px; }
         
         .banner-slot { 
@@ -247,9 +243,7 @@
             .section-title { font-size: 11px; color: #f3e5ab; white-space: nowrap; }
             .section-desc { font-size: 10px; color: #5a6e85; white-space: nowrap; }
 
-            /* 모바일 기본(1~6개): 1열 */
             .banner-grid { grid-template-columns: 1fr; gap: 14px; }
-            /* 모바일에서 배너가 7개 이상 많아지면 자동으로 2열 배치 (스크롤 절반 단축) */
             .banner-grid.cols-3,
             .banner-grid.cols-4 { grid-template-columns: repeat(2, 1fr); gap: 8px; }
             .banner-grid.cols-3 .banner-slot,
