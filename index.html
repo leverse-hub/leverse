@@ -142,7 +142,11 @@
         }
         .section-desc { font-size: 12px; color: #5a6e85; }
 
-        .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 45px; }
+        .banner-grid { 
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 45px; 
+            opacity: 0; transition: opacity 0.14s ease-out;
+        }
+        .banner-grid.is-ready { opacity: 1; }
         .banner-grid.cols-3 { grid-template-columns: repeat(3, 1fr); gap: 16px; }
         .banner-grid.cols-4 { grid-template-columns: repeat(4, 1fr); gap: 12px; }
         
@@ -278,10 +282,7 @@
             <div class="section-desc">공정한 무작위 로테이션 노출</div>
         </div>
 
-        <div class="banner-grid" id="bannerContainer">
-            <div class="banner-slot"><a href="https://t.me/LEVERSE_1" target="_blank">광고주 1번 프리미엄 골드 배너 (입점 문의)<span>클릭하여 텔레그램 공식 채널로 문의하세요</span></a></div>
-            <div class="banner-slot"><a href="https://t.me/LEVERSE_1" target="_blank">광고주 2번 프리미엄 골드 배너 (입점 문의)<span>클릭하여 텔레그램 공식 채널로 문의하세요</span></a></div>
-        </div>
+        <div class="banner-grid" id="bannerContainer"></div>
 
         <div class="recruitment-box">
             <div class="sub-info recruitment-info">
@@ -307,14 +308,47 @@
             return trimmed;
         }
 
+        function waitImagesReady(container, maxWaitMs = 500) {
+            const imgs = Array.from(container.querySelectorAll('img.banner-img'));
+            if (imgs.length === 0) return Promise.resolve();
+
+            const decoded = imgs.map(img => {
+                if (img.complete) {
+                    return typeof img.decode === 'function' ? img.decode().catch(() => {}) : Promise.resolve();
+                }
+                return new Promise(resolve => {
+                    const done = () => {
+                        if (typeof img.decode === 'function') {
+                            img.decode().catch(() => {}).finally(resolve);
+                        } else {
+                            resolve();
+                        }
+                    };
+                    img.addEventListener('load', done, { once: true });
+                    img.addEventListener('error', resolve, { once: true });
+                });
+            });
+
+            const cap = new Promise(resolve => setTimeout(resolve, maxWaitMs));
+            return Promise.race([Promise.all(decoded), cap]);
+        }
+
         async function loadBanners() {
+            const container = document.getElementById('bannerContainer');
+            if (!container) return;
+
             try {
                 const res = await fetch('./banners.json?t=' + Date.now(), { cache: 'no-store' });
                 const data = await res.json();
                 const banners = Array.isArray(data) ? data : (data.banners || []);
                 renderBanners(banners);
+                await waitImagesReady(container, 500);
             } catch (e) {
                 renderBanners([]);
+            } finally {
+                requestAnimationFrame(() => {
+                    container.classList.add('is-ready');
+                });
             }
         }
 
