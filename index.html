@@ -37,7 +37,7 @@
             color: #ffffff; 
             font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; 
             margin: 0; 
-            padding: 30px 20px; 
+            padding: 24px 20px; 
             background-image: 
                 radial-gradient(circle at 50% 5%, rgba(212, 175, 55, 0.15) 0%, transparent 45%),
                 radial-gradient(circle at 10% 90%, rgba(13, 27, 42, 0.6) 0%, transparent 50%),
@@ -50,10 +50,10 @@
         .header { 
             display: flex; justify-content: space-between; align-items: center; 
             background: rgba(8, 12, 19, 0.85); backdrop-filter: blur(16px);
-            padding: 16px 32px; border-radius: 14px; 
+            padding: 14px 28px; border-radius: 14px; 
             border: 1px solid rgba(212, 175, 55, 0.35); 
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(212, 175, 55, 0.05); 
-            margin-bottom: 50px; 
+            margin-bottom: 32px; 
         }
 
         @keyframes crownCustomSpin {
@@ -63,15 +63,15 @@
         }
 
         .custom-crown-img {
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             object-fit: contain;
             animation: crownCustomSpin 6s infinite ease-in-out;
             transform-style: preserve-3d;
         }
 
         .logo { 
-            color: #f3e5ab; font-weight: 900; font-size: 22px; letter-spacing: 2.5px;
+            color: #f3e5ab; font-weight: 900; font-size: 21px; letter-spacing: 2.5px;
             display: flex; align-items: center; gap: 12px; text-decoration: none; cursor: pointer;
             font-family: 'Orbitron', sans-serif;
             text-shadow: 0 0 15px rgba(212, 175, 55, 0.6), 0 2px 5px rgba(0,0,0,0.9);
@@ -81,7 +81,7 @@
         .btn-ad-top { 
             background: linear-gradient(135deg, #ffe57f 0%, #d4af37 50%, #85581A 100%); 
             color: #030508; 
-            padding: 12px 26px; border-radius: 8px; text-decoration: none; 
+            padding: 11px 24px; border-radius: 8px; text-decoration: none; 
             font-weight: 900; font-size: 13.5px; 
             box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
             transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1); 
@@ -93,26 +93,26 @@
             transform: translateY(-2px) scale(1.03);
         }
 
-        .hero-section { text-align: center; margin: 40px 0 60px; position: relative; }
+        .hero-section { text-align: center; margin: 20px 0 42px; position: relative; }
         .hero-section::after {
-            content: ''; position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%);
+            content: ''; position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%);
             width: 150px; height: 2px; background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.6), transparent);
         }
         .hero-category { 
-            color: #d4af37; font-size: 12.5px; letter-spacing: 6px; font-weight: 900; margin-bottom: 18px; text-transform: uppercase;
+            color: #d4af37; font-size: 12px; letter-spacing: 5px; font-weight: 900; margin-bottom: 12px; text-transform: uppercase;
             font-family: 'Orbitron', sans-serif;
             text-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
         }
         .hero-title { 
-            font-size: 44px; font-weight: 900; margin: 0 0 20px; letter-spacing: -1.5px;
+            font-size: 38px; font-weight: 900; margin: 0 0 14px; letter-spacing: -1.5px;
             background: linear-gradient(180deg, #ffffff 0%, #f7efc5 40%, #d4af37 75%, #85581A 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 5px 25px rgba(212, 175, 55, 0.4));
             line-height: 1.25; word-break: keep-all;
         }
         .hero-desc { 
-            color: #8c9eb5; font-size: 15.5px; font-weight: 500; margin-bottom: 15px; 
-            max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.6;
+            color: #8c9eb5; font-size: 15px; font-weight: 500; margin-bottom: 14px; 
+            max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.55;
         }
         
         .trust-badge {
@@ -120,47 +120,68 @@
             background: rgba(212, 175, 55, 0.08);
             border: 1px solid rgba(212, 175, 55, 0.3);
             color: #f3e5ab; padding: 6px 18px 6px 8px;
-            border-radius: 25px; font-size: 13.5px; font-weight: 700;
+            border-radius: 25px; font-size: 13px; font-weight: 700;
         }
         .badge-avatar {
-            width: 26px; height: 26px; border-radius: 50%; object-fit: cover;
+            width: 24px; height: 24px; border-radius: 50%; object-fit: cover;
             border: 1px solid rgba(212, 175, 55, 0.6);
             flex-shrink: 0;
         }
+
+        /* 배너가 7개 이상 많아지면 상단 여백을 자동으로 줄여 한 화면에 더 많이 노출 */
+        body.compact-mode .header { margin-bottom: 20px; padding: 12px 24px; }
+        body.compact-mode .hero-section { margin: 12px 0 28px; }
+        body.compact-mode .hero-section::after { bottom: -14px; }
+        body.compact-mode .hero-category { font-size: 11px; margin-bottom: 8px; }
+        body.compact-mode .hero-title { font-size: 30px; margin-bottom: 10px; }
+        body.compact-mode .hero-desc { font-size: 13.5px; margin-bottom: 10px; }
         
-        .section-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; padding: 0 5px; }
+        .section-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding: 0 5px; }
         .section-title { 
             font-size: 14px; color: #f3e5ab; font-weight: 900; display: flex; align-items: center; gap: 8px; 
             font-family: 'Orbitron', sans-serif; letter-spacing: 1.5px;
         }
         .section-desc { font-size: 12px; color: #5a6e85; }
 
-        .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; margin-bottom: 45px; }
+        /* 기본: PC 2열 (1~6개일 때) */
+        .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 45px; }
+        /* 7~16개일 때: PC 3열 */
+        .banner-grid.cols-3 { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        /* 17개 이상일 때: PC 4열 (한 화면에 꽉 차게 노출) */
+        .banner-grid.cols-4 { grid-template-columns: repeat(4, 1fr); gap: 12px; }
         
         .banner-slot { 
             background: linear-gradient(135deg, #0a0e17 0%, #131a26 100%); 
             border: 1px solid rgba(212, 175, 55, 0.28); 
-            border-radius: 14px; overflow: hidden; aspect-ratio: 1200 / 320; 
-            position: relative; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.85); 
-            transition: all 0.4s ease;
+            border-radius: 12px; overflow: hidden; aspect-ratio: 1200 / 320; 
+            position: relative; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.85); 
+            transition: all 0.35s ease;
             transform: translateZ(0);
             will-change: transform;
             contain: layout size style;
         }
-        .banner-slot:hover { border-color: #d4af37; transform: translateY(-6px); }
+        .banner-grid.cols-3 .banner-slot,
+        .banner-grid.cols-4 .banner-slot {
+            border-radius: 9px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+        }
+        .banner-slot:hover { border-color: #d4af37; transform: translateY(-4px); z-index: 2; }
 
-        /* 준비 완료 전엔 보이지 않게 숨겼다가, 데이터+이미지 준비 후 한 번에 표시 */
         .banner-grid.is-ready .banner-slot {
             opacity: 1;
-            transition: opacity 0.18s ease, border-color 0.4s ease, transform 0.4s ease;
+            transition: opacity 0.18s ease, border-color 0.35s ease, transform 0.35s ease;
         }
 
         .banner-slot a { 
             display: flex; flex-direction: column; align-items: center; justify-content: center; 
             width: 100%; height: 100%; text-decoration: none; 
-            color: #d4af37; font-weight: bold; font-size: 15px; text-align: center; padding: 20px; gap: 8px;
+            color: #d4af37; font-weight: bold; font-size: 14px; text-align: center; padding: 12px; gap: 6px;
         }
-        .banner-slot span { color: #5a6e85; font-size: 12px; font-weight: normal; }
+        .banner-slot span { color: #5a6e85; font-size: 11px; font-weight: normal; }
+        .banner-grid.cols-3 .banner-slot a,
+        .banner-grid.cols-4 .banner-slot a { font-size: 11.5px; padding: 8px; gap: 3px; }
+        .banner-grid.cols-3 .banner-slot span,
+        .banner-grid.cols-4 .banner-slot span { font-size: 10px; }
 
         .banner-img { 
             width: 100%; height: 100%; object-fit: cover; display: block; 
@@ -201,32 +222,43 @@
         .footer { text-align: center; padding-top: 35px; border-top: 1px solid rgba(255, 255, 255, 0.06); color: #4a5c72; font-size: 12px; line-height: 1.8; }
 
         @media (max-width: 768px) {
-            body { padding: 16px 12px; }
-            .header { padding: 12px 14px; margin-bottom: 30px; gap: 8px; }
+            body { padding: 14px 10px; }
+            .header { padding: 11px 14px; margin-bottom: 22px; gap: 8px; }
             .logo { font-size: 12.5px; letter-spacing: 0.3px; gap: 6px; white-space: nowrap; align-items: center; }
             .custom-crown-img { width: 22px; height: 22px; flex-shrink: 0; }
-            .btn-ad-top { padding: 9px 12px; font-size: 11px; white-space: nowrap; letter-spacing: -0.5px; }
+            .btn-ad-top { padding: 8px 12px; font-size: 11px; white-space: nowrap; letter-spacing: -0.5px; }
 
-            .hero-section { margin: 24px 0 36px; }
+            .hero-section { margin: 16px 0 28px; }
             .hero-category { font-size: 10px; letter-spacing: 3px; }
-            .hero-title { font-size: 24px; letter-spacing: -1px; margin-bottom: 14px; }
+            .hero-title { font-size: 23px; letter-spacing: -1px; margin-bottom: 12px; }
             
             .hero-desc { 
                 font-size: 12.5px; 
-                line-height: 1.55; 
-                padding: 0 10px; 
+                line-height: 1.5; 
+                padding: 0 8px; 
                 word-break: keep-all; 
-                margin-bottom: 16px; 
+                margin-bottom: 14px; 
             }
 
-            .trust-badge { font-size: 11px; padding: 8px 12px 8px 8px; line-height: 1.4; text-align: left; }
+            .trust-badge { font-size: 11px; padding: 7px 12px 7px 8px; line-height: 1.35; text-align: left; }
             .badge-avatar { width: 22px; height: 22px; }
 
-            .section-bar { display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 16px; padding: 0 2px; }
+            .section-bar { display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 2px; }
             .section-title { font-size: 11px; color: #f3e5ab; white-space: nowrap; }
             .section-desc { font-size: 10px; color: #5a6e85; white-space: nowrap; }
 
-            .banner-grid { grid-template-columns: 1fr; gap: 18px; }
+            /* 모바일 기본(1~6개): 1열 */
+            .banner-grid { grid-template-columns: 1fr; gap: 14px; }
+            /* 모바일에서 배너가 7개 이상 많아지면 자동으로 2열 배치 (스크롤 절반 단축) */
+            .banner-grid.cols-3,
+            .banner-grid.cols-4 { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .banner-grid.cols-3 .banner-slot,
+            .banner-grid.cols-4 .banner-slot { border-radius: 7px; }
+            .banner-grid.cols-3 .banner-slot a,
+            .banner-grid.cols-4 .banner-slot a { font-size: 9.5px; padding: 4px; }
+            .banner-grid.cols-3 .banner-slot span,
+            .banner-grid.cols-4 .banner-slot span { display: none; }
+
             .recruitment-box { flex-direction: column; gap: 20px; text-align: center; padding: 24px 18px; }
             .recruitment-box::after { width: 100%; height: 4px; top: 0; left: 0; }
             .recruitment-info p { word-break: keep-all; font-size: 13px; }
@@ -307,7 +339,10 @@
                 let banners = Array.isArray(data) ? data : (data.banners || []);
 
                 if (banners.length > 0) {
-                    await Promise.all(banners.map(b => preloadImage(b.imageUrl)));
+                    // 대량 배너일 때도 최대 1.5초까지만 선로딩 대기 후 즉시 일괄 표시
+                    const preloadAll = Promise.all(banners.map(b => preloadImage(b.imageUrl)));
+                    const timeout = new Promise(resolve => setTimeout(resolve, 1500));
+                    await Promise.race([preloadAll, timeout]);
                 }
 
                 renderBanners(banners);
@@ -327,10 +362,27 @@
             if (!container) return;
 
             const list = Array.isArray(banners) ? [...banners] : [];
+            const currentCount = list.length;
+
+            // 배너 개수에 따라 열 수 자동 전환 (스크롤 최소화)
+            container.classList.remove('cols-3', 'cols-4');
+            document.body.classList.remove('compact-mode');
+
+            let cols = 2;
+            if (currentCount >= 17) {
+                cols = 4;
+                container.classList.add('cols-4');
+                document.body.classList.add('compact-mode');
+            } else if (currentCount >= 7) {
+                cols = 3;
+                container.classList.add('cols-3');
+                document.body.classList.add('compact-mode');
+            }
+
             let html = '';
 
-            if (list.length > 0) {
-                for (let i = list.length - 1; i > 0; i--) {
+            if (currentCount > 0) {
+                for (let i = currentCount - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
                     [list[i], list[j]] = [list[j], list[i]];
                 }
@@ -347,10 +399,10 @@
                 });
             }
 
-            const currentCount = list.length;
-            let minSlots = Math.max(2, currentCount);
-            if (minSlots % 2 !== 0) {
-                minSlots += 1;
+            // 현재 열 수(2열, 3열, 4열)에 맞춰 마지막 줄 빈칸 없이 딱 떨어지게 자동 보정
+            let minSlots = Math.max(cols, currentCount);
+            if (minSlots % cols !== 0) {
+                minSlots += (cols - (minSlots % cols));
             }
 
             for (let i = currentCount; i < minSlots; i++) {
