@@ -137,7 +137,6 @@
 
         .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; margin-bottom: 45px; }
         
-        /* 🔥 레이아웃 크기 원천 고정 (CLS 완전 박멸) 및 GPU 가속 */
         .banner-slot { 
             background: linear-gradient(135deg, #0a0e17 0%, #131a26 100%); 
             border: 1px solid rgba(212, 175, 55, 0.28); 
@@ -149,6 +148,12 @@
             contain: layout size style;
         }
         .banner-slot:hover { border-color: #d4af37; transform: translateY(-6px); }
+
+        /* 준비 완료 전엔 보이지 않게 숨겼다가, 데이터+이미지 준비 후 한 번에 표시 */
+        .banner-grid.is-ready .banner-slot {
+            opacity: 1;
+            transition: opacity 0.18s ease, border-color 0.4s ease, transform 0.4s ease;
+        }
 
         .banner-slot a { 
             display: flex; flex-direction: column; align-items: center; justify-content: center; 
@@ -195,7 +200,6 @@
 
         .footer { text-align: center; padding-top: 35px; border-top: 1px solid rgba(255, 255, 255, 0.06); color: #4a5c72; font-size: 12px; line-height: 1.8; }
 
-        /* 🔥 모바일 완벽 정렬 및 텍스트 겉묾 방어 최적화 */
         @media (max-width: 768px) {
             body { padding: 16px 12px; }
             .header { padding: 12px 14px; margin-bottom: 30px; gap: 8px; }
@@ -234,7 +238,7 @@
     <div class="container">
         <div class="header">
             <a href="./" class="logo">
-                <img src="./crown.png" alt="LEVERSE Mask Logo" class="custom-crown-img"> LEVERSE OFFICIAL
+                <img src="./crown.png" alt="LEVERSE Mask Logo" class="custom-crown-img" loading="eager" decoding="async"> LEVERSE OFFICIAL
             </a>
             <a href="https://t.me/LEVERSE_1" target="_blank" class="btn-ad-top">배너 광고 문의</a>
         </div>
@@ -245,7 +249,7 @@
             <div class="hero-desc">검증된 최고급 카지노 파트너 배너를 등록하세요. 접속할 때마다 공평한 로테이션으로 최상위 노출됩니다.</div>
             
             <div class="trust-badge">
-                <img src="./character-icon.png" alt="Verified Avatar" class="badge-avatar">
+                <img src="./character-icon.png" alt="Verified Avatar" class="badge-avatar" loading="eager" decoding="async">
                 철저한 자본력 검증과 무사고 이력이 확인된 글로벌 & 국내 최고 수준의 메이저 파트너사만 입점됩니다.
             </div>
         </div>
@@ -255,10 +259,9 @@
             <div class="section-desc">공정한 무작위 로테이션 노출</div>
         </div>
 
-        <!-- 🔥 초기 고정 슬롯 (서버 통신 전부터 레이아웃 크기를 100% 점유하여 밀림 방지) -->
         <div class="banner-grid" id="bannerContainer">
-            <div class="banner-slot"><a href="https://t.me/LEVERSE_1" target="_blank">프리미엄 골드 배너 로딩 중...<span>잠시만 기다려주세요</span></a></div>
-            <div class="banner-slot"><a href="https://t.me/LEVERSE_1" target="_blank">프리미엄 골드 배너 로딩 중...<span>잠시만 기다려주세요</span></a></div>
+            <div class="banner-slot" style="opacity:0;"><a href="https://t.me/LEVERSE_1" target="_blank">광고주 1번 프리미엄 골드 배너 (입점 문의)<span>클릭하여 텔레그램 공식 채널로 문의하세요</span></a></div>
+            <div class="banner-slot" style="opacity:0;"><a href="https://t.me/LEVERSE_1" target="_blank">광고주 2번 프리미엄 골드 배너 (입점 문의)<span>클릭하여 텔레그램 공식 채널로 문의하세요</span></a></div>
         </div>
 
         <div class="recruitment-box">
@@ -276,48 +279,78 @@
     </div>
 
     <script>
+        function normalizeUrl(url) {
+            let trimmed = (url || '#').trim();
+            if (!trimmed || trimmed === '#') return '#';
+            if (!trimmed.startsWith('http://') && !trimmed.startsWith('https://')) {
+                return 'https://' + trimmed;
+            }
+            return trimmed;
+        }
+
+        function preloadImage(src) {
+            return new Promise((resolve) => {
+                if (!src) return resolve();
+                const img = new Image();
+                img.decoding = 'async';
+                img.onload = () => resolve();
+                img.onerror = () => resolve();
+                img.src = src;
+            });
+        }
+
         async function loadBanners() {
+            const container = document.getElementById('bannerContainer');
             try {
-                const res = await fetch('./banners.json', { cache: 'no-cache' });
+                const res = await fetch('./banners.json?t=' + Date.now(), { cache: 'no-store' });
                 const data = await res.json();
                 let banners = Array.isArray(data) ? data : (data.banners || []);
+
+                if (banners.length > 0) {
+                    await Promise.all(banners.map(b => preloadImage(b.imageUrl)));
+                }
+
                 renderBanners(banners);
             } catch (e) {
-                // 에러 발생 시 기본 슬롯 유지
+                renderBanners([]);
+            } finally {
+                if (container) {
+                    window.requestAnimationFrame(() => {
+                        container.classList.add('is-ready');
+                    });
+                }
             }
         }
 
         function renderBanners(banners) {
             const container = document.getElementById('bannerContainer');
             if (!container) return;
-            
+
+            const list = Array.isArray(banners) ? [...banners] : [];
             let html = '';
 
-            if (banners && banners.length > 0) {
-                for (let i = banners.length - 1; i > 0; i--) {
+            if (list.length > 0) {
+                for (let i = list.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
-                    [banners[i], banners[j]] = [banners[j], banners[i]];
+                    [list[i], list[j]] = [list[j], list[i]];
                 }
 
-                banners.forEach(b => {
-                    let link = (b.linkUrl || '#').trim();
-                    if (link && !link.startsWith('http://') && !link.startsWith('https://')) {
-                        link = 'https://' + link;
-                    }
+                list.forEach(b => {
+                    const link = normalizeUrl(b.linkUrl);
                     html += `
                         <div class="banner-slot">
                             <a href="${link}" target="_blank" style="padding:0;">
-                                <img src="${b.imageUrl}" alt="${b.title || '배너'}" class="banner-img" loading="lazy" decoding="async">
+                                <img src="${b.imageUrl}" alt="${b.title || '배너'}" class="banner-img" loading="eager" decoding="async">
                             </a>
                         </div>
                     `;
                 });
             }
 
-            const currentCount = banners ? banners.length : 0;
+            const currentCount = list.length;
             let minSlots = Math.max(2, currentCount);
             if (minSlots % 2 !== 0) {
-                minSlots += 1; // 배너 개수가 홀수일 때도 그리드 레이아웃이 안 깨지도록 짝수 맞춤 보장
+                minSlots += 1;
             }
 
             for (let i = currentCount; i < minSlots; i++) {
@@ -332,9 +365,7 @@
                 `;
             }
 
-            window.requestAnimationFrame(() => {
-                container.innerHTML = html;
-            });
+            container.innerHTML = html;
         }
 
         loadBanners();
